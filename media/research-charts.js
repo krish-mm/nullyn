@@ -4,7 +4,7 @@
   const COL = {
     none: "#FF1A1A",
     classic: "#A3A3A3",
-    nullyn_v0: "#CCFF00",
+    nullyn_v0: "#B6FF00",
     bg: "#121212",
     text: "#F3F4F1",
     muted: "#9A9A9A",

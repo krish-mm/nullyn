@@ -84,7 +84,7 @@ nav.links a[aria-current="page"] { color: var(--text); }
   height: 7px;
   border-radius: 50%;
   background: var(--primary);
-  box-shadow: 0 0 0 4px rgba(204, 255, 0, 0.14);
+  box-shadow: 0 0 0 4px rgba(182, 255, 0, 0.14);
 }
 
 .btn {

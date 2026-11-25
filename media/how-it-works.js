@@ -14,12 +14,12 @@ const W = 1920, H = 1080;
       elev: css.getPropertyValue("--surface-elev").trim() || "#1C1C1C",
       text: css.getPropertyValue("--text").trim() || "#F3F4F1",
       muted: css.getPropertyValue("--muted").trim() || "#9A9A9A",
-      primary: css.getPropertyValue("--primary").trim() || "#CCFF00",
-      dim: css.getPropertyValue("--primary-dim").trim() || "#8FBF00",
+      primary: css.getPropertyValue("--primary").trim() || "#B6FF00",
+      dim: css.getPropertyValue("--primary-dim").trim() || "#7FBF00",
       howl: css.getPropertyValue("--howl").trim() || "#FF1A1A",
       line: css.getPropertyValue("--line").trim() || "rgba(243,244,241,0.10)",
       lineStrong: css.getPropertyValue("--line-strong").trim() || "rgba(243,244,241,0.18)",
-      pGlow: css.getPropertyValue("--primary-glow").trim() || "rgba(204,255,0,0.28)",
+      pGlow: css.getPropertyValue("--primary-glow").trim() || "rgba(182,255,0,0.28)",
       hGlow: css.getPropertyValue("--howl-glow").trim() || "rgba(255,26,26,0.28)",
     };
 
@@ -206,7 +206,7 @@ const W = 1920, H = 1080;
       c.lineTo(148, 656);
       c.closePath();
       c.fill();
-      c.fillStyle = "rgba(204,255,0,0.14)";
+      c.fillStyle = "rgba(182,255,0,0.14)";
       c.fillRect(148, 654, 1624, 2);
 
       // Backdrop panel

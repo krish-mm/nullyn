@@ -1,7 +1,7 @@
 /* Nullyn palette — black, neon yellow-green, and super red
  *
- * Primary is #CCFF00 (chartreuse): a neon mix of yellow and green that pops
- * on #0A0A0A at 16.8:1 (AAA). Dark button text on
+ * Primary is #B6FF00, a greener neon yellow-green that pops
+ * on #0A0A0A at 16.3:1 (AAA). Dark button text on
  * primary is also AAA. Neon on white is ~1.3:1 — do not use it on light
  * backgrounds; invert to --bg on --text instead. Howl is #FF1A1A.
  */
@@ -11,12 +11,12 @@
   --surface-elev: #1C1C1C;
   --text: #F3F4F1;
   --muted: #9A9A9A;
-  --primary: #CCFF00;
-  --primary-dim: #8FBF00;
+  --primary: #B6FF00;
+  --primary-dim: #7FBF00;
   --howl: #FF1A1A;
   --line: rgba(243, 244, 241, 0.10);
   --line-strong: rgba(243, 244, 241, 0.18);
-  --primary-glow: rgba(204, 255, 0, 0.28);
+  --primary-glow: rgba(182, 255, 0, 0.28);
   --howl-glow: rgba(255, 26, 26, 0.28);
   --button-text: #0A0A0A;
 }
