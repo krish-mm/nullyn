@@ -290,19 +290,20 @@
     }
     .cite a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
 
-    .hiw-art {
-      display: grid;
-      gap: 20px;
+    .hiw-stage {
       margin-top: 48px;
-    }
-    .hiw-art figure {
-      margin: 0;
       border: 1px solid var(--line);
       border-radius: 20px;
       overflow: hidden;
       background: var(--bg);
+      aspect-ratio: 16 / 9;
     }
-    .hiw-art img { width: 100%; height: auto; }
+    .hiw-stage canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      vertical-align: top;
+    }
     .note {
       margin-top: 28px;
       padding: 16px 18px;
@@ -567,16 +568,8 @@
         <p class="kicker">How it works</p>
         <h2>Mic. Nullyn AI. Clean output.</h2>
         <p class="section-intro">A simple path from the microphone to a clean signal, with real-time, ultra-low latency.</p>
-        <div class="hiw-art">
-          <figure>
-            <img src="media/how-it-works-1.svg" width="1200" height="800" alt="A mic near a speaker causes feedback.">
-          </figure>
-          <figure>
-            <img src="media/how-it-works-2.svg" width="1200" height="800" alt="Mic to Nullyn AI to clean output. Removes the frequencies causing feedback, in real time.">
-          </figure>
-          <figure>
-            <img src="media/how-it-works-3.svg" width="1200" height="800" alt="Before and after. Without Nullyn a howl builds. With Nullyn the output stays clean. Illustrative, not measured data.">
-          </figure>
+        <div class="hiw-stage" id="hiw-stage">
+          <canvas id="hiw-scene" width="1920" height="1080" aria-label="Animated walkthrough: a performer walks toward a monitor, feedback loops into the mic, and Nullyn AI cuts the ringing band so the output stays clean. Illustrative, not measured data."></canvas>
         </div>
         <p class="note">Status: in development. Performance claims will follow measured tests, not marketing copy. We are not promising that feedback can be removed in every room, on every system, under every condition.</p>
       </div>
@@ -621,6 +614,7 @@
     </div>
   </footer>
 
+  <script src="media/how-it-works.js" defer></script>
   <script>
     (function () {
       const DURATION = 10;
