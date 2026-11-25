@@ -91,7 +91,13 @@ const W = 1920, H = 1080;
       const displayW = canvas.clientWidth || W;
       const s = displayW / W;
       if (s <= 0 || s >= 0.8) return 1;
-      return Math.max(1, 14 / (11 * s));
+      // Keep labels readable on a phone without letting chrome eat the frame.
+      const targetPx = displayW < 520 ? 12 : 16;
+      const k = targetPx / (18 * s);
+      return Math.max(1, Math.min(k, 2.3));
+    }
+    function panelScale() {
+      return Math.min(uiScale(), 1.45);
     }
 
     function label(c, text, x, y, color, align) {
@@ -99,10 +105,18 @@ const W = 1920, H = 1080;
       c.save();
       c.font = "600 " + (18 * k) + "px Outfit, 'Segoe UI', sans-serif";
       c.fillStyle = color || C.muted;
-      c.textAlign = align || "center";
+      const a = align || "center";
+      c.textAlign = a;
       c.textBaseline = "top";
       c.letterSpacing = "0.08em";
-      c.fillText(text, x, y);
+      const tw = c.measureText(text).width;
+      const pad = 20 * k;
+      let tx = x;
+      if (a === "center") tx = Math.min(W - pad - tw / 2, Math.max(pad + tw / 2, x));
+      else if (a === "left") tx = Math.min(W - pad - tw, Math.max(pad, x));
+      else if (a === "right") tx = Math.min(W - pad, Math.max(pad + tw, x));
+      const ty = Math.min(H - 22 * k, Math.max(10 * k, y));
+      c.fillText(text, tx, ty);
       c.restore();
     }
 
@@ -549,7 +563,8 @@ const W = 1920, H = 1080;
 
     function drawSpectrum(c, x, y, howl, notch, t) {
       const k = uiScale();
-      const w = 268 * Math.max(1, k * 0.92), h = 158 * Math.max(1, k * 0.85);
+      const pk = panelScale();
+      const w = 268 * pk, h = 158 * pk;
       c.save();
       c.globalAlpha = 0.96;
       c.fillStyle = C.surface;
@@ -696,7 +711,13 @@ const W = 1920, H = 1080;
         label(ctx, "Clean output", LAYOUT.mixer.x - 40, LAYOUT.mixer.y - 78, C.primary);
       }
 
-      drawSpectrum(ctx, 56, 48, howlAmp, b.notch, t);
+      (function () {
+        const pk = panelScale();
+        const sw = 268 * pk, sh = 158 * pk;
+        const sx = Math.min(56, Math.max(16, W - sw - 16));
+        const sy = 36;
+        drawSpectrum(ctx, sx, sy, howlAmp, b.notch, t);
+      })();
 
       // Fade-in overlay
       if (b.fadeIn < 1) {

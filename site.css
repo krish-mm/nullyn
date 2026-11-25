@@ -246,6 +246,13 @@ h2 {
   font-weight: 650;
   max-width: 20ch;
 }
+.page-title {
+  font-size: clamp(32px, 6vw, 68px);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  font-weight: 650;
+  max-width: 16ch;
+}
 .status-line {
   display: inline-block;
   margin-top: 22px;
@@ -304,27 +311,135 @@ footer .legal {
   flex-wrap: wrap;
 }
 
+/* Menu button — hidden on desktop */
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  color: var(--text);
+  cursor: pointer;
+  padding: 0;
+}
+.menu-toggle .bars,
+.menu-toggle .bars::before,
+.menu-toggle .bars::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 1px;
+  position: relative;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.menu-toggle .bars::before,
+.menu-toggle .bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.menu-toggle .bars::before { top: -6px; }
+.menu-toggle .bars::after { top: 6px; }
+header.nav.is-open .menu-toggle .bars { background: transparent; }
+header.nav.is-open .menu-toggle .bars::before { top: 0; transform: rotate(45deg); }
+header.nav.is-open .menu-toggle .bars::after { top: 0; transform: rotate(-45deg); }
+
+html { overflow-x: hidden; }
+.srcs, .srcs a, .claim, .stat, .paper-body, .section-intro, p, li, a {
+  overflow-wrap: anywhere;
+}
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+
+#how { border-top: 1px solid var(--line); }
+
 @media (max-width: 900px) {
   .foot, .claims, .stats { grid-template-columns: 1fr; }
   .stat.sweep { grid-column: auto; }
-  section { padding: 64px 0; }
-  .page-lead { padding-top: 48px; }
-  nav.links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 10px 16px;
-    font-size: 13px;
+  section { padding: 56px 0; scroll-margin-top: 80px; }
+  .page-lead { padding-top: 36px; padding-bottom: 12px; }
+  .hero { padding: 36px 0 48px; }
+
+  body header.nav {
+    position: sticky;
+    background: var(--bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
-  .status-pill { display: none; }
-  .nav-inner { flex-wrap: wrap; gap: 10px 16px; padding: 10px 0; min-height: 64px; }
+  header.nav .nav-inner {
+    flex-wrap: nowrap;
+    gap: 12px;
+    min-height: 64px;
+    padding: 8px 0;
+  }
+  header.nav .brand { min-height: 44px; }
+  header.nav .status-pill { display: none; }
+  header.nav .menu-toggle { display: inline-flex; }
+  header.nav nav.links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 21;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 0 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45);
+  }
+  header.nav.is-open nav.links { display: flex; }
+  header.nav nav.links a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 24px;
+    font-size: 16px;
+    color: var(--text);
+  }
+
+  h1, .page-lead h1, .backed h2, .page-title {
+    font-size: clamp(32px, 9vw, 68px);
+    line-height: 1.08;
+    max-width: none;
+    letter-spacing: -0.04em;
+  }
+  h2 { font-size: clamp(26px, 7vw, 44px); line-height: 1.12; }
+  .section-intro { font-size: 16px; }
+  .claim p, .stat p, .btn { font-size: 16px; }
+  .btn {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+  .stat { min-height: 0; padding: 24px 20px 22px; }
+  .srcs { font-size: 14px; line-height: 1.7; }
+  .srcs a { padding: 2px 0; }
+  .status-line {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.4;
+    padding: 10px 14px;
+  }
 }
 @media (max-width: 600px) {
   .wrap { width: min(1120px, calc(100% - 32px)); }
-  h1, .page-lead h1, .backed h2 { max-width: none; }
+  h1, .page-lead h1, .backed h2, .page-title { max-width: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .menu-toggle .bars,
+  .menu-toggle .bars::before,
+  .menu-toggle .bars::after { transition: none; }
 }
 
-#how { border-top: 1px solid var(--line); }
+
+@media (max-width: 900px) {
+  body.nav-open { overflow: hidden; }
+}

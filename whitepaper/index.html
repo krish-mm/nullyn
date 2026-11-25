@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Whitepaper — Nullyn: low-latency feedback suppression</title>
   <meta name="description" content="Nullyn whitepaper: low-latency feedback suppression. In preparation — full paper and data release after review.">
-  <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="/media/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/media/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/media/favicon-16.png" type="image/png" sizes="16x16">
@@ -38,7 +37,10 @@
           <span class="brand-tag">Nulls the howl</span>
         </span>
       </a>
-      <nav class="links" aria-label="Primary">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span class="bars" aria-hidden="true"></span>
+      </button>
+      <nav class="links" id="site-nav" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/#how">How it works</a>
         <a href="/research/">Research</a>
@@ -118,5 +120,6 @@
       </div>
     </div>
   </footer>
+  <script src="/site.js" defer></script>
 </body>
 </html>
