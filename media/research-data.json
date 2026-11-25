@@ -1,0 +1,426 @@
+{
+  "labelled": "SIMULATED (pyroomacoustics image-source rooms, synthetic venue layouts, 16 kHz) - not measured in real venues",
+  "total_runs": 67596,
+  "failed_scenarios_rows": 56,
+  "runs_by_split": {
+    "train": 26496,
+    "test_heldout": 35100,
+    "test_heldout_v0.1_rerun": 6000
+  },
+  "scenarios_by_split": {
+    "train": 2944,
+    "test_heldout": 3900
+  },
+  "run_definition": "one run = one scenario (venue instance, mic, trajectory, source excerpt) x one fader gain x one processor; 4 s at 16 kHz",
+  "processors": [
+    {
+      "id": "none",
+      "label": "No processing"
+    },
+    {
+      "id": "classic",
+      "label": "Classic notch"
+    },
+    {
+      "id": "nullyn_v0",
+      "label": "Nullyn AI"
+    }
+  ],
+  "heldout": {
+    "scenarios": 3900,
+    "runs_per_condition": 11700,
+    "by_processor": {
+      "none": {
+        "runs": 11700,
+        "howl_rate": 0.47341880341880344,
+        "mean_false_notches_per_run": 0.0
+      },
+      "classic": {
+        "runs": 11700,
+        "howl_rate": 0.33829059829059827,
+        "mean_false_notches_per_run": 7.825384615384616
+      },
+      "nullyn_v0": {
+        "runs": 11700,
+        "howl_rate": 0.261025641025641,
+        "mean_false_notches_per_run": 4.508974358974359
+      }
+    }
+  },
+  "per_venue": [
+    {
+      "id": "conference_room",
+      "label": "Conference room",
+      "runs": 2067,
+      "howl_rate": {
+        "none": 0.42718916303821963,
+        "classic": 0.2520561199806483,
+        "nullyn_v0": 0.1761006289308176
+      }
+    },
+    {
+      "id": "house_of_worship",
+      "label": "House of worship",
+      "runs": 2049,
+      "howl_rate": {
+        "none": 0.42118106393362614,
+        "classic": 0.296730112249878,
+        "nullyn_v0": 0.22840409956076135
+      }
+    },
+    {
+      "id": "live_club",
+      "label": "Live club",
+      "runs": 1875,
+      "howl_rate": {
+        "none": 0.4266666666666667,
+        "classic": 0.32693333333333335,
+        "nullyn_v0": 0.26026666666666665
+      }
+    },
+    {
+      "id": "outdoor_stage",
+      "label": "Outdoor stage",
+      "runs": 1926,
+      "howl_rate": {
+        "none": 0.59865005192108,
+        "classic": 0.4434060228452752,
+        "nullyn_v0": 0.3343717549325026
+      }
+    },
+    {
+      "id": "wedding_ballroom",
+      "label": "Wedding ballroom",
+      "runs": 1914,
+      "howl_rate": {
+        "none": 0.38662486938349006,
+        "classic": 0.28735632183908044,
+        "nullyn_v0": 0.23406478578892373
+      }
+    },
+    {
+      "id": "wedding_tent",
+      "label": "Wedding tent",
+      "runs": 1869,
+      "howl_rate": {
+        "none": 0.588550026752274,
+        "classic": 0.4344569288389513,
+        "nullyn_v0": 0.3434991974317817
+      }
+    }
+  ],
+  "howl_vs_margin": {
+    "note": "Official rate_curve bins on the held-out test runs that reproduce sweep_results.json test_heldout (old parts + first 11 new parts).",
+    "heldout_scenarios": 3900,
+    "runs_per_condition": 11700,
+    "axis": "worst_margin_db interval mid; bins arange(-14, 9, 1.0); negative = fader above the broadband stability limit",
+    "curves": {
+      "none": [
+        {
+          "margin_db_mid": -13.5,
+          "howl_rate": 1.0,
+          "runs": 92
+        },
+        {
+          "margin_db_mid": -12.5,
+          "howl_rate": 1.0,
+          "runs": 132
+        },
+        {
+          "margin_db_mid": -11.5,
+          "howl_rate": 1.0,
+          "runs": 167
+        },
+        {
+          "margin_db_mid": -10.5,
+          "howl_rate": 1.0,
+          "runs": 266
+        },
+        {
+          "margin_db_mid": -9.5,
+          "howl_rate": 0.9970845481049563,
+          "runs": 343
+        },
+        {
+          "margin_db_mid": -8.5,
+          "howl_rate": 0.9927710843373494,
+          "runs": 415
+        },
+        {
+          "margin_db_mid": -7.5,
+          "howl_rate": 0.9775280898876404,
+          "runs": 801
+        },
+        {
+          "margin_db_mid": -6.5,
+          "howl_rate": 0.9433497536945813,
+          "runs": 812
+        },
+        {
+          "margin_db_mid": -5.5,
+          "howl_rate": 0.843065693430657,
+          "runs": 822
+        },
+        {
+          "margin_db_mid": -4.5,
+          "howl_rate": 0.6928487690504103,
+          "runs": 853
+        },
+        {
+          "margin_db_mid": -3.5,
+          "howl_rate": 0.5777027027027027,
+          "runs": 888
+        },
+        {
+          "margin_db_mid": -2.5,
+          "howl_rate": 0.42039800995024873,
+          "runs": 804
+        },
+        {
+          "margin_db_mid": -1.5,
+          "howl_rate": 0.23989569752281617,
+          "runs": 767
+        },
+        {
+          "margin_db_mid": -0.5,
+          "howl_rate": 0.10227272727272728,
+          "runs": 792
+        },
+        {
+          "margin_db_mid": 0.5,
+          "howl_rate": 0.008438818565400843,
+          "runs": 711
+        },
+        {
+          "margin_db_mid": 1.5,
+          "howl_rate": 0.0,
+          "runs": 756
+        },
+        {
+          "margin_db_mid": 2.5,
+          "howl_rate": 0.0,
+          "runs": 633
+        },
+        {
+          "margin_db_mid": 3.5,
+          "howl_rate": 0.0,
+          "runs": 628
+        },
+        {
+          "margin_db_mid": 4.5,
+          "howl_rate": 0.0,
+          "runs": 488
+        },
+        {
+          "margin_db_mid": 5.5,
+          "howl_rate": 0.0,
+          "runs": 357
+        }
+      ],
+      "classic": [
+        {
+          "margin_db_mid": -13.5,
+          "howl_rate": 0.9891304347826086,
+          "runs": 92
+        },
+        {
+          "margin_db_mid": -12.5,
+          "howl_rate": 0.9924242424242424,
+          "runs": 132
+        },
+        {
+          "margin_db_mid": -11.5,
+          "howl_rate": 0.9520958083832335,
+          "runs": 167
+        },
+        {
+          "margin_db_mid": -10.5,
+          "howl_rate": 0.9210526315789473,
+          "runs": 266
+        },
+        {
+          "margin_db_mid": -9.5,
+          "howl_rate": 0.8658892128279884,
+          "runs": 343
+        },
+        {
+          "margin_db_mid": -8.5,
+          "howl_rate": 0.8,
+          "runs": 415
+        },
+        {
+          "margin_db_mid": -7.5,
+          "howl_rate": 0.7578027465667915,
+          "runs": 801
+        },
+        {
+          "margin_db_mid": -6.5,
+          "howl_rate": 0.6687192118226601,
+          "runs": 812
+        },
+        {
+          "margin_db_mid": -5.5,
+          "howl_rate": 0.5583941605839416,
+          "runs": 822
+        },
+        {
+          "margin_db_mid": -4.5,
+          "howl_rate": 0.4044548651817116,
+          "runs": 853
+        },
+        {
+          "margin_db_mid": -3.5,
+          "howl_rate": 0.31981981981981983,
+          "runs": 888
+        },
+        {
+          "margin_db_mid": -2.5,
+          "howl_rate": 0.22512437810945274,
+          "runs": 804
+        },
+        {
+          "margin_db_mid": -1.5,
+          "howl_rate": 0.10299869621903521,
+          "runs": 767
+        },
+        {
+          "margin_db_mid": -0.5,
+          "howl_rate": 0.03535353535353535,
+          "runs": 792
+        },
+        {
+          "margin_db_mid": 0.5,
+          "howl_rate": 0.005625879043600563,
+          "runs": 711
+        },
+        {
+          "margin_db_mid": 1.5,
+          "howl_rate": 0.0,
+          "runs": 756
+        },
+        {
+          "margin_db_mid": 2.5,
+          "howl_rate": 0.0,
+          "runs": 633
+        },
+        {
+          "margin_db_mid": 3.5,
+          "howl_rate": 0.0,
+          "runs": 628
+        },
+        {
+          "margin_db_mid": 4.5,
+          "howl_rate": 0.0,
+          "runs": 488
+        },
+        {
+          "margin_db_mid": 5.5,
+          "howl_rate": 0.0,
+          "runs": 357
+        }
+      ],
+      "nullyn_v0": [
+        {
+          "margin_db_mid": -13.5,
+          "howl_rate": 0.9565217391304348,
+          "runs": 92
+        },
+        {
+          "margin_db_mid": -12.5,
+          "howl_rate": 0.9318181818181818,
+          "runs": 132
+        },
+        {
+          "margin_db_mid": -11.5,
+          "howl_rate": 0.8383233532934131,
+          "runs": 167
+        },
+        {
+          "margin_db_mid": -10.5,
+          "howl_rate": 0.8195488721804511,
+          "runs": 266
+        },
+        {
+          "margin_db_mid": -9.5,
+          "howl_rate": 0.7055393586005831,
+          "runs": 343
+        },
+        {
+          "margin_db_mid": -8.5,
+          "howl_rate": 0.6144578313253012,
+          "runs": 415
+        },
+        {
+          "margin_db_mid": -7.5,
+          "howl_rate": 0.581772784019975,
+          "runs": 801
+        },
+        {
+          "margin_db_mid": -6.5,
+          "howl_rate": 0.4876847290640394,
+          "runs": 812
+        },
+        {
+          "margin_db_mid": -5.5,
+          "howl_rate": 0.40389294403892945,
+          "runs": 822
+        },
+        {
+          "margin_db_mid": -4.5,
+          "howl_rate": 0.27784290738569756,
+          "runs": 853
+        },
+        {
+          "margin_db_mid": -3.5,
+          "howl_rate": 0.2286036036036036,
+          "runs": 888
+        },
+        {
+          "margin_db_mid": -2.5,
+          "howl_rate": 0.13308457711442787,
+          "runs": 804
+        },
+        {
+          "margin_db_mid": -1.5,
+          "howl_rate": 0.06258148631029987,
+          "runs": 767
+        },
+        {
+          "margin_db_mid": -0.5,
+          "howl_rate": 0.030303030303030304,
+          "runs": 792
+        },
+        {
+          "margin_db_mid": 0.5,
+          "howl_rate": 0.004219409282700422,
+          "runs": 711
+        },
+        {
+          "margin_db_mid": 1.5,
+          "howl_rate": 0.0,
+          "runs": 756
+        },
+        {
+          "margin_db_mid": 2.5,
+          "howl_rate": 0.0,
+          "runs": 633
+        },
+        {
+          "margin_db_mid": 3.5,
+          "howl_rate": 0.0,
+          "runs": 628
+        },
+        {
+          "margin_db_mid": 4.5,
+          "howl_rate": 0.0,
+          "runs": 488
+        },
+        {
+          "margin_db_mid": 5.5,
+          "howl_rate": 0.0,
+          "runs": 357
+        }
+      ]
+    }
+  }
+}

@@ -14,13 +14,13 @@ const W = 1920, H = 1080;
       elev: css.getPropertyValue("--surface-elev").trim() || "#1C1C1C",
       text: css.getPropertyValue("--text").trim() || "#F3F4F1",
       muted: css.getPropertyValue("--muted").trim() || "#9A9A9A",
-      primary: css.getPropertyValue("--primary").trim() || "#3DFF8A",
-      dim: css.getPropertyValue("--primary-dim").trim() || "#2AB56A",
-      howl: css.getPropertyValue("--howl").trim() || "#FF5C4D",
+      primary: css.getPropertyValue("--primary").trim() || "#CCFF00",
+      dim: css.getPropertyValue("--primary-dim").trim() || "#8FBF00",
+      howl: css.getPropertyValue("--howl").trim() || "#FF1A1A",
       line: css.getPropertyValue("--line").trim() || "rgba(243,244,241,0.10)",
       lineStrong: css.getPropertyValue("--line-strong").trim() || "rgba(243,244,241,0.18)",
-      pGlow: css.getPropertyValue("--primary-glow").trim() || "rgba(61,255,138,0.28)",
-      hGlow: css.getPropertyValue("--howl-glow").trim() || "rgba(255,92,77,0.28)",
+      pGlow: css.getPropertyValue("--primary-glow").trim() || "rgba(204,255,0,0.28)",
+      hGlow: css.getPropertyValue("--howl-glow").trim() || "rgba(255,26,26,0.28)",
     };
 
     const LAYOUT = {
@@ -206,7 +206,7 @@ const W = 1920, H = 1080;
       c.lineTo(148, 656);
       c.closePath();
       c.fill();
-      c.fillStyle = "rgba(61,255,138,0.14)";
+      c.fillStyle = "rgba(204,255,0,0.14)";
       c.fillRect(148, 654, 1624, 2);
 
       // Backdrop panel
@@ -386,30 +386,110 @@ const W = 1920, H = 1080;
       c.fill();
       drawCancelMark(c, 0, 0, 26, on > 0.2 ? C.primary : "#7A7A7A");
       c.restore();
-      label(c, "Nullyn", x, y + 26, on > 0.4 ? C.primary : C.muted);
+      label(c, "Nullyn AI", x, y + 26, on > 0.4 ? C.primary : C.muted);
     }
 
-    function drawCable(c, from, box, mixer, howl, on) {
-      const dropY = box.y - 4;
+
+    function bezierPoint(p0, p1, p2, p3, t) {
+      const u = 1 - t, uu = u * u, tt = t * t;
+      return {
+        x: uu * u * p0.x + 3 * uu * t * p1.x + 3 * u * tt * p2.x + tt * t * p3.x,
+        y: uu * u * p0.y + 3 * uu * t * p1.y + 3 * u * tt * p2.y + tt * t * p3.y,
+      };
+    }
+    function strokeBezier(c, p0, p1, p2, p3) {
+      c.beginPath();
+      c.moveTo(p0.x, p0.y);
+      c.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
+      c.stroke();
+    }
+    function pulseBezier(c, p0, p1, p2, p3, t, color, count) {
+      count = count || 2;
+      for (let i = 0; i < count; i++) {
+        const u = ((t * 0.32 + i / count) % 1 + 1) % 1;
+        const p = bezierPoint(p0, p1, p2, p3, u);
+        c.beginPath();
+        c.fillStyle = color;
+        c.globalAlpha = 0.3 + 0.6 * Math.sin(u * Math.PI);
+        c.arc(p.x, p.y, 3.6, 0, Math.PI * 2);
+        c.fill();
+        c.globalAlpha = 1;
+      }
+    }
+    function drawCable(c, from, nullyn, mixer, howl, on, t) {
+      t = t || 0;
       c.lineCap = "round";
       c.lineJoin = "round";
-      // mic to nullyn
+      c.lineWidth = 2.2;
+
+      const micP0 = { x: from.x, y: from.y };
+      const micP1 = { x: from.x, y: from.y + 70 };
+      const micP2 = { x: from.x + (nullyn.x - from.x) * 0.3, y: nullyn.y - 4 };
+      const micP3 = { x: nullyn.x - 58, y: nullyn.y };
       c.strokeStyle = howl > 0.25 ? C.howl : (on > 0.5 ? C.dim : "#3A3A3A");
       c.globalAlpha = 0.45 + 0.4 * Math.max(howl, on * 0.5);
-      c.lineWidth = 2.2;
-      c.beginPath();
-      c.moveTo(from.x, from.y);
-      c.bezierCurveTo(from.x, from.y + 70, from.x + (box.x - from.x) * 0.3, dropY, box.x - 58, box.y);
-      c.stroke();
-      // nullyn to mixer
+      strokeBezier(c, micP0, micP1, micP2, micP3);
+
+      const n0 = { x: nullyn.x + 58, y: nullyn.y };
+      const n1 = { x: nullyn.x + 180, y: nullyn.y + 28 };
+      const n2 = { x: mixer.x - 160, y: mixer.y - 10 };
+      const n3 = { x: mixer.x - 100, y: mixer.y - 8 };
       c.strokeStyle = on > 0.4 ? C.dim : "#3A3A3A";
       c.globalAlpha = 0.45 + 0.4 * on;
-      c.beginPath();
-      c.moveTo(box.x + 58, box.y);
-      c.bezierCurveTo(box.x + 180, box.y + 28, mixer.x - 160, mixer.y - 10, mixer.x - 100, mixer.y - 8);
-      c.stroke();
+      strokeBezier(c, n0, n1, n2, n3);
+
+      // Mixer speaker outs — visible runs to both mains and both monitors.
+      const outL = { x: mixer.x - 70, y: mixer.y - 8 };
+      const outR = { x: mixer.x - 40, y: mixer.y - 8 };
+      const outML = { x: mixer.x - 10, y: mixer.y - 8 };
+      const outMR = { x: mixer.x + 16, y: mixer.y - 8 };
+
+      const ml0 = outL;
+      const ml1 = { x: mixer.x - 420, y: mixer.y - 80 };
+      const ml2 = { x: LAYOUT.mainL.x + 80, y: LAYOUT.mainL.y + 160 };
+      const ml3 = { x: LAYOUT.mainL.x, y: LAYOUT.mainL.y + 70 };
+
+      const mr0 = outR;
+      const mr1 = { x: mixer.x + 40, y: mixer.y - 120 };
+      const mr2 = { x: LAYOUT.mainR.x - 40, y: LAYOUT.mainR.y + 200 };
+      const mr3 = { x: LAYOUT.mainR.x, y: LAYOUT.mainR.y + 70 };
+
+      const wl0 = outML;
+      const wl1 = { x: mixer.x - 280, y: mixer.y + 20 };
+      const wl2 = { x: LAYOUT.wedgeL.x + 160, y: LAYOUT.wedgeL.y + 80 };
+      const wl3 = { x: LAYOUT.wedgeL.x + 24, y: LAYOUT.wedgeL.y + 18 };
+
+      const wr0 = outMR;
+      const wr1 = { x: mixer.x - 80, y: mixer.y - 40 };
+      const wr2 = { x: LAYOUT.wedgeR.x + 80, y: LAYOUT.wedgeR.y + 90 };
+      const wr3 = { x: LAYOUT.wedgeR.x + 10, y: LAYOUT.wedgeR.y + 18 };
+
+      const spkColor = on > 0.4 ? C.dim : "#3A3A3A";
+      c.strokeStyle = spkColor;
+      c.globalAlpha = 0.4 + 0.35 * on;
+      strokeBezier(c, ml0, ml1, ml2, ml3);
+      strokeBezier(c, mr0, mr1, mr2, mr3);
+      c.strokeStyle = howl > 0.25 ? C.howl : spkColor;
+      c.globalAlpha = 0.4 + 0.4 * Math.max(howl, on);
+      strokeBezier(c, wl0, wl1, wl2, wl3);
+      c.strokeStyle = spkColor;
+      c.globalAlpha = 0.4 + 0.35 * on;
+      strokeBezier(c, wr0, wr1, wr2, wr3);
       c.globalAlpha = 1;
+
+      if (on > 0.15 || howl > 0.15) {
+        const micCol = (howl > 0.3 && on < 0.5) ? C.howl : (on > 0.45 ? C.primary : C.dim);
+        pulseBezier(c, micP0, micP1, micP2, micP3, t * 0.9, micCol, 2);
+        if (on > 0.25) {
+          pulseBezier(c, n0, n1, n2, n3, t * 0.9 + 0.15, C.primary, 2);
+          pulseBezier(c, ml0, ml1, ml2, ml3, t * 0.85 + 0.3, C.primary, 2);
+          pulseBezier(c, mr0, mr1, mr2, mr3, t * 0.85 + 0.38, C.primary, 2);
+          pulseBezier(c, wr0, wr1, wr2, wr3, t * 0.85 + 0.34, C.primary, 2);
+        }
+        pulseBezier(c, wl0, wl1, wl2, wl3, t * 0.85 + 0.28, howl > 0.2 ? C.howl : C.primary, 2);
+      }
     }
+
 
     function drawPerformer(c, x, y, t, walk, singing) {
       const stride = walk > 0 && walk < 1 ? Math.sin(walk * Math.PI * 3) : 0;
@@ -561,49 +641,113 @@ const W = 1920, H = 1080;
       c.restore();
     }
 
-    function drawSpectrum(c, x, y, howl, notch, t) {
-      const k = uiScale();
-      const pk = panelScale();
-      const w = 268 * pk, h = 158 * pk;
+    function drawEqPanel(c, x, y, w, h, howl, notch, t, C) {
+      const bands = 28;
+      const fMin = 50, fMax = 16000;
+      const freqAt = function (i) { return fMin * Math.pow(fMax / fMin, i / (bands - 1)); };
+      const howlF = 2500;
+      let howlBand = 0, best = Infinity;
+      for (let i = 0; i < bands; i++) {
+        const d = Math.abs(Math.log(freqAt(i) / howlF));
+        if (d < best) { best = d; howlBand = i; }
+      }
+      const padL = Math.max(14, w * 0.035);
+      const padR = padL;
+      const padT = Math.max(28, h * 0.16);
+      const padB = Math.max(48, h * 0.22);
       c.save();
+      rr(c, x, y, w, h, Math.min(14, h * 0.06));
+      c.fillStyle = C.surface || C.elev || "#121212";
       c.globalAlpha = 0.96;
-      c.fillStyle = C.surface;
-      rr(c, x, y, w, h, 12);
       c.fill();
-      c.strokeStyle = C.lineStrong;
+      c.globalAlpha = 1;
+      c.strokeStyle = C.lineStrong || "rgba(243,244,241,0.18)";
       c.lineWidth = 1;
       c.stroke();
-      c.font = "600 " + (13 * k) + "px Outfit, 'Segoe UI', sans-serif";
+
+      const capSize = Math.max(11, Math.round(h * 0.055));
+      c.font = "600 " + capSize + "px Outfit, 'Segoe UI', sans-serif";
       c.fillStyle = C.muted;
       c.textAlign = "left";
       c.textBaseline = "top";
-      c.letterSpacing = "0.04em";
-      c.fillText("Illustrative — not measured data", x + 14 * k, y + 12 * k);
-      const bands = 16;
-      const howlBand = 10;
-      const baseY = y + h - 16 * k;
-      const maxH = h - (46 * k);
-      const gap = 5;
-      const bw = (w - 28 - gap * (bands - 1)) / bands;
+      c.fillText("Illustrative — not measured data", x + padL, y + Math.max(8, h * 0.04));
+
+      const innerW = w - padL - padR;
+      const innerH = h - padT - padB;
+      const gap = Math.max(2, innerW * 0.012);
+      const bw = (innerW - gap * (bands - 1)) / bands;
+      const baseY = y + padT + innerH;
+
       for (let i = 0; i < bands; i++) {
+        const f = freqAt(i);
         const u = i / (bands - 1);
-        let hgt = 0.22 + 0.28 * Math.sin(u * Math.PI) + 0.06 * Math.sin(t * 2.2 + i);
-        hgt = clamp01(hgt);
-        if (i === howlBand) {
-          hgt = lerp(hgt, 0.96 + 0.03 * Math.sin(t * 14), howl);
-          hgt = lerp(hgt, 0.16, notch);
-        } else if (Math.abs(i - howlBand) === 1) {
-          hgt = lerp(hgt, hgt * 0.7, notch * 0.6);
+        const env = 0.34 + 0.28 * Math.sin(Math.PI * Math.min(1, u * 1.15)) * Math.exp(-Math.max(0, u - 0.55) * 1.4);
+        let hgt = env + 0.055 * Math.sin(t * 2.3 + i * 0.55) + 0.03 * Math.sin(t * 4.1 + f * 0.001);
+        hgt = Math.max(0.08, Math.min(1, hgt));
+        const dist = Math.abs(i - howlBand);
+        if (dist === 0) {
+          hgt = hgt * (1 - howl) + (0.96 + 0.03 * Math.sin(t * 14)) * howl;
+          hgt = hgt * (1 - notch) + 0.13 * notch;
+        } else if (dist === 1) {
+          hgt = hgt + 0.10 * howl * (1 - notch);
+          hgt = hgt * (1 - 0.16 * notch);
         }
-        const bh = maxH * hgt;
-        const bx = x + 14 + i * (bw + gap);
-        const ringing = i === howlBand && howl > 0.2 && notch < 0.65;
+        hgt = Math.max(0.06, Math.min(1, hgt));
+        const bh = innerH * hgt;
+        const bx = x + padL + i * (bw + gap);
+        const ringing = dist === 0 && howl > 0.2 && notch < 0.65;
         c.fillStyle = ringing ? C.howl : C.primary;
-        c.globalAlpha = ringing ? 0.85 + 0.15 * Math.sin(t * 16) : 0.85;
-        rr(c, bx, baseY - bh, bw, bh, 2);
+        c.globalAlpha = ringing ? 0.85 + 0.15 * Math.sin(t * 16) : 0.88;
+        rr(c, bx, baseY - bh, Math.max(1, bw), bh, 2);
         c.fill();
+        c.globalAlpha = 1;
+        if (dist === 0 && notch > 0.25) {
+          c.strokeStyle = C.primary;
+          c.lineWidth = 1.6;
+          c.globalAlpha = Math.min(1, notch);
+          c.beginPath();
+          c.moveTo(bx - 4, baseY - bh - 10);
+          c.lineTo(bx + bw / 2, baseY - bh - 2);
+          c.lineTo(bx + bw + 4, baseY - bh - 10);
+          c.stroke();
+          c.globalAlpha = 1;
+        }
       }
+
+      const xAtF = function (f) {
+        const u = Math.log(f / fMin) / Math.log(fMax / fMin);
+        return x + padL + u * innerW;
+      };
+      c.fillStyle = C.muted;
+      c.font = "500 " + Math.max(10, Math.round(h * 0.048)) + "px Outfit, 'Segoe UI', sans-serif";
+      c.textAlign = "center";
+      c.textBaseline = "top";
+      [[100, "100 Hz"], [1000, "1 kHz"], [10000, "10 kHz"]].forEach(function (pair) {
+        const tx = xAtF(pair[0]);
+        c.globalAlpha = 0.55;
+        c.strokeStyle = C.lineStrong || "rgba(243,244,241,0.18)";
+        c.lineWidth = 1;
+        c.beginPath();
+        c.moveTo(tx, baseY + 2);
+        c.lineTo(tx, baseY + 7);
+        c.stroke();
+        c.globalAlpha = 1;
+        c.fillText(pair[1], tx, baseY + 9);
+      });
+      c.font = "600 " + Math.max(11, Math.round(h * 0.055)) + "px Outfit, 'Segoe UI', sans-serif";
+      c.fillStyle = C.text || "#F3F4F1";
+      c.globalAlpha = 0.85;
+      [[Math.sqrt(fMin * 250), "Lows"], [Math.sqrt(250 * 2000), "Mids"], [Math.sqrt(2000 * fMax), "Highs"]].forEach(function (pair) {
+        c.fillText(pair[1], xAtF(pair[0]), y + h - Math.max(14, h * 0.06));
+      });
+      c.globalAlpha = 1;
       c.restore();
+    }
+
+    function drawSpectrum(c, x, y, howl, notch, t) {
+      const pk = (typeof panelScale === "function") ? panelScale() : 1;
+      const w = 520 * pk, h = 280 * pk;
+      drawEqPanel(c, x, y, w, h, howl, notch, t, C);
     }
 
     function drawEndCard(c, alpha) {
@@ -630,8 +774,8 @@ const W = 1920, H = 1080;
       c.letterSpacing = "-0.05em";
       c.fillText(word, lockLeft + markSize + markGap, H / 2 - 70);
 
-      const items = ["mic", "Nullyn AI", "clean output"];
-      const boxW = 260, boxH = 72, gap = 36, chev = 40;
+      const items = ["mic", "Nullyn AI", "mixer", "speakers"];
+      const boxW = 210, boxH = 72, gap = 28, chev = 34;
       const total = items.length * boxW + 2 * (gap + chev);
       let x = (W - total) / 2;
       const y = H / 2 + 70;
@@ -700,7 +844,7 @@ const W = 1920, H = 1080;
       drawWaves(ctx, LAYOUT.wedgeL.ox, LAYOUT.wedgeL.oy, -0.75, wedgeColor, wedgeAmp, t, howlAmp > 0.15 ? 180 : 120, howlAmp > 0.15 ? 6 : 4, 0.85, howlAmp > 0.15 ? 70 : 40);
 
       drawLoop(ctx, { x: LAYOUT.wedgeL.ox, y: LAYOUT.wedgeL.oy }, mic, howlAmp, t, b.notch);
-      drawCable(ctx, mic, LAYOUT.nullyn, LAYOUT.mixer, howlAmp, b.nullyn);
+      drawCable(ctx, mic, LAYOUT.nullyn, LAYOUT.mixer, howlAmp, b.nullyn, t);
       drawNullyn(ctx, LAYOUT.nullyn.x, LAYOUT.nullyn.y, b.nullyn);
       drawPerformer(ctx, pos.x, pos.y, t, b.walk, singing);
       drawVoice(ctx, mic, t, howlAmp > 0.5 ? C.howl : C.primary, 0.7 * singing);
@@ -712,10 +856,10 @@ const W = 1920, H = 1080;
       }
 
       (function () {
-        const pk = panelScale();
-        const sw = 268 * pk, sh = 158 * pk;
-        const sx = Math.min(56, Math.max(16, W - sw - 16));
-        const sy = 36;
+        const pk = (typeof panelScale === "function") ? panelScale() : 1;
+        const sw = 520 * pk, sh = 280 * pk;
+        const sx = Math.max(48, W - sw - 48);
+        const sy = 32;
         drawSpectrum(ctx, sx, sy, howlAmp, b.notch, t);
       })();
 

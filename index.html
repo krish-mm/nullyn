@@ -4,22 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nullyn — AI microphone feedback suppression</title>
-  <meta name="description" content="Nullyn is building an AI approach to live-mic feedback suppression. Mic output in, clean output out — in real time, with ultra-low latency. In development.">
+  <meta name="description" content="Nullyn AI for live-mic feedback suppression. Mic output in, clean signal out — in real time, with ultra-low latency. In development.">
+  <link rel="canonical" href="https://nullyn.ai/">
   <link rel="icon" href="/media/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/media/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/media/favicon-16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Nullyn — AI microphone feedback suppression">
-  <meta property="og:description" content="Nullyn is building an AI approach to live-mic feedback suppression. Mic output in, clean output out — in real time, with ultra-low latency. In development.">
-  <meta property="og:url" content="https://nullyn.com/">
-  <meta property="og:image" content="https://nullyn.com/media/og-image.png">
+  <meta property="og:description" content="Nullyn AI for live-mic feedback suppression. Mic output in, clean signal out — in real time, with ultra-low latency. In development.">
+  <meta property="og:url" content="https://nullyn.ai/">
+  <meta property="og:image" content="https://nullyn.ai/media/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Nullyn — AI microphone feedback suppression">
-  <meta name="twitter:description" content="Nullyn is building an AI approach to live-mic feedback suppression. Mic output in, clean output out — in real time, with ultra-low latency. In development.">
-  <meta name="twitter:image" content="https://nullyn.com/media/og-image.png">
+  <meta name="twitter:description" content="Nullyn AI for live-mic feedback suppression. Mic output in, clean signal out — in real time, with ultra-low latency. In development.">
+  <meta name="twitter:image" content="https://nullyn.ai/media/og-image.png">
   <link rel="stylesheet" href="/palette.css">
   <link rel="stylesheet" href="/site.css">
   <style>
@@ -106,7 +107,7 @@
       height: 7px;
       border-radius: 50%;
       background: var(--primary);
-      box-shadow: 0 0 0 4px rgba(61, 255, 138, 0.14);
+      box-shadow: 0 0 0 4px rgba(204, 255, 0, 0.14);
     }
 
     .hero {
@@ -308,7 +309,7 @@
       margin-top: 28px;
       padding: 16px 18px;
       border-left: 2px solid var(--primary);
-      background: rgba(61, 255, 138, 0.10);
+      background: rgba(204, 255, 0, 0.10);
       color: var(--text);
       font-size: 14.5px;
       border-radius: 0 10px 10px 0;
@@ -430,6 +431,49 @@
       .hero::before { opacity: 0.65; }
     }
 
+
+    .hero-copy.tight { max-width: 46rem; margin-bottom: 36px; }
+    .hero-copy.tight h1 { max-width: 16ch; }
+    .story { padding: 36px 0 48px; scroll-margin-top: 80px; }
+    .story-stage {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--bg);
+      aspect-ratio: 16 / 9;
+    }
+    .story-stage canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .story-caption {
+      margin-top: 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 17px;
+    }
+    .backed-strip { padding: 64px 0; }
+    .backed-strip .strip-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .backed-strip h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      max-width: 16ch;
+      margin: 0;
+    }
+    .backed-strip .backed-actions { margin-top: 0; }
+    @media (max-width: 900px) {
+      .story { padding: 28px 0 36px; }
+      .story-stage, .hiw-stage { width: 100%; max-width: 100%; }
+      .story-stage canvas, .hiw-stage canvas { width: 100%; height: auto; max-width: 100%; }
+      .backed-strip .strip-inner { flex-direction: column; align-items: flex-start; }
+    }
     @media (max-width: 900px) {
       h1 { font-size: clamp(32px, 9vw, 76px); line-height: 1.08; }
       .btn { min-height: 44px; font-size: 16px; padding: 12px 20px; }
@@ -445,7 +489,7 @@
     <div class="wrap nav-inner">
       <a class="brand" href="/">
         <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
-          <g fill="#3DFF8A" fill-rule="evenodd">
+          <g fill="#CCFF00" fill-rule="evenodd">
             <path d="M 2.000 32.000 A 30.000 30.000 0 1 1 62.000 32.000 A 30.000 30.000 0 1 1 2.000 32.000 Z M 13.515 32.834 L 14.215 30.719 L 14.878 29.166 L 15.555 27.768 L 16.222 26.543 L 16.872 25.490 L 17.495 24.613 L 18.080 23.911 L 18.612 23.384 L 19.075 23.022 L 19.453 22.804 L 19.747 22.694 L 19.985 22.653 L 20.218 22.659 L 20.499 22.719 L 20.858 22.858 L 21.300 23.104 L 21.812 23.469 L 22.381 23.957 L 22.991 24.562 L 23.632 25.275 L 24.296 26.084 L 24.977 26.977 L 25.671 27.943 L 26.376 28.968 L 27.089 30.041 L 27.809 31.150 L 28.536 32.283 L 29.267 33.427 L 29.983 34.173 L 30.930 34.588 L 31.964 34.609 L 32.927 34.233 L 33.673 33.517 L 34.088 32.570 L 34.109 31.536 L 33.733 30.573 L 33.733 30.573 L 33.000 29.425 L 32.262 28.275 L 31.518 27.130 L 30.767 26.000 L 30.007 24.895 L 29.237 23.824 L 28.454 22.797 L 27.654 21.822 L 26.830 20.908 L 25.976 20.063 L 25.080 19.297 L 24.129 18.622 L 23.106 18.059 L 22.001 17.636 L 20.818 17.393 L 19.586 17.368 L 18.360 17.579 L 17.190 18.011 L 16.104 18.633 L 15.102 19.413 L 14.170 20.333 L 13.291 21.385 L 12.450 22.569 L 11.635 23.888 L 10.838 25.351 L 10.050 26.980 L 9.249 28.867 L 8.485 31.166 L 8.357 32.192 L 8.631 33.188 L 9.267 34.004 L 10.166 34.515 L 11.192 34.643 L 12.188 34.369 L 13.004 33.733 L 13.515 32.834 Z M 50.485 31.166 L 49.785 33.281 L 49.122 34.834 L 48.445 36.232 L 47.778 37.457 L 47.128 38.510 L 46.505 39.387 L 45.920 40.089 L 45.388 40.616 L 44.925 40.978 L 44.547 41.196 L 44.253 41.306 L 44.015 41.347 L 43.782 41.341 L 43.501 41.281 L 43.142 41.142 L 42.700 40.896 L 42.188 40.531 L 41.619 40.043 L 41.009 39.438 L 40.368 38.725 L 39.704 37.916 L 39.023 37.023 L 38.329 36.057 L 37.624 35.032 L 36.911 33.959 L 36.191 32.850 L 35.464 31.717 L 34.733 30.573 L 34.017 29.827 L 33.070 29.412 L 32.036 29.391 L 31.073 29.767 L 30.327 30.483 L 29.912 31.430 L 29.891 32.464 L 30.267 33.427 L 30.267 33.427 L 31.000 34.575 L 31.738 35.725 L 32.482 36.870 L 33.233 38.000 L 33.993 39.105 L 34.763 40.176 L 35.546 41.203 L 36.346 42.178 L 37.170 43.092 L 38.024 43.937 L 38.920 44.703 L 39.871 45.378 L 40.894 45.941 L 41.999 46.364 L 43.182 46.607 L 44.414 46.632 L 45.640 46.421 L 46.810 45.989 L 47.896 45.367 L 48.898 44.587 L 49.830 43.667 L 50.709 42.615 L 51.550 41.431 L 52.365 40.112 L 53.162 38.649 L 53.950 37.020 L 54.751 35.133 L 55.515 32.834 L 55.643 31.808 L 55.369 30.812 L 54.733 29.996 L 53.834 29.485 L 52.808 29.357 L 51.812 29.631 L 50.996 30.267 L 50.485 31.166 Z"/>
           </g>
         </svg>
@@ -470,76 +514,67 @@
   <main id="top">
     <section class="hero">
       <div class="wrap">
-        <div class="hero-copy">
+        <div class="hero-copy tight">
           <p class="eyebrow">Live sound · AI</p>
           <h1>Stop feedback before it starts.</h1>
-          <p class="lede">When a microphone sits too close to a speaker, it howls. Nullyn AI takes the mic output, removes the frequencies causing feedback in real time, and sends a clean signal on — with real-time, ultra-low latency.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#early-access">Get early access</a>
-            <a class="btn btn-ghost" href="#how">See how it works</a>
-          </div>
-          <p class="fine">In development. No product is shipping yet, and we will not overclaim what the system can do.</p>
         </div>
-
         <div class="explainer" id="explainer">
-          <div class="blocks" aria-label="Mic to Nullyn AI to clean output">
-            <div class="block"><h2>Mic</h2><div class="sub">The input</div></div>
-            <div class="chevron" aria-hidden="true">›</div>
-            <div class="block ai"><h2>Nullyn AI</h2><div class="sub">Real-time</div></div>
-            <div class="chevron" aria-hidden="true">›</div>
-            <div class="block"><h2>Clean output</h2><div class="sub">The show, without the howl</div></div>
-          </div>
           <div class="pair">
             <div class="ba-panel without">
-              <h3>Without Nullyn</h3>
-              <canvas id="ba-left" width="700" height="320" aria-label="Without Nullyn, a ringing peak grows"></canvas>
+              <h3>Without Nullyn AI</h3>
+              <canvas id="ba-left" width="700" height="320" aria-label="Without Nullyn AI, a ringing peak grows. Illustrative, not measured data."></canvas>
             </div>
             <div class="ba-panel with">
-              <h3>With Nullyn</h3>
-              <canvas id="ba-right" width="700" height="320" aria-label="With Nullyn, the signal stays stable"></canvas>
+              <h3>With Nullyn AI</h3>
+              <canvas id="ba-right" width="700" height="320" aria-label="With Nullyn AI, the signal stays stable. Illustrative, not measured data."></canvas>
             </div>
           </div>
-          <p class="explainer-legal">Illustrative — not measured data. Axes show frequency and level with no numeric claims.</p>
+          <p class="explainer-legal">Illustrative — not measured data.</p>
         </div>
       </div>
     </section>
 
-    <section class="alt backed" id="research">
+    <section class="alt story" id="how">
       <div class="wrap">
-        <p class="kicker">Research-backed</p>
-        <h2>Built on the literature.</h2>
-        <p class="section-intro">The problem is documented. Today’s tools have known limits. Nullyn’s design is held to those numbers — and to a closed-loop evaluation of the device itself.</p>
-        <div class="stats">
-          <article class="stat">
-            <p class="figure">~6–10 dB</p>
-            <h3>Existing notch suppressors: added gain</h3>
-            <p>A commercial feedback reducer can provide a maximum of 6 to 10 dB of additional gain. Audible feedback has to occur before the reducer can act.</p>
-            <p class="srcs">Source: <a href="https://content-files.shure.com/Pubs/asp-selection-and-operation-of-audio-signal-processors/us_pro_audiosignalprocessor_ea.pdf" rel="noopener noreferrer">Sigismondi, Shure, 2016</a></p>
-          </article>
-          <article class="stat">
-            <p class="figure">Tonal music</p>
-            <h3>Where today’s tools fail</h3>
-            <p>Classical howl detectors mistake held notes and instruments for feedback. Recent neural howling suppressors, as reviewed for this work, have been tested on speech, not music.</p>
-            <p class="srcs">Sources: <a href="https://doi.org/10.1109/JPROC.2010.2090998" rel="noopener noreferrer">van Waterschoot &amp; Moonen, 2011</a>; <a href="https://ftp.esat.kuleuven.be/pub/stadius/vanwaterschoot/abstracts/09-207.html" rel="noopener noreferrer">van Waterschoot &amp; Moonen, JAES, 2010</a>; <a href="https://doi.org/10.1121/1.3458850" rel="noopener noreferrer">Spriet, Moonen &amp; Wouters, 2010</a></p>
-          </article>
-          <article class="stat">
-            <p class="figure">10.4 µs</p>
-            <h3>Audio path adds about one sample at 96 kHz</h3>
-            <p>The intended filter path processes each sample individually. One sample at 96 kHz is 10.4 µs of processing delay — the sample period, not the delay of the whole box.</p>
-            <p class="srcs">Source: <a href="/research/#latency">Latency explanation</a></p>
-          </article>
-          <article class="stat">
-            <p class="figure">~0.4 ms</p>
-            <h3>Open v1 hardware, analog to analog</h3>
-            <p>Datasheet math for a PCM3060-class codec at 96 kHz: ADC 181.3 µs + one DSP sample 10.4 µs + DAC 208.3 µs, about 0.4 ms. Arithmetic from the datasheet, not a measurement.</p>
-            <p class="srcs">Source: <a href="https://www.ti.com/lit/ds/symlink/pcm3060.pdf" rel="noopener noreferrer">TI PCM3060 datasheet</a></p>
-          </article>
-          <article class="stat sweep">
-            <p class="figure">Scenario sweep</p>
-            <h3>With Nullyn, and without</h3>
-            <p>We are running a closed-loop sweep of the device across weddings, conferences, and live shows, including cases where people and microphones move. Each scenario is compared with Nullyn in the path and with it out. Results will be published with the paper.</p>
-            <!-- SIMULATION_RUN_COUNT: drop the completed scenario-sweep run count here once the sweep finishes. Do not invent or display a number until then. Suggested insertion, after the sentence ending "with it out.": "The completed sweep covers {N} runs." -->
-          </article>
+        <div class="story-stage" id="hiw-stage">
+          <canvas id="hiw-scene" width="1920" height="1080" aria-label="Animated walkthrough: a performer walks toward a monitor, feedback loops into the mic, and Nullyn AI cuts the ringing band so the output stays clean. The chain is mic, Nullyn AI, mixer, then mains and monitor. Illustrative, not measured data."></canvas>
+        </div>
+        <p class="story-caption">Mic in. Nullyn AI. Mixer. Speakers.</p>
+      </div>
+    </section>
+
+    <section class="story" id="gain">
+      <div class="wrap">
+        <div class="story-stage">
+          <canvas id="anim-gain" width="1920" height="1080" aria-label="Illustrative animation: without Nullyn AI, raising the mic level lets a howl take off; with Nullyn AI, the level can go higher and the signal stays clean. Not measured data."></canvas>
+        </div>
+        <p class="story-caption">Turn it up. It stays clean.</p>
+      </div>
+    </section>
+
+    <section class="alt story" id="move">
+      <div class="wrap">
+        <div class="story-stage">
+          <canvas id="anim-move" width="1920" height="1080" aria-label="Illustrative animation of a performer moving at an event. The howl moves with them, and Nullyn AI stays with it, in a chain from mic to Nullyn AI to mixer to speakers. Not measured data."></canvas>
+        </div>
+        <p class="story-caption">People move. Nullyn AI stays with the howl.</p>
+      </div>
+    </section>
+
+    <section class="story" id="path">
+      <div class="wrap">
+        <div class="story-stage">
+          <canvas id="anim-path" width="1920" height="1080" aria-label="Illustrative exploded view of the signal path: XLR in, Nullyn AI, XLR out. Not measured data."></canvas>
+        </div>
+        <p class="story-caption">XLR in, Nullyn AI, XLR out.</p>
+      </div>
+    </section>
+
+    <section class="alt backed-strip" id="research">
+      <div class="wrap strip-inner">
+        <div>
+          <p class="kicker">Research-backed</p>
+          <h2>Built on the literature.</h2>
         </div>
         <div class="backed-actions">
           <a class="btn btn-primary" href="/research/">Read the research</a>
@@ -548,21 +583,9 @@
       </div>
     </section>
 
-    <section class="alt" id="how">
-      <div class="wrap">
-        <p class="kicker">How it works</p>
-        <h2>Mic. Nullyn AI. Clean output.</h2>
-        <p class="section-intro">A simple path from the microphone to a clean signal, with real-time, ultra-low latency.</p>
-        <div class="hiw-stage" id="hiw-stage">
-          <canvas id="hiw-scene" width="1920" height="1080" aria-label="Animated walkthrough: a performer walks toward a monitor, feedback loops into the mic, and Nullyn AI cuts the ringing band so the output stays clean. Illustrative, not measured data."></canvas>
-        </div>
-        <p class="note">Status: in development. Performance claims will follow measured tests, not marketing copy. We are not promising that feedback can be removed in every room, on every system, under every condition.</p>
-      </div>
-    </section>
-
-
     <section id="access">
       <div class="wrap">
+        <p class="note">Status: in development. Performance claims will follow measured tests, not marketing copy. We are not promising that feedback can be removed in every room, on every system, under every condition.</p>
         <div class="wait">
           <p class="kicker">Early access</p>
           <h2>Get early access.</h2>
@@ -580,7 +603,7 @@
         <div>
           <div class="brand" style="margin-bottom:16px;">
             <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
-              <g fill="#3DFF8A" fill-rule="evenodd">
+              <g fill="#CCFF00" fill-rule="evenodd">
                 <path d="M 2.000 32.000 A 30.000 30.000 0 1 1 62.000 32.000 A 30.000 30.000 0 1 1 2.000 32.000 Z M 13.515 32.834 L 14.215 30.719 L 14.878 29.166 L 15.555 27.768 L 16.222 26.543 L 16.872 25.490 L 17.495 24.613 L 18.080 23.911 L 18.612 23.384 L 19.075 23.022 L 19.453 22.804 L 19.747 22.694 L 19.985 22.653 L 20.218 22.659 L 20.499 22.719 L 20.858 22.858 L 21.300 23.104 L 21.812 23.469 L 22.381 23.957 L 22.991 24.562 L 23.632 25.275 L 24.296 26.084 L 24.977 26.977 L 25.671 27.943 L 26.376 28.968 L 27.089 30.041 L 27.809 31.150 L 28.536 32.283 L 29.267 33.427 L 29.983 34.173 L 30.930 34.588 L 31.964 34.609 L 32.927 34.233 L 33.673 33.517 L 34.088 32.570 L 34.109 31.536 L 33.733 30.573 L 33.733 30.573 L 33.000 29.425 L 32.262 28.275 L 31.518 27.130 L 30.767 26.000 L 30.007 24.895 L 29.237 23.824 L 28.454 22.797 L 27.654 21.822 L 26.830 20.908 L 25.976 20.063 L 25.080 19.297 L 24.129 18.622 L 23.106 18.059 L 22.001 17.636 L 20.818 17.393 L 19.586 17.368 L 18.360 17.579 L 17.190 18.011 L 16.104 18.633 L 15.102 19.413 L 14.170 20.333 L 13.291 21.385 L 12.450 22.569 L 11.635 23.888 L 10.838 25.351 L 10.050 26.980 L 9.249 28.867 L 8.485 31.166 L 8.357 32.192 L 8.631 33.188 L 9.267 34.004 L 10.166 34.515 L 11.192 34.643 L 12.188 34.369 L 13.004 33.733 L 13.515 32.834 Z M 50.485 31.166 L 49.785 33.281 L 49.122 34.834 L 48.445 36.232 L 47.778 37.457 L 47.128 38.510 L 46.505 39.387 L 45.920 40.089 L 45.388 40.616 L 44.925 40.978 L 44.547 41.196 L 44.253 41.306 L 44.015 41.347 L 43.782 41.341 L 43.501 41.281 L 43.142 41.142 L 42.700 40.896 L 42.188 40.531 L 41.619 40.043 L 41.009 39.438 L 40.368 38.725 L 39.704 37.916 L 39.023 37.023 L 38.329 36.057 L 37.624 35.032 L 36.911 33.959 L 36.191 32.850 L 35.464 31.717 L 34.733 30.573 L 34.017 29.827 L 33.070 29.412 L 32.036 29.391 L 31.073 29.767 L 30.327 30.483 L 29.912 31.430 L 29.891 32.464 L 30.267 33.427 L 30.267 33.427 L 31.000 34.575 L 31.738 35.725 L 32.482 36.870 L 33.233 38.000 L 33.993 39.105 L 34.763 40.176 L 35.546 41.203 L 36.346 42.178 L 37.170 43.092 L 38.024 43.937 L 38.920 44.703 L 39.871 45.378 L 40.894 45.941 L 41.999 46.364 L 43.182 46.607 L 44.414 46.632 L 45.640 46.421 L 46.810 45.989 L 47.896 45.367 L 48.898 44.587 L 49.830 43.667 L 50.709 42.615 L 51.550 41.431 L 52.365 40.112 L 53.162 38.649 L 53.950 37.020 L 54.751 35.133 L 55.515 32.834 L 55.643 31.808 L 55.369 30.812 L 54.733 29.996 L 53.834 29.485 L 52.808 29.357 L 51.812 29.631 L 50.996 30.267 L 50.485 31.166 Z"/>
               </g>
             </svg>
@@ -589,7 +612,7 @@
               <span class="brand-tag">Nulls the howl</span>
             </span>
           </div>
-          <p>Nullyn nulls the howl. An AI approach to live microphone feedback suppression. In development.</p>
+          <p>Nullyn AI for live microphone feedback suppression. In development.</p>
         </div>
       </div>
       <div class="legal">
@@ -600,14 +623,15 @@
   </footer>
 
   <script src="media/how-it-works.js" defer></script>
+  <script src="media/story-anims.js" defer></script>
   <script>
     (function () {
       const DURATION = 10;
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const css = getComputedStyle(document.documentElement);
       const C = {
-        howl: css.getPropertyValue("--howl").trim() || "#FF5C4D",
-        primary: css.getPropertyValue("--primary").trim() || "#3DFF8A",
+        howl: css.getPropertyValue("--howl").trim() || "#FF1A1A",
+        primary: css.getPropertyValue("--primary").trim() || "#CCFF00",
         muted: css.getPropertyValue("--muted").trim() || "#9A9A9A",
       };
       const left = document.getElementById("ba-left");

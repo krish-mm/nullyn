@@ -1,11 +1,9 @@
-/* Nullyn palette — black and neon green
+/* Nullyn palette — black, neon yellow-green, and super red
  *
- * Primary is #3DFF8A rather than classic #39FF14. It is still unmistakably
- * neon, but a slight mint shift keeps it from reading as highlighter or
- * "Matrix green," and it stays legible as a logo and as button fill.
- * Contrast: 15.0:1 on #0A0A0A (AAA). Dark button
- * text on primary is also AAA. Neon on white is ~1.2:1 — do not use it
- * on light backgrounds; invert to --bg on --text instead.
+ * Primary is #CCFF00 (chartreuse): a neon mix of yellow and green that pops
+ * on #0A0A0A at 16.8:1 (AAA). Dark button text on
+ * primary is also AAA. Neon on white is ~1.3:1 — do not use it on light
+ * backgrounds; invert to --bg on --text instead. Howl is #FF1A1A.
  */
 :root {
   --bg: #0A0A0A;
@@ -13,12 +11,12 @@
   --surface-elev: #1C1C1C;
   --text: #F3F4F1;
   --muted: #9A9A9A;
-  --primary: #3DFF8A;
-  --primary-dim: #2AB56A;
-  --howl: #FF5C4D;
+  --primary: #CCFF00;
+  --primary-dim: #8FBF00;
+  --howl: #FF1A1A;
   --line: rgba(243, 244, 241, 0.10);
   --line-strong: rgba(243, 244, 241, 0.18);
-  --primary-glow: rgba(61, 255, 138, 0.28);
-  --howl-glow: rgba(255, 92, 77, 0.28);
+  --primary-glow: rgba(204, 255, 0, 0.28);
+  --howl-glow: rgba(255, 26, 26, 0.28);
   --button-text: #0A0A0A;
 }

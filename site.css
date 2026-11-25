@@ -84,7 +84,7 @@ nav.links a[aria-current="page"] { color: var(--text); }
   height: 7px;
   border-radius: 50%;
   background: var(--primary);
-  box-shadow: 0 0 0 4px rgba(61, 255, 138, 0.14);
+  box-shadow: 0 0 0 4px rgba(204, 255, 0, 0.14);
 }
 
 .btn {
@@ -442,4 +442,47 @@ html { overflow-x: hidden; }
 
 @media (max-width: 900px) {
   body.nav-open { overflow: hidden; }
+}
+
+/* Simulated evaluation charts */
+.sim-eval { padding-top: 12px; }
+.sim-eval .section-intro { max-width: 46rem; }
+.sim-figures { display: grid; gap: 28px; margin-top: 28px; }
+.sim-figure {
+  margin: 0;
+  padding: 8px 0 0;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.sim-figure .chart-host { width: 100%; }
+.sim-figure .chart-host svg { display: block; width: 100%; height: auto; }
+.sim-figure figcaption {
+  padding: 0 20px 16px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.sim-split { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.chart-host .chart-bar {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  transform: scaleY(0.04);
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.chart-host.is-in .chart-bar { transform: scaleY(1); }
+.chart-host .chart-line {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  transition: stroke-dashoffset 1.1s ease;
+}
+.chart-host.is-in .chart-line { stroke-dashoffset: 0; }
+@media (max-width: 800px) {
+  .sim-split { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chart-host .chart-bar, .chart-host .chart-line { transition: none; }
+  .chart-host .chart-bar { transform: scaleY(1); }
+  .chart-host .chart-line { stroke-dashoffset: 0; }
 }
