@@ -549,7 +549,7 @@
       const showIn = explode; // 0 = sealed enclosure only
 
       display(ctx, "Nullyn AI", 960, 70, 44, C.text, "center");
-      mono(ctx, "OPEN HARDWARE", 960, 112, 14, C.primary, "center", 500);
+      mono(ctx, "DEDICATED BOX", 960, 112, 14, C.primary, "center", 500);
 
       const cx = 960;
       const boxW = 560;
@@ -696,7 +696,7 @@
         ctx.strokeStyle = C.primary;
         ctx.lineWidth = 1.5;
         ctx.stroke();
-        mono(ctx, "Off-the-shelf, open source   ·   ~0.4 ms analog in to analog out", 960, 1002, 16, C.text, "center", 500);
+        mono(ctx, "Off-the-shelf parts, with a fail-safe bypass", 960, 1002, 16, C.text, "center", 500);
         mono(ctx, "Datasheet arithmetic — not a measured product latency", 960, 1026, 12, C.muted, "center", 500);
         ctx.restore();
       }

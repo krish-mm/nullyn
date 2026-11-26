@@ -500,3 +500,33 @@ html { overflow-x: hidden; }
   .chart-host .chart-bar { transform: scaleY(1); }
   .chart-host .chart-line { stroke-dashoffset: 0; }
 }
+
+.nav-cta {
+  flex: none;
+  padding: 9px 16px;
+  font-size: 13px;
+}
+@media (max-width: 1100px) {
+  nav.links { gap: 18px; }
+}
+@media (max-width: 900px) {
+  header.nav .nav-cta { display: none; }
+}
+
+.open-source-note {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.open-source-note a { color: var(--text); text-underline-offset: 2px; }
+.coming-soon {
+  display: inline-block;
+  margin-left: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  font-weight: 500;
+}
