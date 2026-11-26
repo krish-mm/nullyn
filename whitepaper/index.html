@@ -3,24 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Whitepaper — Nullyn: low-latency feedback suppression</title>
-  <meta name="description" content="Nullyn whitepaper: low-latency feedback suppression. In preparation — full paper and data release after review.">
+  <title>Whitepaper — Nullyn AI: low-latency feedback suppression</title>
+  <meta name="description" content="Nullyn AI whitepaper: low-latency feedback suppression. In preparation — full paper and data release after review.">
   <link rel="canonical" href="https://nullyn.ai/whitepaper/">
   <link rel="icon" href="/media/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/media/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/media/favicon-16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Whitepaper — Nullyn: low-latency feedback suppression">
-  <meta property="og:description" content="Nullyn whitepaper: low-latency feedback suppression. In preparation — full paper and data release after review.">
+  <meta property="og:title" content="Whitepaper — Nullyn AI: low-latency feedback suppression">
+  <meta property="og:description" content="Nullyn AI whitepaper: low-latency feedback suppression. In preparation — full paper and data release after review.">
   <meta property="og:url" content="https://nullyn.ai/whitepaper/">
   <meta property="og:image" content="https://nullyn.ai/media/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Whitepaper — Nullyn: low-latency feedback suppression">
-  <meta name="twitter:description" content="Nullyn whitepaper: low-latency feedback suppression. In preparation — full paper and data release after review.">
+  <meta name="twitter:title" content="Whitepaper — Nullyn AI: low-latency feedback suppression">
+  <meta name="twitter:description" content="Nullyn AI whitepaper: low-latency feedback suppression. In preparation — full paper and data release after review.">
   <meta name="twitter:image" content="https://nullyn.ai/media/og-image.png">
+  <link rel="preload" href="/fonts/syne-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts.css">
   <link rel="stylesheet" href="/palette.css">
   <link rel="stylesheet" href="/site.css">
 </head>
@@ -54,9 +56,9 @@
     <section class="page-lead">
       <div class="wrap">
         <p class="kicker">Whitepaper</p>
-        <h1>Nullyn: low-latency feedback suppression</h1>
+        <h1>Nullyn AI: low-latency feedback suppression</h1>
         <p class="status-line">In preparation — full paper and data release after review</p>
-        <p class="section-intro">The draft paper, <em>Toward Low-Latency Neural Feedback Suppression for Live Music</em>, reviews the published evidence and sets out how Nullyn will be measured. It has not been peer reviewed, and Nullyn’s own results have not been reported yet.</p>
+        <p class="section-intro">The draft paper, <em>Toward Low-Latency Neural Feedback Suppression for Live Music</em>, reviews the published evidence and sets out how Nullyn AI will be measured. It has not been peer reviewed, and Nullyn AI’s own results have not been reported yet.</p>
       </div>
     </section>
     <section class="alt paper-body">
@@ -64,7 +66,7 @@
         <div class="block" id="abstract">
           <h2>Abstract</h2>
           <p>Acoustic feedback — the howl when a microphone picks up its own loudspeaker — limits how loud a live sound system can run. Fifty years of research has produced three main families of automatic control: frequency shifting and phase modulation, notch-filter howling suppression, and adaptive feedback cancellation. In the field, many sound engineers still prefer to control feedback by hand because automatic systems are not reliable enough. Since 2022, neural networks have been applied to howling suppression; the studies reviewed for this paper evaluate on speech, mostly with simulated loop delays of 100 to 500 ms, and most report speech-separation scores rather than the stable-gain measures the feedback field uses.</p>
-          <p>Live music is different. Instruments and sung notes are tonal, and that is exactly what classical howl detectors confuse with feedback. Performers on in-ear monitors can notice added delay of a few milliseconds. This paper sets out that evidence, names the gaps a live-music system has to close, and describes Nullyn AI: XLR/TRS in, a per-sample digital filter path at 96 kHz, which adds about one sample (10.4 µs) of processing delay, and a neural control path that runs alongside the audio. Nullyn AI’s analog-in to analog-out delay is set by the converters. Datasheet arithmetic on a PCM3060-class codec gives about 0.4 ms at 96 kHz, not 10 µs. Nullyn’s own results will be added when they are produced.</p>
+          <p>Live music is different. Instruments and sung notes are tonal, and that is exactly what classical howl detectors confuse with feedback. Performers on in-ear monitors can notice added delay of a few milliseconds. This paper sets out that evidence, names the gaps a live-music system has to close, and describes Nullyn AI: XLR/TRS in, a per-sample digital filter path at 96 kHz, which adds about one sample (10.4 µs) of processing delay, and a neural control path that runs alongside the audio. Nullyn AI’s analog-in to analog-out delay is set by the converters. Datasheet arithmetic on a PCM3060-class codec gives about 0.4 ms at 96 kHz, not 10 µs. Nullyn AI’s own results will be added when they are produced.</p>
         </div>
         <div class="block" id="contents">
           <h2>Contents of the draft</h2>
@@ -74,7 +76,7 @@
             <li>Neural approaches, 2022 to 2026</li>
             <li>How the field measures performance</li>
             <li>Latency budget for live music</li>
-            <li>Open gaps that fit Nullyn</li>
+            <li>Open gaps that fit Nullyn AI</li>
             <li>Nullyn AI</li>
             <li>Latency architecture</li>
             <li><a href="#methodology">Simulated evaluation</a></li>
@@ -88,7 +90,7 @@
           <h2>Methodology</h2>
           <p>Nullyn AI sits in-line: XLR/TRS in, a per-sample DSP filter path at 96 kHz, and XLR/TRS out, with a neural control path running alongside the audio that decides how the filter path should be set. The audio never passes through the network; the network writes filter coefficients. Nullyn AI is designed around off-the-shelf parts and an open toolchain, with a PCM3060-class codec as the converter reference.</p>
           <p>Nullyn AI is evaluated first in a closed-loop simulator with the same signal chain as the hardware. The protocol uses established metrics where they exist: maximum and added stable gain, path latency, detection, howl and recovery time, and distortion on speech and on music. Tests include a fader push for gain-before-feedback, a gain step for detection and recovery, a feedback-path change when a microphone moves, clean-program distortion, and an impulse-response latency measurement.</p>
-          <p>A larger scenario sweep applies that same closed-loop model across weddings, conferences, and live shows, including cases where people and microphones move, and compares each run with Nullyn in the path and with it out. The sweep is in progress. Results will be labelled as simulated or measured when they are published with the paper.</p>
+          <p>A larger scenario sweep applies that same closed-loop model across weddings, conferences, and live shows, including cases where people and microphones move, and compares each run with Nullyn AI in the path and with it out. The sweep is in progress. Results will be labelled as simulated or measured when they are published with the paper.</p>
         </div>
         <div class="page-actions">
           <a class="btn btn-primary" href="/research/">Read the research</a>
@@ -116,7 +118,7 @@
         </div>
       </div>
       <div class="legal">
-        <span>© 2026 Nullyn. All rights reserved.</span>
+        <span>© 2026 Nullyn AI. All rights reserved.</span>
         <span>No tracking. No cookies. No data collection.</span>
       </div>
     </div>

@@ -1,4 +1,4 @@
-/* Nullyn how-it-works event walkthrough — 9s loop, lazy-starts in view. */
+/* Nullyn AI how-it-works event walkthrough — 9s loop, lazy-starts in view. */
 (function () {
 const W = 1920, H = 1080;
     const DURATION = 9;
@@ -103,7 +103,7 @@ const W = 1920, H = 1080;
     function label(c, text, x, y, color, align) {
       const k = uiScale();
       c.save();
-      c.font = "600 " + (18 * k) + "px Outfit, 'Segoe UI', sans-serif";
+      c.font = "600 " + (18 * k) + "px Manrope, ui-sans-serif, system-ui, sans-serif";
       c.fillStyle = color || C.muted;
       const a = align || "center";
       c.textAlign = a;
@@ -641,11 +641,13 @@ const W = 1920, H = 1080;
       c.restore();
     }
 
-    function drawEqPanel(c, x, y, w, h, howl, notch, t, C) {
+    function drawEqPanel(c, x, y, w, h, howl, notch, t, C, opts) {
+      opts = opts || {};
       const bands = 28;
       const fMin = 50, fMax = 16000;
       const freqAt = function (i) { return fMin * Math.pow(fMax / fMin, i / (bands - 1)); };
-      const howlF = 2500;
+      const howlF = opts.howlHz != null ? opts.howlHz : 2500;
+      const level = opts.level != null ? opts.level : 1;
       let howlBand = 0, best = Infinity;
       for (let i = 0; i < bands; i++) {
         const d = Math.abs(Math.log(freqAt(i) / howlF));
@@ -653,7 +655,7 @@ const W = 1920, H = 1080;
       }
       const padL = Math.max(14, w * 0.035);
       const padR = padL;
-      const padT = Math.max(28, h * 0.16);
+      const padT = Math.max(40, h * 0.20);
       const padB = Math.max(48, h * 0.22);
       c.save();
       rr(c, x, y, w, h, Math.min(14, h * 0.06));
@@ -666,60 +668,125 @@ const W = 1920, H = 1080;
       c.stroke();
 
       const capSize = Math.max(11, Math.round(h * 0.055));
-      c.font = "600 " + capSize + "px Outfit, 'Segoe UI', sans-serif";
+      c.font = "600 " + capSize + "px Manrope, ui-sans-serif, system-ui, sans-serif";
       c.fillStyle = C.muted;
       c.textAlign = "left";
       c.textBaseline = "top";
-      c.fillText("Illustrative — not measured data", x + padL, y + Math.max(8, h * 0.04));
+      c.fillText("Illustrative — not measured data", x + padL, y + Math.max(8, h * 0.035));
 
       const innerW = w - padL - padR;
       const innerH = h - padT - padB;
       const gap = Math.max(2, innerW * 0.012);
       const bw = (innerW - gap * (bands - 1)) / bands;
       const baseY = y + padT + innerH;
+      const barX = function (i) { return x + padL + i * (bw + gap); };
 
-      for (let i = 0; i < bands; i++) {
+      const musicAt = function (i) {
         const f = freqAt(i);
         const u = i / (bands - 1);
         const env = 0.34 + 0.28 * Math.sin(Math.PI * Math.min(1, u * 1.15)) * Math.exp(-Math.max(0, u - 0.55) * 1.4);
         let hgt = env + 0.055 * Math.sin(t * 2.3 + i * 0.55) + 0.03 * Math.sin(t * 4.1 + f * 0.001);
-        hgt = Math.max(0.08, Math.min(1, hgt));
+        hgt *= 0.75 + 0.25 * level;
+        return Math.max(0.08, Math.min(0.92, hgt));
+      };
+
+      const spikeH = 0.97 + 0.025 * Math.sin(t * 14);
+      const deep = 0.055;
+      const heights = [];
+      for (let i = 0; i < bands; i++) {
+        const music = musicAt(i);
         const dist = Math.abs(i - howlBand);
+        let hgt = music;
         if (dist === 0) {
-          hgt = hgt * (1 - howl) + (0.96 + 0.03 * Math.sin(t * 14)) * howl;
-          hgt = hgt * (1 - notch) + 0.13 * notch;
-        } else if (dist === 1) {
-          hgt = hgt + 0.10 * howl * (1 - notch);
-          hgt = hgt * (1 - 0.16 * notch);
+          const unnotched = music * (1 - howl) + spikeH * howl;
+          hgt = unnotched * (1 - notch) + deep * notch;
         }
-        hgt = Math.max(0.06, Math.min(1, hgt));
+        heights.push(Math.max(0.04, Math.min(1, hgt)));
+      }
+
+      // Faint ghost of the runaway spike being cut.
+      if (howl > 0.15 && notch > 0.2) {
+        const gx = barX(howlBand);
+        const gh = innerH * spikeH;
+        c.save();
+        c.globalAlpha = 0.22 * Math.min(1, howl) * Math.min(1, notch);
+        c.strokeStyle = C.howl;
+        c.lineWidth = 1.5;
+        rr(c, gx, baseY - gh, Math.max(1, bw), gh, 2);
+        c.stroke();
+        c.restore();
+      }
+
+      for (let i = 0; i < bands; i++) {
+        const hgt = heights[i];
         const bh = innerH * hgt;
-        const bx = x + padL + i * (bw + gap);
-        const ringing = dist === 0 && howl > 0.2 && notch < 0.65;
+        const bx = barX(i);
+        const dist = Math.abs(i - howlBand);
+        const ringing = dist === 0 && howl > 0.2 && notch < 0.55;
         c.fillStyle = ringing ? C.howl : C.primary;
-        c.globalAlpha = ringing ? 0.85 + 0.15 * Math.sin(t * 16) : 0.88;
+        c.globalAlpha = ringing ? 0.85 + 0.15 * Math.sin(t * 16) : 0.9;
         rr(c, bx, baseY - bh, Math.max(1, bw), bh, 2);
         c.fill();
         c.globalAlpha = 1;
-        if (dist === 0 && notch > 0.25) {
-          c.strokeStyle = C.primary;
-          c.lineWidth = 1.6;
-          c.globalAlpha = Math.min(1, notch);
-          c.beginPath();
-          c.moveTo(bx - 4, baseY - bh - 10);
-          c.lineTo(bx + bw / 2, baseY - bh - 2);
-          c.lineTo(bx + bw + 4, baseY - bh - 10);
-          c.stroke();
-          c.globalAlpha = 1;
-        }
       }
 
       const xAtF = function (f) {
-        const u = Math.log(f / fMin) / Math.log(fMax / fMin);
-        return x + padL + u * innerW;
+        return x + padL + (Math.log(f / fMin) / Math.log(fMax / fMin)) * innerW;
       };
+
+      // Narrow neon V through the cut band — neighbors stay at full music level.
+      if (notch > 0.2) {
+        const midX = barX(howlBand) + bw / 2;
+        const midY = baseY - innerH * heights[howlBand];
+        const leftI = Math.max(0, howlBand - 1);
+        const rightI = Math.min(bands - 1, howlBand + 1);
+        const leftX = barX(leftI) + bw / 2;
+        const rightX = barX(rightI) + bw / 2;
+        const leftY = baseY - innerH * heights[leftI];
+        const rightY = baseY - innerH * heights[rightI];
+        c.save();
+        c.strokeStyle = C.primary;
+        c.lineWidth = Math.max(2, w * 0.0035);
+        c.lineJoin = "round";
+        c.lineCap = "round";
+        c.globalAlpha = Math.min(1, notch);
+        c.beginPath();
+        c.moveTo(leftX, leftY);
+        c.lineTo(midX, midY + 1);
+        c.lineTo(rightX, rightY);
+        c.stroke();
+        // arrow / marker above the V
+        const tipY = midY - Math.max(8, h * 0.03);
+        c.beginPath();
+        c.moveTo(midX, tipY + Math.max(8, h * 0.028));
+        c.lineTo(midX, tipY);
+        c.stroke();
+        c.beginPath();
+        c.moveTo(midX - 4, tipY + 5);
+        c.lineTo(midX, tipY);
+        c.lineTo(midX + 4, tipY + 5);
+        c.stroke();
+        const khz = howlF >= 1000;
+        const label = khz
+          ? ("notch at ~" + (Math.abs(howlF / 1000 - Math.round(howlF / 1000)) < 0.05 ? String(Math.round(howlF / 1000)) : (howlF / 1000).toFixed(1)) + " kHz")
+          : ("notch at ~" + Math.round(howlF) + " Hz");
+        const labSize = Math.max(10, Math.round(h * 0.048));
+        c.font = "500 " + labSize + "px IBM Plex Mono, ui-monospace, monospace";
+        c.fillStyle = C.primary;
+        let labX = midX;
+        let labY = Math.min(leftY, rightY) - 8;
+        const minLabY = y + labSize + 22;
+        c.textAlign = "center";
+        c.textBaseline = "bottom";
+        if (labY < minLabY) {
+          labY = minLabY;
+        }
+        c.fillText(label, labX, labY);
+        c.restore();
+      }
+
       c.fillStyle = C.muted;
-      c.font = "500 " + Math.max(10, Math.round(h * 0.048)) + "px Outfit, 'Segoe UI', sans-serif";
+      c.font = "500 " + Math.max(10, Math.round(h * 0.048)) + "px IBM Plex Mono, ui-monospace, monospace";
       c.textAlign = "center";
       c.textBaseline = "top";
       [[100, "100 Hz"], [1000, "1 kHz"], [10000, "10 kHz"]].forEach(function (pair) {
@@ -734,7 +801,7 @@ const W = 1920, H = 1080;
         c.globalAlpha = 1;
         c.fillText(pair[1], tx, baseY + 9);
       });
-      c.font = "600 " + Math.max(11, Math.round(h * 0.055)) + "px Outfit, 'Segoe UI', sans-serif";
+      c.font = "500 " + Math.max(11, Math.round(h * 0.055)) + "px IBM Plex Mono, ui-monospace, monospace";
       c.fillStyle = C.text || "#F3F4F1";
       c.globalAlpha = 0.85;
       [[Math.sqrt(fMin * 250), "Lows"], [Math.sqrt(250 * 2000), "Mids"], [Math.sqrt(2000 * fMax), "Highs"]].forEach(function (pair) {
@@ -794,7 +861,7 @@ const W = 1920, H = 1080;
           c.stroke();
           c.fillStyle = C.text;
         }
-        c.font = "650 24px Outfit, sans-serif";
+        c.font = "650 24px Manrope, ui-sans-serif, system-ui, sans-serif";
         c.textAlign = "center";
         c.textBaseline = "middle";
         c.letterSpacing = "-0.02em";
@@ -802,7 +869,7 @@ const W = 1920, H = 1080;
         x += boxW;
         if (i < items.length - 1) {
           c.fillStyle = C.primary;
-          c.font = "400 36px Outfit, sans-serif";
+          c.font = "400 36px Manrope, ui-sans-serif, system-ui, sans-serif";
           c.fillText("→", x + (gap + chev) / 2, y + boxH / 2);
           x += gap + chev;
         }

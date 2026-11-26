@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nullyn — AI microphone feedback suppression</title>
+  <title>Nullyn AI — microphone feedback suppression</title>
   <meta name="description" content="Nullyn AI for live-mic feedback suppression. Mic output in, clean signal out — in real time, with ultra-low latency. In development.">
   <link rel="canonical" href="https://nullyn.ai/">
   <link rel="icon" href="/media/favicon.svg" type="image/svg+xml">
@@ -11,27 +11,30 @@
   <link rel="icon" href="/media/favicon-16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Nullyn — AI microphone feedback suppression">
+  <meta property="og:title" content="Nullyn AI — microphone feedback suppression">
   <meta property="og:description" content="Nullyn AI for live-mic feedback suppression. Mic output in, clean signal out — in real time, with ultra-low latency. In development.">
   <meta property="og:url" content="https://nullyn.ai/">
   <meta property="og:image" content="https://nullyn.ai/media/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Nullyn — AI microphone feedback suppression">
+  <meta name="twitter:title" content="Nullyn AI — microphone feedback suppression">
   <meta name="twitter:description" content="Nullyn AI for live-mic feedback suppression. Mic output in, clean signal out — in real time, with ultra-low latency. In development.">
   <meta name="twitter:image" content="https://nullyn.ai/media/og-image.png">
+  <link rel="preload" href="/fonts/syne-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts.css">
   <link rel="stylesheet" href="/palette.css">
   <link rel="stylesheet" href="/site.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; color-scheme: dark; }
     body {
-      font-family: "Segoe UI", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: var(--font-body);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
       font-size: 17px;
+      font-weight: 430;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -67,17 +70,19 @@
     .mark { width: 36px; height: 36px; flex: none; }
     .brand-text { display: flex; flex-direction: column; gap: 1px; }
     .brand-name {
-      font-weight: 650;
-      letter-spacing: -0.02em;
-      font-size: 16px;
-      line-height: 1.15;
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      font-size: 17px;
+      line-height: 1.1;
     }
     .brand-tag {
+      font-family: var(--font-mono);
       font-size: 10px;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--primary);
-      font-weight: 600;
+      font-weight: 500;
     }
     nav.links {
       display: flex;
@@ -128,10 +133,11 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      font-family: var(--font-mono);
       color: var(--primary);
       font-size: 12px;
-      font-weight: 650;
-      letter-spacing: 0.14em;
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       margin-bottom: 22px;
     }
@@ -141,19 +147,21 @@
       height: 1px;
       background: var(--primary);
     }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 700; }
     h1 {
-      font-size: clamp(40px, 6vw, 76px);
-      line-height: 0.98;
-      letter-spacing: -0.045em;
-      font-weight: 650;
+      font-size: clamp(40px, 6.2vw, 80px);
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+      font-weight: 700;
       max-width: 14ch;
     }
     .lede {
-      margin-top: 28px;
+      margin-top: 24px;
       font-size: 19px;
       line-height: 1.55;
+      font-weight: 430;
       color: var(--text);
-      max-width: 44ch;
+      max-width: 46ch;
     }
     .hero-actions {
       display: flex;
@@ -169,9 +177,10 @@
       text-decoration: none;
       border-radius: 999px;
       padding: 13px 22px;
+      font-family: var(--font-body);
       font-size: 15px;
       font-weight: 600;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.015em;
       border: 1px solid transparent;
     }
     .btn-primary {
@@ -264,18 +273,19 @@
       border-block: 1px solid var(--line);
     }
     .kicker {
+      font-family: var(--font-mono);
       color: var(--primary);
       font-size: 12px;
-      font-weight: 650;
-      letter-spacing: 0.14em;
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       margin-bottom: 14px;
     }
     h2 {
-      font-size: clamp(30px, 4vw, 44px);
-      letter-spacing: -0.035em;
-      line-height: 1.08;
-      font-weight: 650;
+      font-size: clamp(30px, 4vw, 46px);
+      letter-spacing: -0.045em;
+      line-height: 1.06;
+      font-weight: 700;
       max-width: 20ch;
     }
     .section-intro {
@@ -283,6 +293,8 @@
       color: var(--text);
       max-width: 58ch;
       font-size: 18px;
+      line-height: 1.6;
+      font-weight: 430;
     }
     .cite {
       font-size: 13px;
@@ -454,6 +466,64 @@
       color: var(--muted);
       font-size: 17px;
     }
+    .story-copy { max-width: 42rem; margin: 18px auto 0; text-align: center; }
+    .story-copy h2 {
+      font-size: clamp(24px, 3.2vw, 32px);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      margin: 0 0 10px;
+      max-width: none;
+    }
+    .story-copy p { color: var(--muted); font-size: 16.5px; line-height: 1.6; margin: 0; font-weight: 430; }
+    .howto { padding: 56px 0; }
+    .howto h2 { margin-bottom: 28px; }
+    .how-steps {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 0;
+      margin: 0 0 32px;
+    }
+    .how-steps li {
+      padding: 22px 22px 20px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+    .how-steps h3 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.03em; }
+    .how-steps p { color: var(--muted); font-size: 15.5px; line-height: 1.6; margin: 0; font-weight: 430; }
+    .who-for {
+      color: var(--text);
+      font-size: 16.5px;
+      line-height: 1.6;
+      max-width: 44rem;
+      font-weight: 430;
+    }
+    .who-for strong { font-family: var(--font-display); color: var(--primary); font-weight: 700; letter-spacing: -0.02em; }
+    .sim-headlines {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .sim-stat {
+      padding: 22px 22px 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--bg);
+    }
+    .sim-stat .figure {
+      font-family: var(--font-mono);
+      font-size: clamp(24px, 2.8vw, 32px);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      font-variant-numeric: tabular-nums;
+      color: var(--primary);
+      margin: 0 0 8px;
+    }
+    .sim-stat p { color: var(--text); font-size: 15px; line-height: 1.5; margin: 0 0 10px; font-weight: 430; }
+    .sim-stat .sim-tag { font-family: var(--font-mono); color: var(--muted); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500; margin: 0; }
     .backed-strip { padding: 64px 0; }
     .backed-strip .strip-inner {
       display: flex;
@@ -473,6 +543,9 @@
       .story-stage, .hiw-stage { width: 100%; max-width: 100%; }
       .story-stage canvas, .hiw-stage canvas { width: 100%; height: auto; max-width: 100%; }
       .backed-strip .strip-inner { flex-direction: column; align-items: flex-start; }
+      .how-steps, .sim-headlines { grid-template-columns: 1fr; }
+      .story-copy { text-align: left; }
+      .hero-copy.tight .lede { font-size: 17px; }
     }
     @media (max-width: 900px) {
       h1 { font-size: clamp(32px, 9vw, 76px); line-height: 1.08; }
@@ -517,6 +590,11 @@
         <div class="hero-copy tight">
           <p class="eyebrow">Live sound · AI</p>
           <h1>Stop feedback before it starts.</h1>
+          <p class="lede">Nullyn AI is hardware that listens to a live microphone, finds the frequencies about to howl, and notches just those bands — for events, weddings, and conferences.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#access">Get early access</a>
+            <a class="btn btn-ghost" href="#how">See how it works</a>
+          </div>
         </div>
         <div class="explainer" id="explainer">
           <div class="pair">
@@ -526,7 +604,7 @@
             </div>
             <div class="ba-panel with">
               <h3>With Nullyn AI</h3>
-              <canvas id="ba-right" width="700" height="320" aria-label="With Nullyn AI, the signal stays stable. Illustrative, not measured data."></canvas>
+              <canvas id="ba-right" width="700" height="320" aria-label="With Nullyn AI, a narrow notch cuts only the ringing band; the rest of the spectrum stays up. Illustrative, not measured data."></canvas>
             </div>
           </div>
           <p class="explainer-legal">Illustrative — not measured data.</p>
@@ -539,7 +617,10 @@
         <div class="story-stage" id="hiw-stage">
           <canvas id="hiw-scene" width="1920" height="1080" aria-label="Animated walkthrough: a performer walks toward a monitor, feedback loops into the mic, and Nullyn AI cuts the ringing band so the output stays clean. The chain is mic, Nullyn AI, mixer, then mains and monitor. Illustrative, not measured data."></canvas>
         </div>
-        <p class="story-caption">Mic in. Nullyn AI. Mixer. Speakers.</p>
+        <div class="story-copy">
+          <h2>Mic, Nullyn AI, mixer, speakers.</h2>
+          <p>Nullyn AI sits in the chain before the mixer. When a monitor howl starts to take off, it notches the ringing band so the rest of the program can stay up. Illustrative — not measured data.</p>
+        </div>
       </div>
     </section>
 
@@ -548,37 +629,87 @@
         <div class="story-stage">
           <canvas id="anim-gain" width="1920" height="1080" aria-label="Illustrative animation: without Nullyn AI, raising the mic level lets a howl take off; with Nullyn AI, the level can go higher and the signal stays clean. Not measured data."></canvas>
         </div>
-        <p class="story-caption">Turn it up. It stays clean.</p>
+        <div class="story-copy">
+          <h2>A surgical notch, not a fader pull.</h2>
+          <p>Without Nullyn AI, pushing the mic fader lets a howl take off. With Nullyn AI, only the runaway band is cut; lows, mids, and highs stay up. Illustrative — not measured data.</p>
+        </div>
       </div>
     </section>
 
-    <section class="alt story" id="move">
+    <section class="alt story" id="hardware">
       <div class="wrap">
         <div class="story-stage">
-          <canvas id="anim-move" width="1920" height="1080" aria-label="Illustrative animation of a performer moving at an event. The howl moves with them, and Nullyn AI stays with it, in a chain from mic to Nullyn AI to mixer to speakers. Not measured data."></canvas>
+          <canvas id="anim-hardware" width="1920" height="1080" aria-label="Illustrative exploded view of Nullyn AI hardware: a 1590BB enclosure opening to show a Daisy Seed 3, carrier PCB, THAT1246 and THAT1646 I/O, Neutrik jacks, and a relay bypass. Off-the-shelf, open source. About 0.4 ms is datasheet arithmetic, not a measured product latency."></canvas>
         </div>
-        <p class="story-caption">People move. Nullyn AI stays with the howl.</p>
+        <div class="story-copy">
+          <h2>Open hardware, off the shelf.</h2>
+          <p>A 1590BB enclosure, a Daisy Seed 3, THAT I/O, Neutrik jacks, and a relay bypass — parts you can actually buy. Datasheet arithmetic on a PCM3060-class codec, plus about one sample of processing delay, gives about 0.4 ms analog in to analog out — not a measured product latency.</p>
+        </div>
       </div>
     </section>
 
-    <section class="story" id="path">
+    <section class="story" id="night">
       <div class="wrap">
         <div class="story-stage">
-          <canvas id="anim-path" width="1920" height="1080" aria-label="Illustrative exploded view of the signal path: XLR in, Nullyn AI, XLR out. Not measured data."></canvas>
+          <canvas id="anim-night" width="1920" height="1080" aria-label="Illustrative timeline of a wedding or event night: speeches, toasts, dance floor, last song. Howl-risk moments appear as red pins and are caught with a green notch. The line 'zero howls reached the crowd' is illustrative, not measured data."></canvas>
         </div>
-        <p class="story-caption">XLR in, Nullyn AI, XLR out.</p>
+        <div class="story-copy">
+          <h2>Through the whole night.</h2>
+          <p>An illustrative run through a wedding set — speeches, toasts, the dance floor, the last song. Each howl-risk moment is notched before it can take off. The closing line is illustrative, not a measured result.</p>
+        </div>
       </div>
     </section>
 
-    <section class="alt backed-strip" id="research">
-      <div class="wrap strip-inner">
-        <div>
-          <p class="kicker">Research-backed</p>
-          <h2>Built on the literature.</h2>
+    <section class="alt howto" id="howto">
+      <div class="wrap">
+        <p class="kicker">How Nullyn AI works</p>
+        <h2>Listen. Detect. Notch.</h2>
+        <ol class="how-steps">
+          <li>
+            <h3>Listen</h3>
+            <p>The mic signal comes in and goes through a per-sample audio path, heading for the mixer and the speakers.</p>
+          </li>
+          <li>
+            <h3>Detect</h3>
+            <p>A control path running alongside the audio watches for the frequencies that are about to howl.</p>
+          </li>
+          <li>
+            <h3>Notch</h3>
+            <p>Only those bands are notched. The rest of the program is left intact — it is not a fader pull.</p>
+          </li>
+        </ol>
+        <p class="who-for"><strong>Who it&rsquo;s for.</strong> FOH engineers, DJs, and AV teams running live events, weddings, and conferences.</p>
+      </div>
+    </section>
+
+    <section class="backed-strip" id="research">
+      <div class="wrap">
+        <div class="strip-inner">
+          <div>
+            <p class="kicker">Research-backed</p>
+            <h2>Held-out, simulated.</h2>
+          </div>
+          <div class="backed-actions">
+            <a class="btn btn-primary" href="/research/">Read the research</a>
+            <a class="btn btn-ghost" href="/whitepaper/">Whitepaper</a>
+          </div>
         </div>
-        <div class="backed-actions">
-          <a class="btn btn-primary" href="/research/">Read the research</a>
-          <a class="btn btn-ghost" href="/whitepaper/">Whitepaper</a>
+        <div class="sim-headlines">
+          <div class="sim-stat">
+            <p class="figure">26.1% vs 47.3%</p>
+            <p>Howl rate with Nullyn AI, versus no processing.</p>
+            <p class="sim-tag">Simulated · 11,700 held-out runs per condition</p>
+          </div>
+          <div class="sim-stat">
+            <p class="figure">4.5 vs 7.8</p>
+            <p>False notches per run, versus a classic notch.</p>
+            <p class="sim-tag">Simulated · 11,700 held-out runs per condition</p>
+          </div>
+          <div class="sim-stat">
+            <p class="figure">3,900</p>
+            <p>Held-out scenarios across venues, including moving sources.</p>
+            <p class="sim-tag">Simulated</p>
+          </div>
         </div>
       </div>
     </section>
@@ -616,7 +747,7 @@
         </div>
       </div>
       <div class="legal">
-        <span>© 2026 Nullyn. All rights reserved.</span>
+        <span>© 2026 Nullyn AI. All rights reserved.</span>
         <span>No tracking. No cookies. No data collection.</span>
       </div>
     </div>
@@ -652,41 +783,83 @@
         }
       }
 
-      function floor(i) {
-        const t = i / (BINS - 1);
-        return 0.20 + 0.16 * Math.sin(t * Math.PI) + 0.04 * Math.sin(t * 7);
+      function musicFloor(i, t) {
+        const u = i / (BINS - 1);
+        return 0.28 + 0.22 * Math.sin(u * Math.PI) + 0.05 * Math.sin(t * 2.2 + i * 0.45);
       }
-      function peakShape(i) {
-        const d = (i - PEAK) / 1.05;
-        return Math.exp(-(d * d) / 2);
-      }
+      function isHowlBin(i) { return i === PEAK; }
       function drawPanel(canvas, t, kind) {
         const ctx = canvas.getContext("2d");
         const w = canvas.width, h = canvas.height;
         ctx.clearRect(0, 0, w, h);
-        const grow = kind === "without" ? Math.min(1, t / 4) : 0;
-        const specTop = 8, specH = h * 0.56;
-        const waveTop = h * 0.64, waveH = h * 0.32;
+        const grow = kind === "without" ? Math.min(1, t / 4) : 1;
+        const specTop = 8, specH = h * 0.52;
+        const waveTop = h * 0.62, waveH = h * 0.34;
         const gap = 4;
         const bw = (w - gap * (BINS - 1)) / BINS;
+        const heights = [];
         for (let i = 0; i < BINS; i++) {
-          let val;
-          if (kind === "without") {
-            val = Math.min(1, floor(i) * 0.75 + peakShape(i) * grow);
-          } else {
-            val = floor(i) * 0.9 * (1 - 0.7 * peakShape(i));
-          }
+          let val = musicFloor(i, t);
+          if (kind === "without" && isHowlBin(i)) val = val * (1 - grow) + 0.98 * grow;
+          if (kind === "with" && isHowlBin(i)) val = 0.055;
+          heights.push(Math.max(0.04, Math.min(1, val)));
+        }
+        if (kind === "with") {
+          const gx = PEAK * (bw + gap);
+          const gh = 0.98 * specH;
+          ctx.save();
+          ctx.globalAlpha = 0.25;
+          ctx.strokeStyle = C.howl;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(gx, specTop + specH - gh, bw, gh, Math.min(3, bw / 2));
+          else ctx.rect(gx, specTop + specH - gh, bw, gh);
+          ctx.stroke();
+          ctx.restore();
+        }
+        for (let i = 0; i < BINS; i++) {
+          const val = heights[i];
           const bh = Math.max(3, val * specH);
           const x = i * (bw + gap);
           const y = specTop + specH - bh;
-          ctx.fillStyle = kind === "without"
-            ? (peakShape(i) * grow > 0.2 ? C.howl : C.muted)
-            : C.primary;
+          const ringing = kind === "without" && isHowlBin(i) && grow > 0.2;
+          ctx.fillStyle = ringing ? C.howl : (kind === "without" ? C.muted : C.primary);
           const r = Math.min(3, bw / 2);
           ctx.beginPath();
           if (ctx.roundRect) ctx.roundRect(x, y, bw, bh, r);
           else ctx.rect(x, y, bw, bh);
           ctx.fill();
+        }
+        if (kind === "with") {
+          const midX = PEAK * (bw + gap) + bw / 2;
+          const midY = specTop + specH - heights[PEAK] * specH;
+          const leftX = (PEAK - 1) * (bw + gap) + bw / 2;
+          const rightX = (PEAK + 1) * (bw + gap) + bw / 2;
+          const leftY = specTop + specH - heights[PEAK - 1] * specH;
+          const rightY = specTop + specH - heights[PEAK + 1] * specH;
+          ctx.save();
+          ctx.strokeStyle = C.primary;
+          ctx.fillStyle = C.primary;
+          ctx.lineWidth = Math.max(2, w / 280);
+          ctx.lineJoin = "round";
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(leftX, leftY);
+          ctx.lineTo(midX, midY + 1);
+          ctx.lineTo(rightX, rightY);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(midX, midY - 12);
+          ctx.lineTo(midX, midY - 4);
+          ctx.moveTo(midX - 3.5, midY - 8);
+          ctx.lineTo(midX, midY - 4);
+          ctx.lineTo(midX + 3.5, midY - 8);
+          ctx.stroke();
+          ctx.font = "500 " + Math.max(10, Math.round(w / 52)) + "px IBM Plex Mono, ui-monospace, monospace";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "bottom";
+          ctx.fillText("notch at ~2.5 kHz", midX, Math.min(leftY, rightY) - 10);
+          ctx.restore();
         }
         ctx.lineWidth = Math.max(2, w / 350);
         ctx.lineJoin = "round";
@@ -698,13 +871,9 @@
         for (let i = 0; i <= n; i++) {
           const u = i / n;
           const x = u * w;
-          let y;
-          if (kind === "without") {
-            const amp = 0.18 + 0.72 * grow;
-            y = mid - Math.sin(u * Math.PI * 14 + t * 8) * amp * (waveH * 0.48);
-          } else {
-            y = mid - Math.sin(u * Math.PI * 3.6 + t * 1.6) * 0.28 * (waveH * 0.48);
-          }
+          const music = Math.sin(u * Math.PI * 6 + t * 2.2) * 0.22 + Math.sin(u * Math.PI * 11 + t * 3.1) * 0.14;
+          const scream = Math.sin(u * Math.PI * 22 + t * 14) * 0.42 * (kind === "without" ? grow : 0);
+          const y = mid - (music + scream) * (waveH * 0.95);
           if (i === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }

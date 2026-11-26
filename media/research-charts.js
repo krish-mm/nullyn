@@ -1,6 +1,9 @@
 /* Site-native simulated-evaluation charts for /research/. Numbers come from media/research-data.json only. */
 (function () {
   const NS = "http://www.w3.org/2000/svg";
+  const FONT_UI = "Manrope, ui-sans-serif, system-ui, sans-serif";
+  const FONT_MONO = "IBM Plex Mono, ui-monospace, monospace";
+  const FONT_DISPLAY = "Syne, ui-sans-serif, system-ui, sans-serif";
   const COL = {
     none: "#FF1A1A",
     classic: "#A3A3A3",
@@ -40,7 +43,7 @@
       svg.appendChild(el("rect", { x: lx, y: y - 9, width: 10, height: 10, rx: 2, fill: COL[p.id] }));
       const t = el("text", {
         x: lx + 14, y: y, fill: COL.muted, "font-size": 12,
-        "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+        "font-family": FONT_UI,
       }, [p.label]);
       svg.appendChild(t);
       lx += 14 + Math.max(72, p.label.length * 6.6) + 16;
@@ -50,7 +53,7 @@
   function caption(svg, text, width, height) {
     svg.appendChild(el("text", {
       x: 20, y: height - 14, fill: COL.muted, "font-size": 12,
-      "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+      "font-family": FONT_MONO,
     }, [text]));
   }
 
@@ -68,7 +71,7 @@
     svg.appendChild(el("rect", { width: width, height: height, rx: 16, fill: COL.bg }));
     svg.appendChild(el("text", {
       x: 20, y: 28, fill: COL.text, "font-size": 16, "font-weight": 600,
-      "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+      "font-family": FONT_DISPLAY,
     }, [title]));
     legend(svg, processors, 20, 50);
 
@@ -87,14 +90,14 @@
       svg.appendChild(el("line", { x1: pad.l, x2: width - pad.r, y1: y, y2: y, stroke: COL.line, "stroke-width": 1 }));
       svg.appendChild(el("text", {
         x: pad.l - 8, y: y + 4, fill: COL.muted, "font-size": 11, "text-anchor": "end",
-        "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+        "font-family": FONT_MONO,
       }, [formatValue(v)]));
     }
     if (yLabel) {
       svg.appendChild(el("text", {
         x: 16, y: pad.t + innerH / 2, fill: COL.muted, "font-size": 11, "text-anchor": "middle",
         transform: "rotate(-90 16 " + (pad.t + innerH / 2) + ")",
-        "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+        "font-family": FONT_UI,
       }, [yLabel]));
     }
 
@@ -117,7 +120,7 @@
           const fill = h > 14 ? COL.text : COL.muted;
           svg.appendChild(el("text", {
             x: x + (bw - 2) / 2, y: ly, fill: fill, "font-size": 11, "text-anchor": "middle",
-            "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+            "font-family": FONT_MONO,
           }, [formatValue(v)]));
         }
       });
@@ -129,7 +132,7 @@
               x: gx + pi * bw + bw / 2,
               y: pad.t + innerH + 16 + li * 14,
               fill: COL.muted, "font-size": 11, "text-anchor": "middle",
-              "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+              "font-family": FONT_MONO,
             }, [line]));
           });
         });
@@ -140,7 +143,7 @@
             x: gx + usable / 2,
             y: pad.t + innerH + 16 + li * 14,
             fill: COL.muted, "font-size": 11, "text-anchor": "middle",
-            "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+            "font-family": FONT_MONO,
           }, [line]));
         });
       }
@@ -182,7 +185,7 @@
     svg.appendChild(el("rect", { width: width, height: height, rx: 16, fill: COL.bg }));
     svg.appendChild(el("text", {
       x: 20, y: 28, fill: COL.text, "font-size": 16, "font-weight": 600,
-      "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+      "font-family": FONT_DISPLAY,
     }, [title]));
     legend(svg, processors, 20, 50);
 
@@ -200,7 +203,7 @@
       svg.appendChild(el("line", { x1: pad.l, x2: width - pad.r, y1: y, y2: y, stroke: COL.line, "stroke-width": 1 }));
       svg.appendChild(el("text", {
         x: pad.l - 8, y: y + 4, fill: COL.muted, "font-size": 11, "text-anchor": "end",
-        "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+        "font-family": FONT_MONO,
       }, [formatY(v)]));
     }
     // x = 0 reference (stability limit)
@@ -220,20 +223,20 @@
       svg.appendChild(el("line", { x1: px, x2: px, y1: pad.t + innerH, y2: pad.t + innerH + 5, stroke: COL.muted, "stroke-width": 1 }));
       svg.appendChild(el("text", {
         x: px, y: pad.t + innerH + 18, fill: COL.muted, "font-size": 11, "text-anchor": "middle",
-        "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+        "font-family": FONT_MONO,
       }, [formatX(x)]));
     });
     if (yLabel) {
       svg.appendChild(el("text", {
         x: 16, y: pad.t + innerH / 2, fill: COL.muted, "font-size": 11, "text-anchor": "middle",
         transform: "rotate(-90 16 " + (pad.t + innerH / 2) + ")",
-        "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+        "font-family": FONT_UI,
       }, [yLabel]));
     }
     if (xLabel) {
       svg.appendChild(el("text", {
         x: pad.l + innerW / 2, y: height - 32, fill: COL.muted, "font-size": 11, "text-anchor": "middle",
-        "font-family": "Segoe UI, ui-sans-serif, system-ui, sans-serif",
+        "font-family": FONT_UI,
       }, [xLabel]));
     }
 
