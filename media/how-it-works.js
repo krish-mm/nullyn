@@ -60,13 +60,18 @@ const W = 1920, H = 1080;
     }
 
     function beats(t) {
-      const fadeIn = smoothstep(0.0, 0.28, t);
-      const walk = easeInOut(smoothstep(1.55, 2.55, t));
-      const howl = smoothstep(2.50, 3.80, t) * (1 - smoothstep(4.55, 6.15, t));
-      const nullyn = smoothstep(3.90, 4.45, t);
-      const notch = smoothstep(4.35, 5.40, t);
-      const end = smoothstep(7.00, 7.50, t);
-      return { t, fadeIn, walk, howl, nullyn, notch, end };
+      const fadeIn = smoothstep(0.0, 0.25, t);
+      const walk = easeInOut(smoothstep(1.35, 2.25, t));
+      const howl1 = smoothstep(2.15, 3.15, t) * (1 - smoothstep(4.05, 4.85, t));
+      const nullyn = smoothstep(3.35, 3.85, t);
+      const notch1 = smoothstep(3.70, 4.50, t);
+      const nudge = smoothstep(5.05, 5.55, t);
+      const howl2 = smoothstep(5.35, 6.10, t) * (1 - smoothstep(6.25, 7.00, t));
+      const notch2 = smoothstep(5.85, 6.60, t);
+      const howl = Math.max(howl1, howl2);
+      const notch = Math.max(notch1 * (1 - howl2), notch2);
+      const end = smoothstep(7.55, 8.10, t);
+      return { t, fadeIn, walk, howl, howl1, howl2, nullyn, notch, notch1, notch2, nudge, end };
     }
 
     function performerPos(walk) {
@@ -317,7 +322,8 @@ const W = 1920, H = 1080;
       c.restore();
     }
 
-    function drawMixer(c, x, y) {
+    function drawMixer(c, x, y, nudge) {
+      nudge = nudge || 0;
       c.save();
       c.translate(x, y);
       c.fillStyle = "#141414";
@@ -335,26 +341,51 @@ const W = 1920, H = 1080;
       c.fill();
       for (let i = 0; i < 10; i++) {
         c.fillStyle = i > 6 ? C.dim : C.primary;
-        c.globalAlpha = 0.55;
+        c.globalAlpha = 0.55 + 0.45 * (nudge > 0.4 && i > 7 ? 1 : 0);
         c.fillRect(-80 + i * 17, -38, 10, 8);
         c.globalAlpha = 1;
       }
-      // faders + knobs
+      // faders + knobs — channel 8 is the one being nudged
+      let handX = 0, handY = 0;
       for (let i = 0; i < 12; i++) {
         const fx = -86 + i * 15;
+        const lift = (i === 8) ? nudge : 0;
         c.fillStyle = "#2A2A2A";
         c.fillRect(fx, -16, 3, 36);
-        c.fillStyle = "#3A3A3A";
-        c.fillRect(fx - 2, -8 + (i % 3) * 6, 7, 5);
+        const fy = -8 + (i % 3) * 6 - lift * 18;
+        c.fillStyle = lift > 0.15 ? C.primary : "#3A3A3A";
+        c.fillRect(fx - 2, fy, 7, 5);
+        if (i === 8) { handX = fx + 2; handY = fy - 4; }
         if (i % 2 === 0) {
           c.beginPath();
-          c.fillStyle = "#2E2E2E";
+          c.fillStyle = (i === 8 && lift > 0.2) ? C.primary : "#2E2E2E";
           c.arc(fx + 1, -22, 3, 0, Math.PI * 2);
           c.fill();
         }
       }
+      if (nudge > 0.12) {
+        c.save();
+        c.globalAlpha = Math.min(1, nudge * 1.4);
+        c.strokeStyle = C.text;
+        c.fillStyle = "rgba(200,196,188,0.95)";
+        c.lineWidth = 2;
+        c.beginPath();
+        c.moveTo(handX + 16, handY + 22);
+        c.lineTo(handX + 8, handY + 4);
+        c.lineTo(handX + 2, handY - 2);
+        c.lineTo(handX + 10, handY + 2);
+        c.lineTo(handX + 14, handY - 10);
+        c.lineTo(handX + 20, handY + 6);
+        c.closePath();
+        c.fill();
+        c.stroke();
+        c.restore();
+      }
       c.restore();
       label(c, "Mixer", x, y + 78, C.muted);
+      if (nudge > 0.25) {
+        label(c, "Fader up", x, y - 86, C.primary);
+      }
     }
 
     function drawNullyn(c, x, y, on) {
@@ -365,7 +396,7 @@ const W = 1920, H = 1080;
         c.shadowBlur = 18 + 24 * on;
       }
       c.fillStyle = on > 0.15 ? "#0E0E0E" : "#141414";
-      rr(c, -58, -20, 116, 40, 8);
+      rr(c, -74, -26, 148, 52, 10);
       c.fill();
       c.shadowBlur = 0;
       c.strokeStyle = on > 0.15 ? C.primary : "#333";
@@ -373,22 +404,26 @@ const W = 1920, H = 1080;
       c.globalAlpha = 0.45 + 0.55 * on;
       c.stroke();
       c.globalAlpha = 1;
-      // XLR ends
-      c.fillStyle = "#2A2A2A";
-      c.beginPath();
-      c.arc(-58, 0, 8, 0, Math.PI * 2);
-      c.arc(58, 0, 8, 0, Math.PI * 2);
-      c.fill();
-      c.fillStyle = on > 0.2 ? C.primary : "#3A3A3A";
-      c.beginPath();
-      c.arc(-58, 0, 3.2, 0, Math.PI * 2);
-      c.arc(58, 0, 3.2, 0, Math.PI * 2);
-      c.fill();
-      drawCancelMark(c, 0, 0, 26, on > 0.2 ? C.primary : "#7A7A7A");
+      // Two inputs on the left, one output on the right
+      const jacks = [
+        { x: -74, y: -12, lit: on > 0.2 },
+        { x: -74, y: 12, lit: on > 0.2 },
+        { x: 74, y: 0, lit: on > 0.2 },
+      ];
+      jacks.forEach((j) => {
+        c.fillStyle = "#2A2A2A";
+        c.beginPath();
+        c.arc(j.x, j.y, 8, 0, Math.PI * 2);
+        c.fill();
+        c.fillStyle = j.lit ? C.primary : "#3A3A3A";
+        c.beginPath();
+        c.arc(j.x, j.y, 3.2, 0, Math.PI * 2);
+        c.fill();
+      });
+      drawCancelMark(c, 8, 0, 26, on > 0.2 ? C.primary : "#7A7A7A");
       c.restore();
-      label(c, "Nullyn AI", x, y + 26, on > 0.4 ? C.primary : C.muted);
+      label(c, "Nullyn AI", x, y + 34, on > 0.4 ? C.primary : C.muted);
     }
-
 
     function bezierPoint(p0, p1, p2, p3, t) {
       const u = 1 - t, uu = u * u, tt = t * t;
@@ -424,14 +459,14 @@ const W = 1920, H = 1080;
 
       const micP0 = { x: from.x, y: from.y };
       const micP1 = { x: from.x, y: from.y + 70 };
-      const micP2 = { x: from.x + (nullyn.x - from.x) * 0.3, y: nullyn.y - 4 };
-      const micP3 = { x: nullyn.x - 58, y: nullyn.y };
+      const micP2 = { x: from.x + (nullyn.x - from.x) * 0.3, y: nullyn.y - 16 };
+      const micP3 = { x: nullyn.x - 74, y: nullyn.y - 12 };
       c.strokeStyle = howl > 0.25 ? C.howl : (on > 0.5 ? C.dim : "#3A3A3A");
       c.globalAlpha = 0.45 + 0.4 * Math.max(howl, on * 0.5);
       strokeBezier(c, micP0, micP1, micP2, micP3);
 
-      const n0 = { x: nullyn.x + 58, y: nullyn.y };
-      const n1 = { x: nullyn.x + 180, y: nullyn.y + 28 };
+      const n0 = { x: nullyn.x + 74, y: nullyn.y };
+      const n1 = { x: nullyn.x + 190, y: nullyn.y + 28 };
       const n2 = { x: mixer.x - 160, y: mixer.y - 10 };
       const n3 = { x: mixer.x - 100, y: mixer.y - 8 };
       c.strokeStyle = on > 0.4 ? C.dim : "#3A3A3A";
@@ -477,6 +512,22 @@ const W = 1920, H = 1080;
       strokeBezier(c, wr0, wr1, wr2, wr3);
       c.globalAlpha = 1;
 
+      // Closed-loop reference: mixer speaker feed back into Nullyn AI's second input.
+      const ref0 = { x: mixer.x - 90, y: mixer.y + 18 };
+      const ref1 = { x: mixer.x - 280, y: mixer.y + 70 };
+      const ref2 = { x: nullyn.x + 40, y: nullyn.y + 70 };
+      const ref3 = { x: nullyn.x - 74, y: nullyn.y + 12 };
+      c.strokeStyle = on > 0.4 ? C.primary : "#3A3A3A";
+      c.lineWidth = 2.4;
+      c.globalAlpha = 0.5 + 0.45 * on;
+      strokeBezier(c, ref0, ref1, ref2, ref3);
+      c.lineWidth = 2.2;
+      c.globalAlpha = 1;
+      if (on > 0.35) {
+        const mid = bezierPoint(ref0, ref1, ref2, ref3, 0.55);
+        label(c, "speaker feed", mid.x, mid.y + 16, C.primary);
+      }
+
       if (on > 0.15 || howl > 0.15) {
         const micCol = (howl > 0.3 && on < 0.5) ? C.howl : (on > 0.45 ? C.primary : C.dim);
         pulseBezier(c, micP0, micP1, micP2, micP3, t * 0.9, micCol, 2);
@@ -485,6 +536,7 @@ const W = 1920, H = 1080;
           pulseBezier(c, ml0, ml1, ml2, ml3, t * 0.85 + 0.3, C.primary, 2);
           pulseBezier(c, mr0, mr1, mr2, mr3, t * 0.85 + 0.38, C.primary, 2);
           pulseBezier(c, wr0, wr1, wr2, wr3, t * 0.85 + 0.34, C.primary, 2);
+          pulseBezier(c, ref0, ref1, ref2, ref3, t * 0.8 + 0.5, C.primary, 2);
         }
         pulseBezier(c, wl0, wl1, wl2, wl3, t * 0.85 + 0.28, howl > 0.2 ? C.howl : C.primary, 2);
       }
@@ -811,10 +863,10 @@ const W = 1920, H = 1080;
       c.restore();
     }
 
-    function drawSpectrum(c, x, y, howl, notch, t) {
+    function drawSpectrum(c, x, y, howl, notch, t, opts) {
       const pk = (typeof panelScale === "function") ? panelScale() : 1;
       const w = 520 * pk, h = 280 * pk;
-      drawEqPanel(c, x, y, w, h, howl, notch, t, C);
+      drawEqPanel(c, x, y, w, h, howl, notch, t, C, opts);
     }
 
     function drawEndCard(c, alpha) {
@@ -841,9 +893,9 @@ const W = 1920, H = 1080;
       c.letterSpacing = "-0.05em";
       c.fillText(word, lockLeft + markSize + markGap, H / 2 - 70);
 
-      const items = ["mic", "Nullyn AI", "mixer", "speakers"];
-      const boxW = 210, boxH = 72, gap = 28, chev = 34;
-      const total = items.length * boxW + 2 * (gap + chev);
+      const items = ["mic + speaker feed", "Nullyn AI", "mixer", "speakers"];
+      const boxW = 248, boxH = 72, gap = 24, chev = 34;
+      const total = items.length * boxW + (items.length - 1) * (gap + chev);
       let x = (W - total) / 2;
       const y = H / 2 + 70;
       items.forEach((txt, i) => {
@@ -895,7 +947,7 @@ const W = 1920, H = 1080;
       label(ctx, "Monitor", LAYOUT.wedgeL.x, LAYOUT.wedgeL.y + 30, b.howl > 0.4 ? C.howl : C.muted);
 
       drawCrowd(ctx);
-      drawMixer(ctx, LAYOUT.mixer.x, LAYOUT.mixer.y);
+      drawMixer(ctx, LAYOUT.mixer.x, LAYOUT.mixer.y, b.nudge);
 
       const cleanAmp = (0.55 + 0.2 * Math.sin(t * 1.4)) * (0.85 + 0.15 * b.nullyn);
       const howlAmp = b.howl;
@@ -916,8 +968,17 @@ const W = 1920, H = 1080;
       drawPerformer(ctx, pos.x, pos.y, t, b.walk, singing);
       drawVoice(ctx, mic, t, howlAmp > 0.5 ? C.howl : C.primary, 0.7 * singing);
 
-      if (howlAmp > 0.35 && b.notch < 0.55) {
+      const howlHz = b.howl2 > 0.35 ? 3600 : 2500;
+      if (b.howl1 > 0.35 && b.notch1 < 0.55) {
         label(ctx, "Feedback", (LAYOUT.wedgeL.ox + mic.x) / 2, Math.min(LAYOUT.wedgeL.oy, mic.y) - 78, C.howl);
+      } else if (b.notch2 > 0.45 && b.end < 0.2) {
+        label(ctx, "Board changed — still notched", LAYOUT.nullyn.x, LAYOUT.nullyn.y - 92, C.primary);
+        label(ctx, "illustrative", LAYOUT.nullyn.x, LAYOUT.nullyn.y - 70, C.muted);
+      } else if (b.howl2 > 0.3 && b.notch2 < 0.55) {
+        label(ctx, "Still caught", LAYOUT.nullyn.x, LAYOUT.nullyn.y - 80, C.primary);
+        label(ctx, "illustrative", LAYOUT.nullyn.x, LAYOUT.nullyn.y - 58, C.muted);
+      } else if (b.nudge > 0.45 && b.end < 0.2) {
+        label(ctx, "illustrative", LAYOUT.mixer.x, LAYOUT.mixer.y - 108, C.muted);
       } else if (b.nullyn > 0.7 && howlAmp < 0.22 && b.end < 0.2) {
         label(ctx, "Clean output", LAYOUT.mixer.x - 40, LAYOUT.mixer.y - 78, C.primary);
       }
@@ -927,7 +988,7 @@ const W = 1920, H = 1080;
         const sw = 520 * pk, sh = 280 * pk;
         const sx = Math.max(48, W - sw - 48);
         const sy = 32;
-        drawSpectrum(ctx, sx, sy, howlAmp, b.notch, t);
+        drawSpectrum(ctx, sx, sy, howlAmp, b.notch, t, { howlHz: howlHz });
       })();
 
       // Fade-in overlay

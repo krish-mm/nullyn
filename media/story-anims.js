@@ -370,6 +370,56 @@
           ctx.fill();
           ctx.restore();
         }
+        if (cleanAmt > 0) {
+          // Closed-loop chain on the With side: mic + speaker feed into Nullyn AI.
+          const sy = 880;
+          const cx = x0 + 440;
+          ctx.save();
+          ctx.globalAlpha = Math.min(1, 0.35 + cleanAmt);
+          ctx.font = "500 13px IBM Plex Mono, ui-monospace, monospace";
+          ctx.fillStyle = C.muted;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          const nodes = ["MIC", "Nullyn AI", "MIXER", "SPEAKERS"];
+          const gap = 150;
+          const startX = cx - (gap * 1.5);
+          nodes.forEach((name, i) => {
+            const x = startX + i * gap;
+            ctx.strokeStyle = C.primary;
+            ctx.fillStyle = i === 1 ? C.primary : "transparent";
+            ctx.lineWidth = 1.5;
+            rr(ctx, x - 58, sy - 18, 116, 36, 8);
+            if (i === 1) ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = i === 1 ? C.bg : C.text;
+            ctx.fillText(name, x, sy);
+            if (i < 3) {
+              ctx.strokeStyle = C.dim;
+              ctx.beginPath();
+              ctx.moveTo(x + 60, sy);
+              ctx.lineTo(x + gap - 60, sy);
+              ctx.stroke();
+            }
+          });
+          // speaker-feed return under the chain
+          ctx.strokeStyle = C.primary;
+          ctx.lineWidth = 1.8;
+          ctx.beginPath();
+          ctx.moveTo(startX + gap * 2, sy + 20);
+          ctx.lineTo(startX + gap * 2, sy + 36);
+          ctx.lineTo(startX + gap, sy + 36);
+          ctx.lineTo(startX + gap, sy + 20);
+          ctx.stroke();
+          // arrow into Nullyn AI
+          ctx.beginPath();
+          ctx.moveTo(startX + gap - 6, sy + 26);
+          ctx.lineTo(startX + gap, sy + 20);
+          ctx.lineTo(startX + gap + 6, sy + 26);
+          ctx.stroke();
+          ctx.fillStyle = C.primary;
+          ctx.fillText("speaker feed", startX + gap * 1.5, sy + 52);
+          ctx.restore();
+        }
       };
       const fA = smoothstep(0.3, 2.8, t);
       const howlA = smoothstep(2.1, 3.1, t) * (1 - smoothstep(6.4, 6.95, t));
@@ -528,6 +578,10 @@
       const pcb  = ly(yPcb,  sealedY + 20, sealedH - 40, pcbH);
       const seed = ly(ySeed, sealedY + 70, 120, seedH);
       const jackY = lerp(sealedY + sealedH / 2, yJack, explode);
+      const jOut = 40 * explode;
+      const jMic = cx - 210 - jOut;
+      const jRef = cx;
+      const jOutX = cx + 210 + jOut;
 
       // ---- Enclosure tray (always visible) ----
       plate(ctx, cx - boxW / 2, encl.y, boxW, encl.h, 24, "#1B1B1B", "#101010");
@@ -543,8 +597,12 @@
         ctx.save();
         ctx.globalAlpha = 1 - smoothstep(0.0, 0.4, showIn);
         drawCancelMark(ctx, cx, encl.y + encl.h / 2, 88, C.primary);
-        xlrFace(ctx, cx - boxW / 2 + 58, encl.y + encl.h / 2, 26, false);
+        xlrFace(ctx, cx - boxW / 2 + 58, encl.y + encl.h / 2 - 32, 22, false);
+        xlrFace(ctx, cx - boxW / 2 + 58, encl.y + encl.h / 2 + 32, 22, false);
         xlrFace(ctx, cx + boxW / 2 - 58, encl.y + encl.h / 2, 26, false);
+        mono(ctx, "MIC IN", cx - boxW / 2 + 58, encl.y + encl.h / 2 - 58, 11, C.muted, "center", 500);
+        mono(ctx, "REF IN", cx - boxW / 2 + 58, encl.y + encl.h / 2 + 58, 11, C.muted, "center", 500);
+        mono(ctx, "OUT", cx + boxW / 2 - 58, encl.y + encl.h / 2 + 44, 11, C.muted, "center", 500);
         ctx.restore();
       }
 
@@ -554,9 +612,14 @@
         ctx.globalAlpha = Math.min(1, showIn * 1.15);
 
         // Neutrik jacks, sliding out to a clear row
-        const jOut = 80 * explode;
-        xlrFace(ctx, cx - 110 - jOut, jackY, 30, explode > 0.45);
-        xlrFace(ctx, cx + 110 + jOut, jackY, 30, explode > 0.45);
+        xlrFace(ctx, jMic, jackY, 30, explode > 0.45);
+        xlrFace(ctx, jRef, jackY, 30, explode > 0.45);
+        xlrFace(ctx, jOutX, jackY, 30, explode > 0.45);
+        if (explode > 0.55) {
+          mono(ctx, "MIC IN", jMic, jackY + 44, 13, C.text, "center", 500);
+          mono(ctx, "SPEAKER FEED / REF IN", jRef, jackY + 44, 13, C.primary, "center", 500);
+          mono(ctx, "OUT", jOutX, jackY + 44, 13, C.text, "center", 500);
+        }
 
         // Carrier PCB
         plate(ctx, cx - pcbW / 2, pcb.y, pcbW, pcb.h, 16, "#152816", "#0C180A");
@@ -572,8 +635,9 @@
           ctx.stroke();
         }
         ctx.restore();
-        chip(ctx, cx - pcbW / 2 + 28, pcb.y + 48, 100, 34, "1246");
-        chip(ctx, cx + pcbW / 2 - 28 - 100, pcb.y + 48, 100, 34, "1646");
+        chip(ctx, cx - pcbW / 2 + 22, pcb.y + 22, 86, 30, "1246");
+        chip(ctx, cx - pcbW / 2 + 22 + 96, pcb.y + 22, 86, 30, "1246");
+        chip(ctx, cx + pcbW / 2 - 22 - 86, pcb.y + 22, 86, 30, "1646");
         rr(ctx, cx - 30, pcb.y + 92, 60, 36, 4);
         ctx.fillStyle = "#2B2B22";
         ctx.fill();
@@ -616,9 +680,9 @@
         leader(ctx, cx + boxW / 2 + 10, lid.y + lid.h / 2, right, lid.y + lid.h / 2, "1590BB lid", "right");
         leader(ctx, cx + seedW / 2 + 10, seed.y + seed.h / 2, right, seed.y + seed.h / 2, "Daisy Seed 3", "right");
         leader(ctx, cx + pcbW / 2 + 10, pcb.y + 32, right, pcb.y + 28, "Carrier PCB", "right");
-        leader(ctx, cx + pcbW / 2 - 24, pcb.y + 64, right, pcb.y + 72, "THAT1246 / 1646 I/O", "right");
+        leader(ctx, cx + pcbW / 2 - 24, pcb.y + 48, right, pcb.y + 52, "2× THAT1246 (mic + Ref In) / THAT1646 out", "right");
         leader(ctx, cx + 34, pcb.y + 112, right, pcb.y + 118, "Relay bypass", "right");
-        leader(ctx, cx + 110 + 80 * explode + 32, jackY, right, jackY, "Neutrik XLR", "right");
+        leader(ctx, jOutX + 32, jackY, right, jackY, "Neutrik — MIC IN, REF IN, OUT", "right");
         leader(ctx, cx - boxW / 2 - 4, encl.y + encl.h / 2, 420, encl.y + encl.h / 2, "1590BB enclosure", "left");
         ctx.restore();
       }
@@ -808,8 +872,47 @@
 
       ctx.save();
       ctx.globalAlpha = intro;
-      display(ctx, "A night with Nullyn AI", 960, 120, 48, C.text, "center");
-      mono(ctx, "ILLUSTRATIVE EVENT  ·  NOT MEASURED DATA", 960, 168, 14, C.muted, "center", 500);
+      display(ctx, "A night with Nullyn AI", 960, 100, 48, C.text, "center");
+      mono(ctx, "ILLUSTRATIVE EVENT  ·  NOT MEASURED DATA", 960, 144, 14, C.muted, "center", 500);
+      // Compact closed-loop chain so the timeline still shows the reference feed.
+      const chainY = 200;
+      const labs = ["MIC", "Nullyn AI", "MIXER", "SPEAKERS"];
+      const cGap = 200;
+      const c0 = 960 - cGap * 1.5;
+      ctx.font = "500 13px IBM Plex Mono, ui-monospace, monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      labs.forEach((name, i) => {
+        const x = c0 + i * cGap;
+        ctx.strokeStyle = C.primary;
+        ctx.lineWidth = 1.4;
+        ctx.fillStyle = i === 1 ? C.primary : "transparent";
+        rr(ctx, x - 54, chainY - 16, 108, 32, 8);
+        if (i === 1) ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = i === 1 ? C.bg : C.text;
+        ctx.fillText(name, x, chainY);
+        if (i < 3) {
+          ctx.strokeStyle = C.dim;
+          ctx.beginPath();
+          ctx.moveTo(x + 56, chainY);
+          ctx.lineTo(x + cGap - 56, chainY);
+          ctx.stroke();
+        }
+      });
+      ctx.strokeStyle = C.primary;
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(c0 + cGap * 2, chainY + 18);
+      ctx.lineTo(c0 + cGap * 2, chainY + 32);
+      ctx.lineTo(c0 + cGap, chainY + 32);
+      ctx.lineTo(c0 + cGap, chainY + 18);
+      ctx.moveTo(c0 + cGap - 5, chainY + 24);
+      ctx.lineTo(c0 + cGap, chainY + 18);
+      ctx.lineTo(c0 + cGap + 5, chainY + 24);
+      ctx.stroke();
+      ctx.fillStyle = C.primary;
+      ctx.fillText("speaker feed", c0 + cGap * 1.5, chainY + 48);
 
       const x0 = 200, x1 = 1720, y = 620;
       // track

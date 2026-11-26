@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nullyn AI — microphone feedback suppression</title>
-  <meta name="description" content="Nullyn AI for live-mic feedback suppression. Mic output in, clean signal out — in real time, with ultra-low latency. In development.">
+  <meta name="description" content="Nullyn AI is closed-loop hardware for live-mic feedback: it takes a feed of what goes to the speakers and uses it to cancel feedback, even if someone changes the mixer. In development.">
   <link rel="canonical" href="https://nullyn.ai/">
   <link rel="icon" href="/media/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/media/favicon-32.png" type="image/png" sizes="32x32">
@@ -12,14 +12,14 @@
   <link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Nullyn AI — microphone feedback suppression">
-  <meta property="og:description" content="Nullyn AI for live-mic feedback suppression. Mic output in, clean signal out — in real time, with ultra-low latency. In development.">
+  <meta property="og:description" content="Nullyn AI is closed-loop hardware for live-mic feedback: it takes a feed of what goes to the speakers and uses it to cancel feedback, even if someone changes the mixer. In development.">
   <meta property="og:url" content="https://nullyn.ai/">
   <meta property="og:image" content="https://nullyn.ai/media/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Nullyn AI — microphone feedback suppression">
-  <meta name="twitter:description" content="Nullyn AI for live-mic feedback suppression. Mic output in, clean signal out — in real time, with ultra-low latency. In development.">
+  <meta name="twitter:description" content="Nullyn AI is closed-loop hardware for live-mic feedback: it takes a feed of what goes to the speakers and uses it to cancel feedback, even if someone changes the mixer. In development.">
   <meta name="twitter:image" content="https://nullyn.ai/media/og-image.png">
   <link rel="preload" href="/fonts/syne-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/fonts.css">
@@ -538,12 +538,79 @@
       margin: 0;
     }
     .backed-strip .backed-actions { margin-top: 0; }
+    .closed-loop { padding: 56px 0; }
+    .closed-loop h2, .roadmap h2 { margin-bottom: 16px; }
+    .loop-lede {
+      max-width: 62ch;
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.6;
+      font-weight: 430;
+      margin: 0 0 28px;
+    }
+    .loop-lede.tight { margin-bottom: 16px; }
+    .kicker.follow { margin-top: 40px; }
+    .place-grid, .who-grid, .field-steps, .roadmap-steps, .loop-notes {
+      list-style: none;
+      display: grid;
+      gap: 16px;
+      padding: 0;
+      margin: 0;
+    }
+    .place-grid { grid-template-columns: repeat(3, 1fr); margin-bottom: 20px; }
+    .loop-notes { grid-template-columns: 1fr 1fr; margin-bottom: 28px; }
+    .who-grid { grid-template-columns: repeat(4, 1fr); margin-top: 20px; }
+    .field-steps { grid-template-columns: repeat(4, 1fr); margin-top: 12px; }
+    .roadmap { padding: 56px 0; }
+    .roadmap-steps { grid-template-columns: repeat(4, 1fr); margin-top: 12px; }
+    .place-grid li, .who-grid li, .field-steps li, .roadmap-steps li, .loop-notes li {
+      padding: 20px 20px 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+    .closed-loop .alt-card, .roadmap-steps li { background: var(--bg); }
+    .loop-notes li { background: var(--bg); }
+    .place-grid h3, .who-grid h3, .loop-notes h3, .field-steps h3, .roadmap-steps h3 {
+      font-size: 17px;
+      letter-spacing: -0.03em;
+      margin: 0 0 8px;
+      line-height: 1.25;
+    }
+    .place-grid p, .who-grid p, .loop-notes p, .field-steps p, .roadmap-steps p {
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.55;
+      margin: 0;
+      font-weight: 430;
+    }
+    .step-n, .est-tag {
+      font-family: var(--font-mono);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    .loop-sim-note {
+      margin-top: 22px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 430;
+    }
+    .loop-sim-note strong { font-family: var(--font-display); letter-spacing: -0.02em; }
     @media (max-width: 900px) {
       .story { padding: 28px 0 36px; }
       .story-stage, .hiw-stage { width: 100%; max-width: 100%; }
       .story-stage canvas, .hiw-stage canvas { width: 100%; height: auto; max-width: 100%; }
       .backed-strip .strip-inner { flex-direction: column; align-items: flex-start; }
-      .how-steps, .sim-headlines { grid-template-columns: 1fr; }
+      .how-steps, .sim-headlines, .place-grid, .who-grid, .field-steps, .roadmap-steps, .loop-notes { grid-template-columns: 1fr; }
       .story-copy { text-align: left; }
       .hero-copy.tight .lede { font-size: 17px; }
     }
@@ -590,7 +657,7 @@
         <div class="hero-copy tight">
           <p class="eyebrow">Live sound · AI</p>
           <h1>Stop feedback before it starts.</h1>
-          <p class="lede">Nullyn AI is hardware that listens to a live microphone, finds the frequencies about to howl, and notches just those bands — for events, weddings, and conferences.</p>
+          <p class="lede">Nullyn AI is closed-loop hardware: it listens to the live mic and to a reference of what the mixer is sending to the speakers, then cancels the feedback path — with an AI notch as fallback — for events, weddings, and conferences.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#access">Get early access</a>
             <a class="btn btn-ghost" href="#how">See how it works</a>
@@ -615,11 +682,11 @@
     <section class="alt story" id="how">
       <div class="wrap">
         <div class="story-stage" id="hiw-stage">
-          <canvas id="hiw-scene" width="1920" height="1080" aria-label="Animated walkthrough: a performer walks toward a monitor, feedback loops into the mic, and Nullyn AI cuts the ringing band so the output stays clean. The chain is mic, Nullyn AI, mixer, then mains and monitor. Illustrative, not measured data."></canvas>
+          <canvas id="hiw-scene" width="1920" height="1080" aria-label="Animated walkthrough: a performer walks toward a monitor, feedback loops into the mic, and Nullyn AI cuts the ringing band. The chain is mic to Nullyn AI to mixer to speakers, with a speaker-feed reference back into Nullyn AI. An operator nudges a fader and Nullyn AI still catches the howl. Illustrative, not measured data."></canvas>
         </div>
         <div class="story-copy">
-          <h2>Mic, Nullyn AI, mixer, speakers.</h2>
-          <p>Nullyn AI sits in the chain before the mixer. When a monitor howl starts to take off, it notches the ringing band so the rest of the program can stay up. Illustrative — not measured data.</p>
+          <h2>Mic, speaker feed, Nullyn AI, mixer, speakers.</h2>
+          <p>Nullyn AI sits between the mic and the mixer, and takes a speaker-feed reference back from the board. When a howl starts, or someone nudges a fader mid-toast, it still notches the ringing band. Illustrative — not measured data.</p>
         </div>
       </div>
     </section>
@@ -627,11 +694,11 @@
     <section class="story" id="gain">
       <div class="wrap">
         <div class="story-stage">
-          <canvas id="anim-gain" width="1920" height="1080" aria-label="Illustrative animation: without Nullyn AI, raising the mic level lets a howl take off; with Nullyn AI, the level can go higher and the signal stays clean. Not measured data."></canvas>
+          <canvas id="anim-gain" width="1920" height="1080" aria-label="Illustrative animation: without Nullyn AI, raising the mic level lets a howl take off; with Nullyn AI listening to the mic and a speaker-feed reference, only the runaway band is notched. Not measured data."></canvas>
         </div>
         <div class="story-copy">
           <h2>A surgical notch, not a fader pull.</h2>
-          <p>Without Nullyn AI, pushing the mic fader lets a howl take off. With Nullyn AI, only the runaway band is cut; lows, mids, and highs stay up. Illustrative — not measured data.</p>
+          <p>Without Nullyn AI, pushing the mic fader lets a howl take off. With Nullyn AI listening to the mic and a speaker-feed reference, cancellation comes first and a narrow notch is the fallback — lows, mids, and highs stay up. Illustrative — not measured data.</p>
         </div>
       </div>
     </section>
@@ -639,11 +706,11 @@
     <section class="alt story" id="hardware">
       <div class="wrap">
         <div class="story-stage">
-          <canvas id="anim-hardware" width="1920" height="1080" aria-label="Illustrative exploded view of Nullyn AI hardware: a 1590BB enclosure opening to show a Daisy Seed 3, carrier PCB, THAT1246 and THAT1646 I/O, Neutrik jacks, and a relay bypass. Off-the-shelf, open source. About 0.4 ms is datasheet arithmetic, not a measured product latency."></canvas>
+          <canvas id="anim-hardware" width="1920" height="1080" aria-label="Illustrative exploded view of Nullyn AI hardware: a 1590BB enclosure opening to show a Daisy Seed 3, carrier PCB, two THAT1246 inputs and a THAT1646 output, Neutrik jacks for MIC IN, SPEAKER FEED / REF IN, and OUT, and a fail-safe relay bypass. Off-the-shelf, open source. About 0.4 ms is datasheet arithmetic, not a measured product latency."></canvas>
         </div>
         <div class="story-copy">
           <h2>Open hardware, off the shelf.</h2>
-          <p>A 1590BB enclosure, a Daisy Seed 3, THAT I/O, Neutrik jacks, and a relay bypass — parts you can actually buy. Datasheet arithmetic on a PCM3060-class codec, plus about one sample of processing delay, gives about 0.4 ms analog in to analog out — not a measured product latency.</p>
+          <p>A 1590BB enclosure, a Daisy Seed 3, two THAT1246 inputs and a THAT1646 output, Neutrik jacks for MIC IN, SPEAKER FEED / REF IN, and OUT, and a fail-safe relay that hard-bypasses if power is lost — parts you can actually buy. Datasheet arithmetic on a PCM3060-class codec, plus about one sample of processing delay, gives about 0.4 ms analog in to analog out — not a measured product latency.</p>
         </div>
       </div>
     </section>
@@ -651,11 +718,11 @@
     <section class="story" id="night">
       <div class="wrap">
         <div class="story-stage">
-          <canvas id="anim-night" width="1920" height="1080" aria-label="Illustrative timeline of a wedding or event night: speeches, toasts, dance floor, last song. Howl-risk moments appear as red pins and are caught with a green notch. The line 'zero howls reached the crowd' is illustrative, not measured data."></canvas>
+          <canvas id="anim-night" width="1920" height="1080" aria-label="Illustrative timeline of a wedding or event night: speeches, toasts, dance floor, last song. Nullyn AI stays in the closed loop — mic plus speaker feed — and howl-risk moments appear as red pins caught with a green notch. The line 'zero howls reached the crowd' is illustrative, not measured data."></canvas>
         </div>
         <div class="story-copy">
           <h2>Through the whole night.</h2>
-          <p>An illustrative run through a wedding set — speeches, toasts, the dance floor, the last song. Each howl-risk moment is notched before it can take off. The closing line is illustrative, not a measured result.</p>
+          <p>An illustrative run through a wedding set — speeches, toasts, the dance floor, the last song — with Nullyn AI in the closed loop, listening to the mic and the speaker feed. Each howl-risk moment is notched before it can take off. The closing line is illustrative, not a measured result.</p>
         </div>
       </div>
     </section>
@@ -663,22 +730,94 @@
     <section class="alt howto" id="howto">
       <div class="wrap">
         <p class="kicker">How Nullyn AI works</p>
-        <h2>Listen. Detect. Notch.</h2>
+        <h2>Listen. Cancel. Notch.</h2>
         <ol class="how-steps">
           <li>
             <h3>Listen</h3>
-            <p>The mic signal comes in and goes through a per-sample audio path, heading for the mixer and the speakers.</p>
+            <p>The mic and a reference of the speaker feed come in, and the mic path heads for the mixer and the speakers.</p>
           </li>
           <li>
-            <h3>Detect</h3>
-            <p>A control path running alongside the audio watches for the frequencies that are about to howl.</p>
+            <h3>Cancel</h3>
+            <p>Nullyn AI uses the speaker feed to cancel feedback, even if someone changes the mixer.</p>
           </li>
           <li>
             <h3>Notch</h3>
-            <p>Only those bands are notched. The rest of the program is left intact — it is not a fader pull.</p>
+            <p>An AI notch is the fallback, cutting only the ringing bands so lows, mids, and highs can stay up.</p>
           </li>
         </ol>
-        <p class="who-for"><strong>Who it&rsquo;s for.</strong> FOH engineers, DJs, and AV teams running live events, weddings, and conferences.</p>
+      </div>
+    </section>
+
+    <section class="closed-loop" id="closed-loop">
+      <div class="wrap">
+        <p class="kicker">Architecture</p>
+        <h2>Closed loop.</h2>
+        <p class="loop-lede">Nullyn AI hears the live mic and a feed of what the mixer sends to the speakers, and uses that feed to cancel feedback — even if someone changes the mixer. An AI notch is the fallback.</p>
+        <ul class="place-grid">
+          <li>
+            <h3>Channel insert</h3>
+            <p>On a single mic, with a reference cable from the mixer.</p>
+          </li>
+          <li>
+            <h3>Speech bus</h3>
+            <p>Across a group of speech channels, still listening to the speaker feed.</p>
+          </li>
+          <li>
+            <h3>Monitor send</h3>
+            <p>On a monitor path, with the same speaker-feed return from what hits the wedges.</p>
+          </li>
+        </ul>
+        <p class="kicker follow">Audience</p>
+        <h2>Who it&rsquo;s for.</h2>
+        <p class="loop-lede tight">Wedding DJs, worship teams, conference AV crews, and FOH engineers — anyone handing a mic to someone who isn&rsquo;t a sound engineer.</p>
+        <ul class="who-grid">
+          <li>
+            <h3>Wedding DJ</h3>
+            <p>Toasts, speeches, and wireless mics walking in front of the mains — often without a dedicated FOH engineer.</p>
+          </li>
+          <li>
+            <h3>Worship team</h3>
+            <p>A live service where the board may be run by a volunteer, not a career engineer.</p>
+          </li>
+          <li>
+            <h3>Conference AV</h3>
+            <p>Speech-heavy rooms, walking mics, and a howl that can stop the session.</p>
+          </li>
+          <li>
+            <h3>FOH engineer</h3>
+            <p>Live music and events, with a computer kept off the show-critical path.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="alt roadmap" id="roadmap">
+      <div class="wrap">
+        <p class="kicker">Roadmap</p>
+        <h2>From prototype to ship.</h2>
+        <p class="est-tag">Phases — dates are estimates</p>
+        <ol class="roadmap-steps">
+          <li>
+            <p class="step-n">01 · Estimate</p>
+            <h3>Closed-loop prototype</h3>
+            <p>Build and test the two-input hardware.</p>
+          </li>
+          <li>
+            <p class="step-n">02 · Estimate</p>
+            <h3>Pilot units</h3>
+            <p>At real events.</p>
+          </li>
+          <li>
+            <p class="step-n">03 · Estimate</p>
+            <h3>Certification</h3>
+            <p>Lab testing before sale.</p>
+          </li>
+          <li>
+            <p class="step-n">04 · Estimate</p>
+            <h3>Production</h3>
+            <p>First deliveries targeted for Q3&nbsp;2027.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -711,6 +850,7 @@
             <p class="sim-tag">Simulated</p>
           </div>
         </div>
+        <p class="loop-sim-note"><strong>Closed-loop simulations in progress.</strong> No closed-loop performance numbers yet.</p>
       </div>
     </section>
 
