@@ -370,8 +370,6 @@ html { overflow-x: hidden; }
 }
 .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
 
-#how { border-top: 1px solid var(--line); }
-
 @media (max-width: 900px) {
   .foot, .claims, .stats { grid-template-columns: 1fr; }
   .stat.sweep { grid-column: auto; }
@@ -551,7 +549,8 @@ pre code {
   font-size: inherit;
 }
 
-/* Video embeds (homepage How it works, /setup/) */
+/* Video embeds (homepage Problem section, /setup/) */
+#problem .story-stage { margin-top: 40px; }
 .story-stage video,
 .video-frame video {
   width: 100%;
@@ -768,4 +767,25 @@ pre code {
   .chain .node { min-width: calc(50% - 20px); }
   .copy-btn { position: static; margin: 10px 10px 0 auto; display: block; }
   .code-block { padding-top: 4px; }
+}
+
+/* Subtle waveform backgrounds on raised (gray) sections */
+[data-wave] {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+[data-wave] > canvas[data-wave-canvas] {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 0;
+  display: block;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+[data-wave] > *:not(canvas[data-wave-canvas]) {
+  position: relative;
+  z-index: 1;
 }

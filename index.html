@@ -305,20 +305,6 @@
     }
     .cite a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
 
-    .hiw-stage {
-      margin-top: 48px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      overflow: hidden;
-      background: var(--bg);
-      aspect-ratio: 16 / 9;
-    }
-    .hiw-stage canvas {
-      width: 100%;
-      height: auto;
-      display: block;
-      vertical-align: top;
-    }
     .note {
       margin-top: 28px;
       padding: 16px 18px;
@@ -611,8 +597,8 @@
     .loop-sim-note strong { font-family: var(--font-display); letter-spacing: -0.02em; }
     @media (max-width: 900px) {
       .story { padding: 28px 0 36px; }
-      .story-stage, .hiw-stage { width: 100%; max-width: 100%; }
-      .story-stage canvas, .story-stage video, .hiw-stage canvas { width: 100%; height: auto; max-width: 100%; }
+      .story-stage { width: 100%; max-width: 100%; }
+      .story-stage canvas, .story-stage video { width: 100%; height: auto; max-width: 100%; }
       .backed-strip .strip-inner { flex-direction: column; align-items: flex-start; }
       .how-steps, .sim-headlines, .place-grid, .who-grid, .field-steps, .roadmap-steps, .loop-notes, .shortfall-grid, .market-grid, .team-grid { grid-template-columns: 1fr; }
       .story-copy { text-align: left; }
@@ -622,8 +608,6 @@
       h1 { font-size: clamp(32px, 9vw, 76px); line-height: 1.08; }
       .btn { min-height: 44px; font-size: 16px; padding: 12px 20px; }
       .explainer canvas { height: 180px; max-width: 100%; }
-      .hiw-stage { width: 100%; max-width: 100%; }
-      .hiw-stage canvas { width: 100%; height: auto; max-width: 100%; }
       .note { font-size: 16px; }
     }
 
@@ -635,6 +619,7 @@
     #problem .section-intro, #shortfalls .section-intro, #market .section-intro, #approach .section-intro {
       margin-bottom: 0;
     }
+    #problem .story-stage { margin-top: 40px; }
     .section-intro.tight { margin-top: 14px; font-size: 16px; max-width: 52ch; }
     .shortfall-grid, .market-grid, .team-grid {
       list-style: none;
@@ -770,12 +755,32 @@
       </div>
     </section>
 
-    <section class="alt" id="problem">
+    <section class="alt" id="problem" data-wave>
       <div class="wrap">
         <p class="kicker">The problem</p>
         <h2>Feedback still limits live sound.</h2>
         <p class="section-intro">The howl that starts when a microphone picks up its own loudspeakers caps how loud a system can run. After five decades of research, many sound-system technicians still prefer to control acoustic feedback by hand, mainly because available automatic solutions have not been reliable enough.</p>
         <p class="srcs">Source: <a href="https://doi.org/10.1109/JPROC.2010.2090998" rel="noopener noreferrer">van Waterschoot &amp; Moonen, Proc. IEEE, 2011</a></p>
+        <div class="story-stage" id="how">
+          <video
+            controls
+            playsinline
+            preload="none"
+            width="1920"
+            height="1080"
+            poster="/media/video/how-it-works-poster.png"
+            aria-label="Explainer: a microphone on stage picks up the speaker, the sound loops and becomes a howl, and Nullyn AI sits inline between the mic and the console, listening to the microphone and the speaker feed, to remove the loop before it rings. Then the v1 laptop, v2 dedicated box, and v3 deploy-at-scale roadmap. Illustrative, no performance numbers."
+          >
+            <source src="/media/video/how-it-works.mp4" type="video/mp4">
+            <source src="/media/video/how-it-works.webm" type="video/webm">
+            <track kind="captions" srclang="en" label="English" src="/media/video/how-it-works.vtt" default>
+          </video>
+        </div>
+        <div class="story-copy">
+          <h2>Mic, speaker feed, Nullyn AI, mixer, speakers.</h2>
+          <p>Nullyn AI sits between the mic and the mixer, and takes a speaker-feed reference back from the board. When a howl starts, or someone nudges a fader mid-toast, it still notches the ringing band. Illustrative &mdash; not measured data.</p>
+          <p><a class="btn btn-ghost" href="/setup/">Try the v1 laptop setup</a></p>
+        </div>
       </div>
     </section>
 
@@ -804,7 +809,7 @@
       </div>
     </section>
 
-    <section class="alt" id="approach">
+    <section class="alt" id="approach" data-wave>
       <div class="wrap">
         <p class="kicker">Our approach</p>
         <h2>A closed loop, and a dedicated box.</h2>
@@ -827,43 +832,6 @@
       </div>
     </section>
 
-    <section class="story" id="how">
-      <div class="wrap">
-        <div class="story-stage" id="hiw-stage">
-          <video
-            controls
-            playsinline
-            preload="none"
-            width="1920"
-            height="1080"
-            poster="/media/video/how-it-works-poster.png"
-            aria-label="Explainer: a microphone on stage picks up the speaker, the sound loops and becomes a howl, and Nullyn AI sits inline between the mic and the console, listening to the microphone and the speaker feed, to remove the loop before it rings. Then the v1 laptop, v2 dedicated box, and v3 deploy-at-scale roadmap. Illustrative, no performance numbers."
-          >
-            <source src="/media/video/how-it-works.mp4" type="video/mp4">
-            <source src="/media/video/how-it-works.webm" type="video/webm">
-            <track kind="captions" srclang="en" label="English" src="/media/video/how-it-works.vtt" default>
-          </video>
-        </div>
-        <div class="story-copy">
-          <h2>Mic, speaker feed, Nullyn AI, mixer, speakers.</h2>
-          <p>Nullyn AI sits between the mic and the mixer, and takes a speaker-feed reference back from the board. When a howl starts, or someone nudges a fader mid-toast, it still notches the ringing band. Illustrative &mdash; not measured data.</p>
-          <p><a class="btn btn-ghost" href="/setup/">Try the v1 laptop setup</a></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="alt story" id="gain">
-      <div class="wrap">
-        <div class="story-stage">
-          <canvas id="anim-gain" width="1920" height="1080" aria-label="Illustrative animation: without Nullyn AI, raising the mic level lets a howl take off; with Nullyn AI listening to the mic and a speaker-feed reference, only the runaway band is notched. Not measured data."></canvas>
-        </div>
-        <div class="story-copy">
-          <h2>A surgical notch, not a fader pull.</h2>
-          <p>Without Nullyn AI, pushing the mic fader lets a howl take off. With Nullyn AI listening to the mic and a speaker-feed reference, cancellation comes first and a narrow notch is the fallback &mdash; lows, mids, and highs stay up. Illustrative &mdash; not measured data.</p>
-        </div>
-      </div>
-    </section>
-
     <section class="story" id="hardware">
       <div class="wrap">
         <div class="story-stage">
@@ -877,7 +845,7 @@
       </div>
     </section>
 
-    <section class="alt story" id="night">
+    <section class="alt story" id="night" data-wave>
       <div class="wrap">
         <div class="story-stage">
           <canvas id="anim-night" width="1920" height="1080" aria-label="Illustrative timeline of a wedding or event night: speeches, toasts, dance floor, last song. Nullyn AI stays in the closed loop — mic plus speaker feed — and howl-risk moments appear as red pins caught with a green notch. The line 'zero howls reached the crowd' is illustrative, not measured data."></canvas>
@@ -914,7 +882,7 @@
       </div>
     </section>
 
-    <section class="alt" id="market">
+    <section class="alt" id="market" data-wave>
       <div class="wrap">
         <p class="kicker">Who buys it</p>
         <h2>Built for people who hand a mic to the room.</h2>
@@ -963,7 +931,7 @@
       </div>
     </section>
 
-    <section class="alt backed-strip" id="research">
+    <section class="alt backed-strip" id="research" data-wave>
       <div class="wrap">
         <div class="strip-inner">
           <div>
@@ -1025,7 +993,6 @@
     </div>
   </footer>
 
-  <script src="/media/how-it-works.js" defer></script>
   <script src="/media/story-anims.js" defer></script>
   <script>
     (function () {
@@ -1180,6 +1147,7 @@
       });
     })();
   </script>
+  <script src="/media/js/waveform-bg.js" defer></script>
   <script src="/site.js" defer></script>
 </body>
 </html>
