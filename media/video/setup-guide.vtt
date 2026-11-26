@@ -1,54 +1,61 @@
 WEBVTT
 
 1
-00:00:00.500 --> 00:00:03.250
+00:00:00.380 --> 00:00:03.440
 Want to try the version one laptop prototype?
 
 2
-00:00:03.390 --> 00:00:05.350
+00:00:03.680 --> 00:00:05.720
 Clone the repo on your laptop.
 
 3
-00:00:05.500 --> 00:00:12.200
-Connect your microphone to an XLR-to-USB audio interface,
-and the interface output to the console.
+00:00:05.960 --> 00:00:10.190
+Connect your mic to an XLR-to-USB audio interface,
 
 4
-00:00:13.600 --> 00:00:15.300
-Install the package.
+00:00:10.250 --> 00:00:12.620
+and the interface output to the console.
 
 5
-00:00:15.330 --> 00:00:20.900
-List your devices, pick the input and the output,
-then run it in real time.
+00:00:12.950 --> 00:00:14.450
+Install the package.
 
 6
-00:00:22.120 --> 00:00:27.050
-You'll need a 64-bit laptop running Python 3.10 or newer,
+00:00:14.660 --> 00:00:17.780
+List your devices, pick the input and the output,
 
 7
-00:00:27.210 --> 00:00:31.900
+00:00:17.840 --> 00:00:19.820
+then run it in real time.
+
+8
+00:00:20.390 --> 00:00:25.400
+You'll need a 64-bit laptop
+running Python 3.10 or newer,
+
+9
+00:00:25.550 --> 00:00:31.100
 and an interface with at least one XLR mic input
 and a line-level output.
 
-8
-00:00:32.300 --> 00:00:37.500
-For the closed loop, feed a line-level copy
+10
+00:00:31.490 --> 00:00:37.310
+For the closed loop, just feed a line-level copy
 of the speaker feed into a second input.
 
-9
-00:00:38.820 --> 00:00:44.900
-Start at 48 kHz with a 128 to 256 sample callback.
+11
+00:00:37.670 --> 00:00:43.850
+Start at 48 kHz, with a 128 to 256 sample callback.
 
-10
-00:00:45.180 --> 00:00:50.000
+12
+00:00:44.180 --> 00:00:49.820
 Watch the times that nullyn rt prints,
 and raise the block size if you need to.
 
-11
-00:00:51.280 --> 00:00:54.600
-It's open source, and in active development.
+13
+00:00:50.180 --> 00:00:53.330
+It's open source, and it's in active development.
 
-12
-00:00:55.020 --> 00:00:59.000
+14
+00:00:53.684 --> 00:00:55.014
 nullyn.ai
