@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nullyn AI — microphone feedback suppression</title>
-  <meta name="description" content="Nullyn AI is closed-loop hardware for live-mic feedback: it takes a feed of what goes to the speakers and uses it to cancel feedback, even if someone changes the mixer. In development.">
+  <meta name="description" content="Nullyn AI is a closed-loop system for live-mic feedback: it takes a feed of what goes to the speakers and uses it to cancel feedback, even if someone changes the mixer. In development.">
   <link rel="canonical" href="https://nullyn.ai/">
   <link rel="icon" href="/media/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/media/favicon-32.png" type="image/png" sizes="32x32">
@@ -12,14 +12,14 @@
   <link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Nullyn AI — microphone feedback suppression">
-  <meta property="og:description" content="Nullyn AI is closed-loop hardware for live-mic feedback: it takes a feed of what goes to the speakers and uses it to cancel feedback, even if someone changes the mixer. In development.">
+  <meta property="og:description" content="Nullyn AI is a closed-loop system for live-mic feedback: it takes a feed of what goes to the speakers and uses it to cancel feedback, even if someone changes the mixer. In development.">
   <meta property="og:url" content="https://nullyn.ai/">
   <meta property="og:image" content="https://nullyn.ai/media/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Nullyn AI — microphone feedback suppression">
-  <meta name="twitter:description" content="Nullyn AI is closed-loop hardware for live-mic feedback: it takes a feed of what goes to the speakers and uses it to cancel feedback, even if someone changes the mixer. In development.">
+  <meta name="twitter:description" content="Nullyn AI is a closed-loop system for live-mic feedback: it takes a feed of what goes to the speakers and uses it to cancel feedback, even if someone changes the mixer. In development.">
   <meta name="twitter:image" content="https://nullyn.ai/media/og-image.png">
   <link rel="preload" href="/fonts/syne-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/fonts.css">
@@ -539,7 +539,7 @@
     }
     .backed-strip .backed-actions { margin-top: 0; }
     .closed-loop { padding: 56px 0; }
-    .closed-loop h2 { margin-bottom: 16px; }
+    .closed-loop h2, .roadmap h2 { margin-bottom: 16px; }
     .loop-lede {
       max-width: 62ch;
       color: var(--text);
@@ -550,7 +550,7 @@
     }
     .loop-lede.tight { margin-bottom: 16px; }
     .kicker.follow { margin-top: 40px; }
-    .place-grid, .who-grid, .field-steps, .loop-notes {
+    .place-grid, .who-grid, .field-steps, .roadmap-steps, .loop-notes {
       list-style: none;
       display: grid;
       gap: 16px;
@@ -561,25 +561,37 @@
     .loop-notes { grid-template-columns: 1fr 1fr; margin-bottom: 28px; }
     .who-grid { grid-template-columns: repeat(4, 1fr); margin-top: 20px; }
     .field-steps { grid-template-columns: repeat(4, 1fr); margin-top: 12px; }
-    .place-grid li, .who-grid li, .field-steps li, .loop-notes li {
+    .roadmap { padding: 56px 0; }
+    .roadmap-steps { grid-template-columns: repeat(3, 1fr); margin-top: 12px; }
+    .place-grid li, .who-grid li, .field-steps li, .roadmap-steps li, .loop-notes li {
       padding: 20px 20px 18px;
       border: 1px solid var(--line);
       border-radius: 16px;
       background: var(--surface);
     }
     .loop-notes li { background: var(--bg); }
-    .place-grid h3, .who-grid h3, .loop-notes h3, .field-steps h3 h3 {
+    .roadmap-steps li { background: var(--bg); }
+    .place-grid h3, .who-grid h3, .loop-notes h3, .field-steps h3, .roadmap-steps h3 {
       font-size: 17px;
       letter-spacing: -0.03em;
       margin: 0 0 8px;
       line-height: 1.25;
     }
-    .place-grid p, .who-grid p, .loop-notes p, .field-steps p p {
+    .place-grid p, .who-grid p, .loop-notes p, .field-steps p, .roadmap-steps p {
       color: var(--muted);
       font-size: 14.5px;
       line-height: 1.55;
       margin: 0;
       font-weight: 430;
+    }
+    .step-n {
+      font-family: var(--font-mono);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
     }
     .loop-sim-note {
       margin-top: 22px;
@@ -598,7 +610,7 @@
       .story-stage, .hiw-stage { width: 100%; max-width: 100%; }
       .story-stage canvas, .hiw-stage canvas { width: 100%; height: auto; max-width: 100%; }
       .backed-strip .strip-inner { flex-direction: column; align-items: flex-start; }
-      .how-steps, .sim-headlines, .place-grid, .who-grid, .field-steps, .loop-notes { grid-template-columns: 1fr; }
+      .how-steps, .sim-headlines, .place-grid, .who-grid, .field-steps, .roadmap-steps, .loop-notes { grid-template-columns: 1fr; }
       .story-copy { text-align: left; }
       .hero-copy.tight .lede { font-size: 17px; }
     }
@@ -632,6 +644,7 @@
       <nav class="links" id="site-nav" aria-label="Primary">
         <a href="/" aria-current="page">Home</a>
         <a href="#how">How it works</a>
+        <a href="#roadmap">Roadmap</a>
         <a href="/research/">Research</a>
         <a href="/whitepaper/">Whitepaper</a>
       </nav>
@@ -645,7 +658,7 @@
         <div class="hero-copy tight">
           <p class="eyebrow">Live sound · AI</p>
           <h1>Stop feedback before it starts.</h1>
-          <p class="lede">Nullyn AI is closed-loop hardware: it listens to the live mic and to a reference of what the mixer is sending to the speakers, then cancels the feedback path — with an AI notch as fallback — for events, weddings, and conferences.</p>
+          <p class="lede">Nullyn AI is a closed-loop system: it listens to the live mic and to a reference of what the mixer is sending to the speakers, then cancels the feedback path — with an AI notch as fallback — for events, weddings, and conferences.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#access">Get early access</a>
             <a class="btn btn-ghost" href="#how">See how it works</a>
@@ -694,11 +707,11 @@
     <section class="alt story" id="hardware">
       <div class="wrap">
         <div class="story-stage">
-          <canvas id="anim-hardware" width="1920" height="1080" aria-label="Illustrative exploded view of Nullyn AI hardware: a 1590BB enclosure opening to show a Daisy Seed 3, carrier PCB, two THAT1246 inputs and a THAT1646 output, Neutrik jacks for MIC IN, SPEAKER FEED / REF IN, and OUT, and a fail-safe relay bypass. Off-the-shelf, open source. About 0.4 ms is datasheet arithmetic, not a measured product latency."></canvas>
+          <canvas id="anim-hardware" width="1920" height="1080" aria-label="Illustrative exploded view of the dedicated Nullyn AI box: a 1590BB enclosure opening to show a Daisy Seed 3, carrier PCB, two THAT1246 inputs and a THAT1646 output, Neutrik jacks for MIC IN, SPEAKER FEED / REF IN, and OUT, and a fail-safe relay bypass. Off-the-shelf, open source. About 0.4 ms is datasheet arithmetic, not a measured product latency."></canvas>
         </div>
         <div class="story-copy">
-          <h2>Open hardware, off the shelf.</h2>
-          <p>A 1590BB enclosure, a Daisy Seed 3, two THAT1246 inputs and a THAT1646 output, Neutrik jacks for MIC IN, SPEAKER FEED / REF IN, and OUT, and a fail-safe relay that hard-bypasses if power is lost — parts you can actually buy. Datasheet arithmetic on a PCM3060-class codec, plus about one sample of processing delay, gives about 0.4 ms analog in to analog out — not a measured product latency.</p>
+          <h2>Our own circuit, off the shelf.</h2>
+          <p>After the laptop prototype, a dedicated box: a 1590BB enclosure, a Daisy Seed 3, two THAT1246 inputs and a THAT1646 output, Neutrik jacks for MIC IN, SPEAKER FEED / REF IN, and OUT, and a fail-safe relay that hard-bypasses if power is lost — parts you can actually buy. Datasheet arithmetic on a PCM3060-class codec, plus about one sample of processing delay, gives about 0.4 ms analog in to analog out — not a measured product latency.</p>
         </div>
       </div>
     </section>
@@ -773,9 +786,34 @@
           </li>
           <li>
             <h3>FOH engineer</h3>
-            <p>Live music and events, with a computer kept off the show-critical path.</p>
+            <p>Live music and events, where a dedicated box can keep a computer off the show-critical path.</p>
           </li>
         </ul>
+      </div>
+    </section>
+
+
+    <section class="alt roadmap" id="roadmap">
+      <div class="wrap">
+        <p class="kicker">Roadmap</p>
+        <h2>Laptop first, then our own circuit.</h2>
+        <ol class="roadmap-steps">
+          <li>
+            <p class="step-n">v1</p>
+            <h3>Laptop prototype</h3>
+            <p>The mic enters a USB audio interface on XLR. Nullyn AI runs in real time on a laptop, and the cleaned signal returns on the interface&rsquo;s XLR or TRS to the console. We use this to test the algorithm in real rooms with FOH engineers.</p>
+          </li>
+          <li>
+            <p class="step-n">v2</p>
+            <h3>Our own circuit</h3>
+            <p>A dedicated hardware box we build and bench-test against existing suppressors &mdash; Daisy-based, with XLR and TRS in and out, and a relay bypass.</p>
+          </li>
+          <li>
+            <p class="step-n">v3</p>
+            <h3>Deploy at scale</h3>
+            <p>Manufacture the box and put units on real stages and in installs.</p>
+          </li>
+        </ol>
       </div>
     </section>
 

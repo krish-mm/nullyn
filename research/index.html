@@ -46,6 +46,7 @@
       <nav class="links" id="site-nav" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/#how">How it works</a>
+        <a href="/#roadmap">Roadmap</a>
         <a href="/research/" aria-current="page">Research</a>
         <a href="/whitepaper/">Whitepaper</a>
       </nav>
@@ -93,8 +94,8 @@
           </article>
           <article class="claim" id="latency">
             <h3>The filter path adds about one sample of processing delay</h3>
-            <p>The Nullyn AI audio path processes each sample individually at 96 kHz and adds about one sample (10.4 µs at 96 kHz) of processing delay. That figure is the sample period (1/96,000 s), not a measured product latency, and it is not the end-to-end delay of Nullyn AI.</p>
-            <p>Converters dominate analog-in to analog-out delay. Nullyn AI is designed around a TI PCM3060-class codec, using off-the-shelf parts and an open toolchain. At 96 kHz its published digital-filter group delays are 17.4/fS for the ADC (181.3 µs) and 20/fS for the DAC (208.3 µs). Adding one DSP sample (10.4 µs) gives about 0.4 ms total, analog in to analog out. This is arithmetic from the datasheet, not a measurement; serial-interface framing and the final converter choice still have to be measured. That is under the 1 ms rated “Good” for in-ear vocals in the study above.</p>
+            <p>On the dedicated box, the Nullyn AI audio path processes each sample individually at 96 kHz and adds about one sample (10.4 µs at 96 kHz) of processing delay. That figure is the sample period (1/96,000 s), not a measured product latency, and it is not the end-to-end delay of Nullyn AI.</p>
+            <p>Converters dominate analog-in to analog-out delay. The dedicated Nullyn AI box is designed around a TI PCM3060-class codec, using off-the-shelf parts and an open toolchain. At 96 kHz its published digital-filter group delays are 17.4/fS for the ADC (181.3 µs) and 20/fS for the DAC (208.3 µs). Adding one DSP sample (10.4 µs) gives about 0.4 ms total, analog in to analog out. This is arithmetic from the datasheet, not a measurement; serial-interface framing and the final converter choice still have to be measured. That is under the 1 ms rated “Good” for in-ear vocals in the study above.</p>
             <p class="srcs">Sources: <a href="https://www.ti.com/lit/ds/symlink/pcm3060.pdf" rel="noopener noreferrer">TI PCM3060 datasheet</a>; <a href="https://aes.org/publications/elibrary/elibrary-page/?id=14256" rel="noopener noreferrer">Lester &amp; Boley, AES Convention 123, paper 7198, 2007</a></p>
           </article>
           <article class="claim" id="standards">
