@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>v1 laptop setup — Nullyn AI</title>
+  <meta name="description" content="Run the Nullyn AI v1 laptop prototype: clone the public repo, connect a USB audio interface, and process a microphone in real time.">
+  <link rel="canonical" href="https://nullyn.ai/setup/">
+  <link rel="icon" href="/media/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/media/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/media/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="v1 laptop setup — Nullyn AI">
+  <meta property="og:description" content="Run the Nullyn AI v1 laptop prototype: clone the public repo, connect a USB audio interface, and process a microphone in real time.">
+  <meta property="og:url" content="https://nullyn.ai/setup/">
+  <meta property="og:image" content="https://nullyn.ai/media/video/setup-guide-poster.png">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1080">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="v1 laptop setup — Nullyn AI">
+  <meta name="twitter:description" content="Run the Nullyn AI v1 laptop prototype: clone the public repo, connect a USB audio interface, and process a microphone in real time.">
+  <meta name="twitter:image" content="https://nullyn.ai/media/video/setup-guide-poster.png">
+  <link rel="preload" href="/fonts/syne-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/palette.css">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body class="setup-page">
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="/">
+        <img class="mark" src="/media/mark.svg" width="36" height="36" alt="">
+        <span class="brand-text">
+          <span class="brand-name">Nullyn AI</span>
+          <span class="brand-tag">Nulls the howl</span>
+        </span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span class="bars" aria-hidden="true"></span>
+      </button>
+      <nav class="links" id="site-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/#approach">Approach</a>
+        <a href="/#roadmap">Roadmap</a>
+        <a href="/#team">Team</a>
+        <a href="/setup/" aria-current="page">Setup</a>
+        <a href="/research/">Research</a>
+        <a href="/whitepaper/">Whitepaper</a>
+      </nav>
+      <a class="btn btn-primary nav-cta" href="/#talk">Request the deck</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-lead" id="top">
+      <div class="wrap">
+        <p class="kicker">v1 laptop prototype</p>
+        <h1 class="page-title">Try Nullyn AI on a laptop.</h1>
+        <p class="section-intro">The v1 prototype runs the same algorithm in real time on a laptop. A USB audio interface does the conversion, not this software. Commands below are taken from the public repository README. The project is in active development, and collaborators are welcome.</p>
+      </div>
+    </section>
+
+    <section class="setup-section" id="video">
+      <div class="wrap">
+        <div class="video-frame">
+          <video
+            controls
+            playsinline
+            preload="none"
+            width="1920"
+            height="1080"
+            poster="/media/video/setup-guide-poster.png"
+            aria-label="Walkthrough of the v1 laptop setup: clone the repo, connect a USB audio interface, install the package, list devices, and run Nullyn AI in real time."
+          >
+            <source src="/media/video/setup-guide.mp4" type="video/mp4">
+            <source src="/media/video/setup-guide.webm" type="video/webm">
+            <track kind="captions" srclang="en" label="English" src="/media/video/setup-guide.vtt" default>
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section class="setup-section alt" id="need">
+      <div class="wrap">
+        <p class="kicker">What you need</p>
+        <h2>A 64-bit laptop, Python 3.10+, and an interface with an XLR input.</h2>
+        <p class="section-intro">These starting points are taken from the repository README. Windows ASIO performance, macOS CoreAudio performance, USB analog-to-analog round-trip, thermal throttling, and driver quality on any particular interface have not been measured, and are not claimed here.</p>
+        <ul class="need-list">
+          <li>
+            <h3>Laptop</h3>
+            <p>A 64-bit laptop that can run Python 3.10 or newer. For closed-loop v1, start at 48&nbsp;kHz with a 128–256 sample callback (about 2.7–5.3&nbsp;ms of buffer latency), close other heavy applications, and watch the callback times that <code>nullyn rt</code> prints. If p95 exceeds the buffer, raise <code>--blocksize</code>.</p>
+          </li>
+          <li>
+            <h3>Interface</h3>
+            <p>At least one XLR microphone input, and a line-level output back to the console. A second input is required for the closed-loop speaker-feed reference. Prefer one interface for both input and output.</p>
+          </li>
+          <li>
+            <h3>Software</h3>
+            <p>The public package at <a href="https://github.com/krish-mm/nullyn-ai-defeedback" rel="noopener noreferrer">github.com/krish-mm/nullyn-ai-defeedback</a>, installed with the <code>realtime</code> extra for the USB path. Released under the MIT License.</p>
+          </li>
+        </ul>
+        <p class="srcs iface-note">A measured offline CPU table, taken on a Linux development VM, lives in the <a href="https://github.com/krish-mm/nullyn-ai-defeedback#minimum-laptop-requirements" rel="noopener noreferrer">README’s minimum laptop requirements</a>. Those figures are process time, not analog I/O latency, and not a venue result.</p>
+      </div>
+    </section>
+
+    <section class="setup-section" id="interfaces">
+      <div class="wrap">
+        <p class="kicker">Hardware to try</p>
+        <h2>Interface options, as listed in the README.</h2>
+        <p class="section-intro">Prices below are as shown on the linked page when checked on 26 November 2026, America/Chicago. They will change. This is not a purchase recommendation, and no order will be placed from this page.</p>
+        <div class="table-scroll">
+          <table class="iface-table">
+            <thead>
+              <tr>
+                <th>Interface</th>
+                <th>Why it fits</th>
+                <th>Price as shown</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Focusrite Scarlett Solo, 4th Gen</td>
+                <td>1 mic preamp, 1 line/instrument input, 2 balanced line outputs, USB-C. The second input is line/instrument, not a second XLR.</td>
+                <td>$129.99 sale, $159.99 regular. The maker page also showed a sold-out message when checked.</td>
+                <td><a href="https://us.focusrite.com/products/scarlett-solo" rel="noopener noreferrer">us.focusrite.com</a></td>
+              </tr>
+              <tr>
+                <td>Focusrite Scarlett 2i2, 4th Gen</td>
+                <td>2 combo XLR/TRS inputs and 2 balanced line outputs. The better closed-loop fit of the two Scarletts, because the reference can use a second combo jack.</td>
+                <td>$189.99 sale, $224.99 regular. The maker page also showed a sold-out message when checked.</td>
+                <td><a href="https://us.focusrite.com/products/scarlett-2i2" rel="noopener noreferrer">us.focusrite.com</a></td>
+              </tr>
+              <tr>
+                <td>Behringer U-Phoria UMC202HD</td>
+                <td>2 combo XLR/TRS inputs and line outputs, 24-bit / 192 kHz.</td>
+                <td>$86.90, in stock. The official Behringer product page lists no price, so the retailer page is the price source.</td>
+                <td><a href="https://www.sweetwater.com/store/detail/UMC202HD--behringer-u-phoria-umc202hd-usb-audio-interface" rel="noopener noreferrer">sweetwater.com</a></td>
+              </tr>
+              <tr>
+                <td>PreSonus Studio 24c</td>
+                <td>2 combo XLR/TRS inputs, 2 balanced ¼-inch TRS line outputs, USB-C.</td>
+                <td>$157.99 regular; the maker page showed the unit as sold out.</td>
+                <td><a href="https://www.presonus.com/products/studio-24c" rel="noopener noreferrer">presonus.com</a></td>
+              </tr>
+              <tr>
+                <td>M-Audio M-Track Solo</td>
+                <td>1 combo XLR input plus a ¼-inch instrument/line input, and line outputs. Only one XLR: the reference would use the ¼-inch input. The official maker page lists RCA stereo line outputs and does not show a price, so the retailer page is the price source.</td>
+                <td>$49.00, in stock</td>
+                <td><a href="https://www.sweetwater.com/store/detail/MTrackSolo--m-audio-m-track-solo-usb-audio-interface" rel="noopener noreferrer">sweetwater.com</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="srcs iface-note">Source: <a href="https://github.com/krish-mm/nullyn-ai-defeedback#hardware-to-try-it" rel="noopener noreferrer">nullyn-ai-defeedback README, Hardware to try it</a>, checked 26 November 2026, America/Chicago. A former PreSonus AudioBox USB 96 listing was dropped after the official page returned 404.</p>
+      </div>
+    </section>
+
+    <section class="setup-section alt" id="chain">
+      <div class="wrap">
+        <p class="kicker">Signal chain</p>
+        <h2>Mic in, Nullyn AI on the laptop, line out to the console.</h2>
+        <p class="section-intro">Conversion is done by the USB audio interface, not by this software.</p>
+        <div class="chain" aria-hidden="false">
+          <div class="node">Mic</div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="node">XLR</div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="node accent">Interface</div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="node">USB</div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="node accent">Laptop<br>Nullyn AI</div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="node">Out</div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="node">Console</div>
+        </div>
+        <p class="srcs chain-caption">microphone → interface XLR in → laptop (Nullyn AI) → interface line out → console</p>
+        <div class="chain-ref">
+          <p>For the closed loop, also feed a line-level copy of what the speakers play into a second input on the interface (a console aux or main send, or a speaker-level tap passed through a pad — the software expects a line-level reference):</p>
+          <p class="srcs" style="margin-top:10px;">speaker feed → interface input 2 → Nullyn AI reference</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="setup-section" id="steps">
+      <div class="wrap">
+        <p class="kicker">Steps</p>
+        <h2>Clone, install, list devices, run.</h2>
+        <p class="section-intro">Every flag in the run command comes from the README. <code>"Scarlett"</code> is the documented example device name — use the names your interface reports.</p>
+        <ol class="setup-steps">
+          <li id="step-clone">
+            <p class="step-n">Step 1</p>
+            <h3>Clone the repo</h3>
+            <p>On your laptop:</p>
+            <div class="code-block">
+              <button class="copy-btn" type="button">Copy</button>
+              <pre><code>git clone https://github.com/krish-mm/nullyn-ai-defeedback
+cd nullyn-ai-defeedback</code></pre>
+            </div>
+          </li>
+          <li id="step-connect">
+            <p class="step-n">Step 2</p>
+            <h3>Connect the interface</h3>
+            <p>Plug the microphone into an XLR input on the USB audio interface, and the interface’s line output into the console or speaker path. For the closed loop, feed a line-level copy of the speaker feed into a second input. Then connect the interface to the laptop over USB.</p>
+          </li>
+          <li id="step-install">
+            <p class="step-n">Step 3</p>
+            <h3>Install the package</h3>
+            <p>Python 3.10 or newer. The <code>realtime</code> extra is the one required for the USB interface path.</p>
+            <div class="code-block">
+              <button class="copy-btn" type="button">Copy</button>
+              <pre><code>python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -e ".[dev]"
+# optional, for the real-time USB interface path:
+pip install -e ".[realtime]"</code></pre>
+            </div>
+          </li>
+          <li id="step-devices">
+            <p class="step-n">Step 4</p>
+            <h3>List your devices, then pick input and output</h3>
+            <p>Input and output can be different devices (<code>--input-device</code> and <code>--output-device</code>). Using two unsynchronised interfaces for input and output is possible in the CLI but is a poor idea for a feedback loop; prefer one interface for both.</p>
+            <div class="code-block">
+              <button class="copy-btn" type="button">Copy</button>
+              <pre><code>nullyn rt --list-devices</code></pre>
+            </div>
+          </li>
+          <li id="step-run">
+            <p class="step-n">Step 5</p>
+            <h3>Run it in real time</h3>
+            <p>The command prints the callback block size in milliseconds, PortAudio’s reported input and output latency if the driver provides it, and running callback CPU time (median / p95 / max). Those figures are not an analog-to-analog measurement. <code>--soundcheck 3</code> runs three seconds of closed-loop path identification (probe noise) before passing audio.</p>
+            <div class="code-block">
+              <button class="copy-btn" type="button">Copy</button>
+              <pre><code>nullyn rt \
+  --input-device "Scarlett" \
+  --output-device "Scarlett" \
+  --mic-channel 1 \
+  --ref-channel 2 \
+  --output-channel 1 \
+  --samplerate 48000 \
+  --blocksize 128</code></pre>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="setup-section alt" id="tips">
+      <div class="wrap">
+        <p class="kicker">From the README</p>
+        <h2>If something does not behave.</h2>
+        <p class="section-intro">Only notes already written in the repository README are listed here. We have not added extra troubleshooting.</p>
+        <ul class="tips">
+          <li>
+            <strong>Callback times</strong>
+            If p95 exceeds the buffer, raise <code>--blocksize</code>. Real-time audio has to meet the budget almost every block, not on average.
+          </li>
+          <li>
+            <strong>One interface</strong>
+            Prefer one interface for both input and output. Two unsynchronised interfaces are possible in the CLI but are a poor idea for a feedback loop.
+          </li>
+          <li>
+            <strong>Line-level reference</strong>
+            The software expects a line-level speaker-feed reference, not a speaker-level tap unless it has been passed through a pad.
+          </li>
+          <li>
+            <strong>What the printed times are not</strong>
+            Callback size, PortAudio’s reported latency, and callback CPU time are not an analog-to-analog measurement.
+          </li>
+          <li>
+            <strong>Not yet measured</strong>
+            Windows ASIO, macOS CoreAudio, USB analog-to-analog round-trip, thermal throttling, and driver quality on a particular interface have to be measured on the laptop and interface you actually use.
+          </li>
+          <li>
+            <strong>Soundcheck</strong>
+            <code>--soundcheck 3</code> runs three seconds of closed-loop path identification (probe noise) before passing audio.
+          </li>
+        </ul>
+        <div class="setup-links">
+          <a class="btn btn-primary" href="https://github.com/krish-mm/nullyn-ai-defeedback" rel="noopener noreferrer">Open the GitHub repo</a>
+          <a class="btn btn-ghost" href="https://github.com/krish-mm/nullyn-ai-defeedback/issues" rel="noopener noreferrer">Open issues</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <div class="brand" style="margin-bottom:16px;">
+            <img class="mark" src="/media/mark.svg" width="36" height="36" alt="">
+            <span class="brand-text">
+              <span class="brand-name">Nullyn AI</span>
+              <span class="brand-tag">Nulls the howl</span>
+            </span>
+          </div>
+          <p>Nullyn AI for live microphone feedback suppression. In development.</p>
+          <p class="open-source-note">Open source: <a href="https://github.com/krish-mm/nullyn-ai-defeedback" rel="noopener noreferrer">krish-mm/nullyn-ai-defeedback</a>.</p>
+          <nav class="foot-links" aria-label="Footer">
+            <a href="/">Home</a>
+            <a href="/setup/" aria-current="page">Setup</a>
+            <a href="/research/">Research</a>
+            <a href="/whitepaper/">Whitepaper</a>
+            <a href="https://github.com/krish-mm/nullyn-ai-defeedback" rel="noopener noreferrer">GitHub</a>
+          </nav>
+        </div>
+      </div>
+      <div class="legal">
+        <span>&copy; 2026 Nullyn AI. All rights reserved.</span>
+        <span>No tracking. No cookies. No data collection.</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/site.js" defer></script>
+</body>
+</html>

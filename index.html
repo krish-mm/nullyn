@@ -457,10 +457,12 @@
       background: var(--bg);
       aspect-ratio: 16 / 9;
     }
-    .story-stage canvas {
+    .story-stage canvas,
+    .story-stage video {
       width: 100%;
       height: auto;
       display: block;
+      background: var(--bg);
     }
     .story-caption {
       margin-top: 16px;
@@ -610,7 +612,7 @@
     @media (max-width: 900px) {
       .story { padding: 28px 0 36px; }
       .story-stage, .hiw-stage { width: 100%; max-width: 100%; }
-      .story-stage canvas, .hiw-stage canvas { width: 100%; height: auto; max-width: 100%; }
+      .story-stage canvas, .story-stage video, .hiw-stage canvas { width: 100%; height: auto; max-width: 100%; }
       .backed-strip .strip-inner { flex-direction: column; align-items: flex-start; }
       .how-steps, .sim-headlines, .place-grid, .who-grid, .field-steps, .roadmap-steps, .loop-notes, .shortfall-grid, .market-grid, .team-grid { grid-template-columns: 1fr; }
       .story-copy { text-align: left; }
@@ -732,6 +734,7 @@
         <a href="#approach">Approach</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#team">Team</a>
+        <a href="/setup/">Setup</a>
         <a href="/research/">Research</a>
         <a href="/whitepaper/">Whitepaper</a>
       </nav>
@@ -827,11 +830,24 @@
     <section class="story" id="how">
       <div class="wrap">
         <div class="story-stage" id="hiw-stage">
-          <canvas id="hiw-scene" width="1920" height="1080" aria-label="Animated walkthrough: a performer walks toward a monitor, feedback loops into the mic, and Nullyn AI cuts the ringing band. The chain is mic to Nullyn AI to mixer to speakers, with a speaker-feed reference back into Nullyn AI. An operator nudges a fader and Nullyn AI still catches the howl. Illustrative, not measured data."></canvas>
+          <video
+            controls
+            playsinline
+            preload="none"
+            width="1920"
+            height="1080"
+            poster="/media/video/how-it-works-poster.png"
+            aria-label="Explainer: a microphone on stage picks up the speaker, the sound loops and becomes a howl, and Nullyn AI sits inline between the mic and the console, listening to the microphone and the speaker feed, to remove the loop before it rings. Then the v1 laptop, v2 dedicated box, and v3 deploy-at-scale roadmap. Illustrative, no performance numbers."
+          >
+            <source src="/media/video/how-it-works.mp4" type="video/mp4">
+            <source src="/media/video/how-it-works.webm" type="video/webm">
+            <track kind="captions" srclang="en" label="English" src="/media/video/how-it-works.vtt" default>
+          </video>
         </div>
         <div class="story-copy">
           <h2>Mic, speaker feed, Nullyn AI, mixer, speakers.</h2>
           <p>Nullyn AI sits between the mic and the mixer, and takes a speaker-feed reference back from the board. When a howl starts, or someone nudges a fader mid-toast, it still notches the ringing band. Illustrative &mdash; not measured data.</p>
+          <p><a class="btn btn-ghost" href="/setup/">Try the v1 laptop setup</a></p>
         </div>
       </div>
     </section>
@@ -989,6 +1005,13 @@
           </div>
           <p>Nullyn AI for live microphone feedback suppression. In development.</p>
           <p class="open-source-note">Open source: <a href="https://github.com/krish-mm/nullyn-ai-defeedback" rel="noopener noreferrer">krish-mm/nullyn-ai-defeedback</a> <span class="coming-soon">coming soon</span>.</p>
+          <nav class="foot-links" aria-label="Footer">
+            <a href="/" aria-current="page">Home</a>
+            <a href="/setup/">Setup</a>
+            <a href="/research/">Research</a>
+            <a href="/whitepaper/">Whitepaper</a>
+            <a href="https://github.com/krish-mm/nullyn-ai-defeedback" rel="noopener noreferrer">GitHub</a>
+          </nav>
         </div>
       </div>
       <div class="legal">
