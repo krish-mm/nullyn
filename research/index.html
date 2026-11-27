@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Research — Nullyn AI</title>
-  <meta name="description" content="Cited findings behind Nullyn AI: notch-filter limits, tonal music as a failure case, in-ear latency, and the Nullyn AI signal path.">
+  <meta name="description" content="Current feedback-control tools as of Nov 2026 (AI plugins, console and DSP features, hardware) and the cited research behind Nullyn AI.">
   <link rel="canonical" href="https://nullyn.ai/research/">
   <link rel="icon" href="/media/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/media/favicon-32.png" type="image/png" sizes="32x32">
@@ -12,14 +12,14 @@
   <link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Research — Nullyn AI">
-  <meta property="og:description" content="Cited findings behind Nullyn AI: notch-filter limits, tonal music as a failure case, in-ear latency, and the Nullyn AI signal path.">
+  <meta property="og:description" content="Current feedback-control tools as of Nov 2026 (AI plugins, console and DSP features, hardware) and the cited research behind Nullyn AI.">
   <meta property="og:url" content="https://nullyn.ai/research/">
   <meta property="og:image" content="https://nullyn.ai/media/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Research — Nullyn AI">
-  <meta name="twitter:description" content="Cited findings behind Nullyn AI: notch-filter limits, tonal music as a failure case, in-ear latency, and the Nullyn AI signal path.">
+  <meta name="twitter:description" content="Current feedback-control tools as of Nov 2026 (AI plugins, console and DSP features, hardware) and the cited research behind Nullyn AI.">
   <meta name="twitter:image" content="https://nullyn.ai/media/og-image.png">
   <link rel="preload" href="/fonts/syne-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/fonts.css">
@@ -52,40 +52,151 @@
     </div>
   </header>
   <main>
+    <section id="landscape">
+      <div class="wrap">
+        <p class="kicker">Research &middot; existing tools, as of Nov 2026</p>
+        <h1 class="page-title">What&rsquo;s on the market now.</h1>
+        <p class="section-intro">Since late 2024, AI voice isolators have changed live feedback control. Even so, most shipping tools still infer feedback from the mic signal alone, run on a separate computer or one brand&rsquo;s processor, or cut notches after a ring starts. Nullyn AI also listens to what the mixer sends to the speakers.</p>
+        <p class="landscape-note">As of 26 Nov 2026. Facts and prices are as published by makers or reviewers on the dates linked; prices change. We have not measured these products, and this table makes no performance comparison.</p>
+        <p class="table-hint">Swipe the table sideways to see every column.</p>
+        <div class="table-scroll">
+          <table class="iface-table landscape-table">
+            <thead>
+              <tr><th>Tool (year)</th><th>How it works</th><th>Runs on</th><th>Public price</th><th>Gap: moving mics, tone, latency</th><th>Sources</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Alpha Labs De-Feedback V1 (Nov 2024)</strong></td>
+                <td>AI voice isolation; cancels non-voice content, no notches</td>
+                <td>VST3 plugin on a host computer + interface; Waves LiveBox, Fourier transform.engine</td>
+                <td>$499 perpetual (FOH, Jun 2026)</td>
+                <td>Tuned for voice; maker says it can be destructive to instruments and weakens within ~6 ft of speakers. ~4.9 ms round trip on maker&rsquo;s PC bundle.</td>
+                <td class="srcs"><a href="https://www.alphalabsaudio.com/defeedback/" rel="noopener noreferrer">Alpha Labs FAQ</a>; <a href="https://drewbrashler.com/2026/alpha-labs-defeedback-demo-latency-testing/" rel="noopener noreferrer">Brashler, Mar 2026</a>; <a href="https://fohonline.com/blogs/new-gear/alpha-labs-brings-de-feedback-to-fourier-audios-transform-engine/" rel="noopener noreferrer">FOH, Jun 2026</a>; <a href="https://www.prosoundweb.com/signal-to-noise-episode-315-devin-sheets-on-de-feedback/" rel="noopener noreferrer">PSW, Jan 2026</a></td>
+              </tr>
+              <tr>
+                <td><strong>Clear Voice Live v1.1.6 (current, Nov 2026)</strong></td>
+                <td>Neural voice model: denoise, dereverb, debleed, feedback prevention</td>
+                <td>VST3/AU plugin, Windows/macOS</td>
+                <td>$299 list</td>
+                <td>Voice-trained, mic-only; needs a computer host. 0 ms or 2.65 ms modes.</td>
+                <td class="srcs"><a href="https://clearvoice.live/" rel="noopener noreferrer">clearvoice.live, Nov 2026</a></td>
+              </tr>
+              <tr>
+                <td><strong>SoundShot RS-Feedback AI v0.9.85 (current, Nov 2026)</strong></td>
+                <td>Narrow notches; a neural net picks which to engage; optional AFC mode</td>
+                <td>VST3/AU plugin, macOS/Windows</td>
+                <td>Non-AI US version $100; AI version not published</td>
+                <td>Still notch-based at its core; computer host.</td>
+                <td class="srcs"><a href="https://soundshot.pl/en/rs-feedback-ai/" rel="noopener noreferrer">SoundShot, Nov 2026</a></td>
+              </tr>
+              <tr>
+                <td><strong>Upbeat Engine Feedback Guardian AI (manual Sep 2026)</strong></td>
+                <td>&ldquo;AI&rdquo;; method not published</td>
+                <td>Plugin + PC/Mac/iPad/iPhone apps</td>
+                <td>Not published</td>
+                <td>Method undisclosed; host device in the path.</td>
+                <td class="srcs"><a href="https://upbeatengine.com/" rel="noopener noreferrer">upbeatengine.com, Nov 2026</a></td>
+              </tr>
+              <tr>
+                <td><strong>L-Acoustics Source Intelligence (2026)</strong></td>
+                <td>ML source separation of the voice</td>
+                <td>L-ISA Processor II; needs &ge;3 L-Acoustics amplified controllers</td>
+                <td>Not published</td>
+                <td>Tied to one speaker ecosystem; under 8.5 ms end to end; voice only.</td>
+                <td class="srcs"><a href="https://www.l-acoustics.com/stories/product-spotlight-source-intelligence-live-sound-finds-its-voice/" rel="noopener noreferrer">L-Acoustics, 2026</a></td>
+              </tr>
+              <tr>
+                <td><strong>Waves Feedback Hunter (Jan 2024)</strong></td>
+                <td>Setup-time analysis with white noise; builds a full-spectrum EQ curve</td>
+                <td>Waves hosts (SuperRack, LV1); VST3 since Dec 2024</td>
+                <td>$149 reg. ($99.99 intro)</td>
+                <td>Static EQ set before the show; can&rsquo;t follow a mic that moves.</td>
+                <td class="srcs"><a href="https://www.kvraudio.com/news/waves-releases-feedback-hunter-for-emotion-lv1-live-mixer-and-superrack-59807" rel="noopener noreferrer">KVR, Jan 2024</a>; <a href="https://www.waves.com/downloads/release-notes" rel="noopener noreferrer">Waves release notes</a></td>
+              </tr>
+              <tr>
+                <td><strong>Allen &amp; Heath Feedback Assistant (CQ 2023, Qu 2025)</strong></td>
+                <td>Detects persistent rings and adds narrow filters on outputs; fixed and live modes</td>
+                <td>Built into CQ and new Qu mixers</td>
+                <td>Included with mixer</td>
+                <td>Acts after feedback occurs; maker warns of false positives on flute, synths, operatic vocals.</td>
+                <td class="srcs"><a href="https://support.allen-heath.com/hc/en-gb/articles/48456861200017-CQ-How-to" rel="noopener noreferrer">A&amp;H support, Jul 2026</a>; <a href="https://www.allen-heath.com/allen-heath-announce-next-generation-of-qu-mixers/" rel="noopener noreferrer">A&amp;H, May 2025</a></td>
+              </tr>
+              <tr>
+                <td><strong>Q-SYS Notch Feedback Controller; Biamp Tesira Feedback Suppressor; Symetrix Feedback Fighter</strong></td>
+                <td>Automatic notch filters (fixed and dynamic)</td>
+                <td>Installed DSP platforms (Dante-era)</td>
+                <td>Included with platform</td>
+                <td>Lets the ring begin, then notches; DSP-heavy; best used for ring-out.</td>
+                <td class="srcs"><a href="https://help.qsys.com/Content/Schematic_Library/feedback_canceler_notch.htm" rel="noopener noreferrer">Q-SYS Help</a>; <a href="https://tesira-help.biamp.com/Component_Objects/Audio/Equalizers/Feedback_Suppressor.htm" rel="noopener noreferrer">Tesira Help</a>; <a href="https://composer-docs.symetrix.co/software/toolkit/design-view/Feedback_Fighters.html" rel="noopener noreferrer">Symetrix Composer Help</a></td>
+              </tr>
+              <tr>
+                <td><strong>Sennheiser TeamConnect Ceiling 2 TruVoicelift</strong></td>
+                <td>Automatic frequency shifter plus emergency mute</td>
+                <td>Ceiling mic array (conferencing)</td>
+                <td>Not collected</td>
+                <td>Built for speech in meeting rooms; frequency shifting adds speech distortion (Hao et al., 2025).</td>
+                <td class="srcs"><a href="https://newsroom.sennheiser.com/what-is-the-frequency-shifter-54np89" rel="noopener noreferrer">Sennheiser, 2021</a>; <a href="https://www.isca-archive.org/interspeech_2025/hao25_interspeech.pdf" rel="noopener noreferrer">Hao et al., 2025</a></td>
+              </tr>
+              <tr>
+                <td><strong>dbx AFS2; Behringer FBQ2496</strong></td>
+                <td>Hardware notch suppressors</td>
+                <td>1U rack boxes</td>
+                <td>AFS2 $485; FBQ2496 $169, backordered (Sweetwater, Nov 2026)</td>
+                <td>Notch after detection; FBQ2496 backordered; Sabine FBX line discontinued.</td>
+                <td class="srcs"><a href="https://www.harmanaudio.com/AFS2.html" rel="noopener noreferrer">Harman, dbx AFS2</a>; <a href="https://www.sweetwater.com/store/detail/FBQ2496--behringer-feedback-destroyer-pro-fbq2496" rel="noopener noreferrer">Sweetwater, FBQ2496</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="claims">
+          <article class="claim" id="research-now">
+            <h3>Research has moved to hybrid, in-the-loop models</h3>
+            <p>Since 2023, feedback-control research has combined adaptive (Kalman) filters with neural networks and trained them inside the closed loop, so they stay stable at high gain. Every paper we reviewed evaluates on speech or hearing aids, not live music or moving stage mics.</p>
+            <p class="srcs">Sources: <a href="https://doi.org/10.1109/TASLP.2024.3402565" rel="noopener noreferrer">Zhang et al., IEEE/ACM TASLP, 2024</a>; <a href="https://arxiv.org/abs/2505.15914" rel="noopener noreferrer">Wu et al., Interspeech 2025</a>; <a href="https://www.isca-archive.org/interspeech_2025/hao25_interspeech.pdf" rel="noopener noreferrer">Hao et al., Interspeech 2025</a>; <a href="https://arxiv.org/abs/2606.03832" rel="noopener noreferrer">Voit &amp; Doclo, 2026</a></p>
+          </article>
+          <article class="claim" id="opening">
+            <h3>Where the opening is</h3>
+            <p>No standalone hardware unit with AI or reference-based cancellation turned up in our search. The boxes still sold are notch units. The new AI tools need a computer or one speaker brand&rsquo;s processor, and they&rsquo;re tuned for voice. Nullyn AI is aiming for an inline box that also hears the speaker feed, works with any brand, and handles both voice and instruments.</p>
+            <p class="caveat">The hardware finding is a search result, not proof that nothing exists. Nullyn AI performance claims wait for measurements in real rooms.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="alt" id="research" data-wave>
       <div class="wrap">
-        <p class="kicker">Research</p>
-        <h1 class="page-title">What the literature actually shows.</h1>
-        <p class="section-intro">The claims below are taken from published papers and a manufacturer guide. Figures reported in different studies are not directly comparable. None of these numbers is a Nullyn AI measurement. We publish only results measured in real rooms or on real hardware, never simulation-only figures.</p>
+        <p class="kicker">Background &middot; the canonical literature</p>
+        <h2>What the foundational research shows.</h2>
+        <p class="section-intro">These are the foundational references the field still builds on (2007&ndash;2016), plus recent neural work. The claims below are taken from published papers and a manufacturer guide. Figures reported in different studies are not directly comparable. None of these numbers is a Nullyn AI measurement. We publish only results measured in real rooms or on real hardware, never simulation-only figures.</p>
         <div class="claims">
           <article class="claim" id="manual">
-            <h3>Automatic tools still leave engineers on manual control</h3>
+            <h3>Background: automatic tools left engineers on manual control</h3>
             <p>After five decades of research, many sound-system technicians still prefer to control acoustic feedback by hand, mainly because available automatic solutions have not been reliable enough.</p>
             <p class="srcs">Source: <a href="https://doi.org/10.1109/JPROC.2010.2090998" rel="noopener noreferrer">van Waterschoot &amp; Moonen, Proc. IEEE, 2011</a></p>
           </article>
           <article class="claim" id="notch">
-            <h3>Notch suppressors: about 6–10 dB of extra gain</h3>
+            <h3>Background: notch suppressors give about 6–10 dB of extra gain</h3>
             <p>Shure’s training guide states that a feedback reducer “can provide a maximum of 6 to 10 dB of additional gain,” and that audible feedback has to occur before the reducer can act. A research survey of notch-filter howling suppression puts the practical upper bound at about 10 dB.</p>
             <p class="srcs">Sources: <a href="https://content-files.shure.com/Pubs/asp-selection-and-operation-of-audio-signal-processors/us_pro_audiosignalprocessor_ea.pdf" rel="noopener noreferrer">Sigismondi, Shure, 2016</a>; <a href="https://doi.org/10.1109/JPROC.2010.2090998" rel="noopener noreferrer">van Waterschoot &amp; Moonen, 2011</a></p>
           </article>
           <article class="claim" id="afc">
-            <h3>Adaptive cancellation: 15–20 dB is reported as practical</h3>
+            <h3>Background: adaptive cancellation, 15–20 dB reported as practical</h3>
             <p>Adaptive feedback cancellation is widely considered the most promising classical approach, with stable-gain increases of 15 to 20 dB reported as practically achievable. In the same survey’s own simulations, the best variant reached about 9 dB on average and about 12 dB at most.</p>
             <p class="caveat">These figures come from different experimental setups and should not be read as a ranking.</p>
             <p class="srcs">Source: <a href="https://doi.org/10.1109/JPROC.2010.2090998" rel="noopener noreferrer">van Waterschoot &amp; Moonen, Proc. IEEE, 2011</a></p>
           </article>
           <article class="claim" id="tonal">
-            <h3>Tonal music is the known failure case</h3>
+            <h3>Background: tonal music is the known failure case</h3>
             <p>Classical howl detectors confuse held notes and instruments with feedback. In the survey evaluation, a peak-to-average detector needed a 33 dB threshold for speech but 55 dB for audio, “since the tonal components in an audio signal are much more easily misclassified as howling components.” Two of three notch algorithms tested produced extremely poor sound quality on audio. In hearing aids, five of six feedback-cancellation techniques did worse on a tonal opera signal than on speech.</p>
             <p class="srcs">Sources: <a href="https://doi.org/10.1109/JPROC.2010.2090998" rel="noopener noreferrer">van Waterschoot &amp; Moonen, 2011</a>; <a href="https://ftp.esat.kuleuven.be/pub/stadius/vanwaterschoot/abstracts/09-207.html" rel="noopener noreferrer">van Waterschoot &amp; Moonen, JAES, 2010</a>; <a href="https://doi.org/10.1121/1.3458850" rel="noopener noreferrer">Spriet, Moonen &amp; Wouters, J. Acoust. Soc. Am., 2010</a></p>
           </article>
           <article class="claim" id="neural">
             <h3>Neural howling suppressors have been tested on speech, not music</h3>
             <p>Neural howling-suppression studies published since 2022, as reviewed for this work, train and test on speech corpora. None of the papers opened for the review evaluates on music or instruments. Most of them also simulate loop delays of 100 to 500 ms, far from a live speaker-to-microphone path.</p>
-            <p class="srcs">Sources: <a href="https://arxiv.org/abs/2302.09252" rel="noopener noreferrer">Zhang, Yu &amp; Yu, ICASSP 2023 (arXiv:2302.09252)</a>; <a href="https://doi.org/10.21437/Interspeech.2023-984" rel="noopener noreferrer">Zhang et al., Interspeech 2023</a>; <a href="https://arxiv.org/abs/2305.01637" rel="noopener noreferrer">Zhang, Yu &amp; Yu, ASRU 2023 (arXiv:2305.01637)</a>; <a href="https://doi.org/10.21437/Interspeech.2024-166" rel="noopener noreferrer">Zhang et al., Interspeech 2024</a>; <a href="https://doi.org/10.1109/ICASSP48485.2024.10447839" rel="noopener noreferrer">Zhang et al., ICASSP 2024</a>; <a href="https://arxiv.org/abs/2505.15914" rel="noopener noreferrer">Wu et al., Interspeech 2025 (arXiv:2505.15914)</a>; <a href="https://arxiv.org/abs/2606.03832" rel="noopener noreferrer">Voit &amp; Doclo, arXiv:2606.03832, 2026</a></p>
+            <p class="srcs">Sources: <a href="https://arxiv.org/abs/2302.09252" rel="noopener noreferrer">Zhang, Yu &amp; Yu, ICASSP 2023 (arXiv:2302.09252)</a>; <a href="https://doi.org/10.21437/Interspeech.2023-984" rel="noopener noreferrer">Zhang et al., Interspeech 2023</a>; <a href="https://arxiv.org/abs/2305.01637" rel="noopener noreferrer">Zhang, Yu &amp; Yu, ASRU 2023 (arXiv:2305.01637)</a>; <a href="https://doi.org/10.21437/Interspeech.2024-166" rel="noopener noreferrer">Zhang et al., Interspeech 2024</a>; <a href="https://doi.org/10.1109/ICASSP48485.2024.10447839" rel="noopener noreferrer">Zhang et al., ICASSP 2024</a>; <a href="https://doi.org/10.1109/TASLP.2024.3402565" rel="noopener noreferrer">Zhang et al., IEEE/ACM TASLP, 2024</a>; <a href="https://arxiv.org/abs/2505.15914" rel="noopener noreferrer">Wu et al., Interspeech 2025 (arXiv:2505.15914)</a>; <a href="https://www.isca-archive.org/interspeech_2025/hao25_interspeech.pdf" rel="noopener noreferrer">Hao et al., Interspeech 2025</a>; <a href="https://arxiv.org/abs/2606.03832" rel="noopener noreferrer">Voit &amp; Doclo, arXiv:2606.03832, 2026</a></p>
           </article>
           <article class="claim" id="iem">
-            <h3>In-ear monitors leave only a few milliseconds</h3>
+            <h3>Background: in-ear monitors leave only a few milliseconds</h3>
             <p>In a study of 19 performing musicians (AES Convention 123, 2007), tolerance depended more on the instrument than on the person, and wedge monitoring generally tolerated more latency than in-ear monitoring. At 85% confidence, the highest added digital latency still rated “Good” for in-ear vocals was 1 ms. (The test system’s own 1.4 ms throughput was counted as 0 ms.)</p>
             <p class="caveat">This budget is a reading of one 19-musician study, not a published standard.</p>
             <p class="srcs">Source: <a href="https://aes.org/publications/elibrary/elibrary-page/?id=14256" rel="noopener noreferrer">Lester &amp; Boley, AES Convention 123, paper 7198, 2007</a></p>
