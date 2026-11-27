@@ -1,19 +1,51 @@
 # Nullyn AI
 
-Website for Nullyn AI, an approach to live microphone feedback suppression, prepared for GitHub Pages at [nullyn.ai](https://nullyn.ai).
+**More gain. No feedback pain.**
 
-Type is self-hosted: **Syne** for headlines, **Manrope** for body copy, and **IBM Plex Mono** for figures and labels. The `.woff2` files and SIL Open Font License texts are in `fonts/`.
+AI acoustic-feedback (mic howl) suppression for live sound.
 
-The site is a static front end (`index.html`, with CSS inlined). There is no build step and no custom GitHub Actions workflow, matching the [desisoundguys](https://github.com/krish-mm/desisoundguys) setup.
+[nullyn.ai](https://nullyn.ai) · [Open-source prototype](https://github.com/krish-mm/nullyn-ai-defeedback) · [Instagram](https://www.instagram.com/nullyn.ai/)
 
-## Hosting (same model as desisoundguys.com)
+![Still from the Nullyn AI how-it-works video: a presenter on a conference stage with a live microphone.](media/video/how-it-works-poster.png)
 
-When Krish approves going live:
+## This repository
 
-- Create a public GitHub repository (suggested name: `nullyn`) under `krish-mm`
-- Push this `main` branch
-- Enable GitHub Pages from `main`, site root `/`
-- Set the custom domain to `nullyn.ai` (this repo already includes a `CNAME` file)
-- GitHub then runs its built-in `pages-build-deployment` workflow; no workflow file is required in the repo
+This is the static site for [nullyn.ai](https://nullyn.ai). There is no build step.
 
-This repository is a local draft. Do not push, enable Pages, or change DNS until approved.
+- **Home** (`index.html`) — the product site
+- **Setup** (`setup/`) — laptop setup guide for the v1 prototype
+- **Research** (`research/`) — cited findings behind the work
+- **Whitepaper** (`whitepaper/`) — whitepaper, in preparation
+- **Media** (`media/`) — brand assets, research charts, and shared scripts, including the waveform background (`media/js/waveform-bg.js`)
+- **Video** (`media/video/`) — how-it-works and setup-guide videos, captions, and posters
+- **Front end** (`site.css`, `site.js`, `palette.css`, `fonts.css`, `fonts/`) — shared styles, typography, and palette
+
+## Run locally
+
+```bash
+python3 -m http.server 8000
+```
+
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+## Deploy
+
+GitHub Pages serves the site from the `main` branch at the repository root. The custom domain `nullyn.ai` is set in `CNAME`. Merges to `main` are published by GitHub’s built-in Pages workflow; this repository has no custom Actions workflow.
+
+## Contributing
+
+Every change starts with a GitHub issue.
+
+1. Open an issue that describes the work.
+2. Create a branch from `main`.
+3. Open a pull request against `main` and link it with `Closes #N`.
+4. Merge only after review.
+
+## Brand
+
+- Colors: `#B6FF00` (primary), `#FF1A1A` (howl), `#0A0A0A` (background)
+- Type: **Syne** for headlines, **Manrope** for body, **IBM Plex Mono** for figures and labels. Self-hosted `.woff2` files and SIL Open Font License texts are in `fonts/`.
+
+## License
+
+This repository does not include a software license. Site content is © Nullyn AI. The open-source prototype at [krish-mm/nullyn-ai-defeedback](https://github.com/krish-mm/nullyn-ai-defeedback) is released under the MIT License.
