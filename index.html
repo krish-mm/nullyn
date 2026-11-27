@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nullyn AI — more gain before feedback, without wrecking the sound</title>
-  <meta name="description" content="Nullyn AI: more gain before feedback without wrecking the sound. A closed-loop system for live microphones, in development.">
+  <title>Nullyn AI — More gain. No feedback pain.</title>
+  <meta name="description" content="Nullyn AI: More gain. No feedback pain. A closed-loop system for live microphones, in development.">
   <link rel="canonical" href="https://nullyn.ai/">
   <link rel="icon" href="/media/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/media/favicon-32.png" type="image/png" sizes="32x32">
@@ -12,15 +12,15 @@
   <link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Nullyn AI">
-  <meta property="og:title" content="Nullyn AI — more gain before feedback, without wrecking the sound">
-  <meta property="og:description" content="Nullyn AI: more gain before feedback without wrecking the sound. A closed-loop system for live microphones, in development.">
+  <meta property="og:title" content="Nullyn AI — More gain. No feedback pain.">
+  <meta property="og:description" content="Nullyn AI: More gain. No feedback pain. A closed-loop system for live microphones, in development.">
   <meta property="og:url" content="https://nullyn.ai/">
   <meta property="og:image" content="https://nullyn.ai/media/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Nullyn AI — more gain before feedback, without wrecking the sound">
-  <meta name="twitter:description" content="Nullyn AI: more gain before feedback without wrecking the sound. A closed-loop system for live microphones, in development.">
+  <meta name="twitter:title" content="Nullyn AI — More gain. No feedback pain.">
+  <meta name="twitter:description" content="Nullyn AI: More gain. No feedback pain. A closed-loop system for live microphones, in development.">
   <meta name="twitter:image" content="https://nullyn.ai/media/og-image.png">
   <link rel="preload" href="/fonts/syne-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -432,8 +432,28 @@
     }
 
 
-    .hero-copy.tight { max-width: 46rem; margin-bottom: 36px; }
-    .hero-copy.tight h1 { max-width: 20ch; }
+    .hero-copy.tight { max-width: 52rem; margin-bottom: 36px; }
+    .hero-copy.tight h1 { max-width: none; }
+    .hero-copy.tight h1 .tagline-line2 { white-space: nowrap; }
+    .roadmap-steps li.is-ready {
+      border-color: var(--primary);
+    }
+    .roadmap-steps li.is-next {
+      opacity: 0.7;
+    }
+    .step-flag {
+      display: inline-block;
+      margin: 0 0 10px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: var(--button-text);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
     .story { padding: 36px 0 48px; scroll-margin-top: 80px; }
     .story-stage {
       margin: 0;
@@ -733,7 +753,7 @@
       <div class="wrap">
         <div class="hero-copy tight">
           <p class="eyebrow">Live sound · In development</p>
-          <h1>More gain before feedback, without wrecking the sound.</h1>
+          <h1>More gain.<br><span class="tagline-line2">No feedback pain.</span></h1>
           <p class="lede">Nullyn AI listens to the microphone and to what your mixer actually sends to the speakers, then cancels feedback &mdash; so the mix can stay loud without a fistful of notches.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#talk">Request the deck</a>
@@ -845,7 +865,7 @@
           <canvas id="anim-hardware" width="1920" height="1080" aria-label="Illustrative exploded view of the dedicated Nullyn AI box: an enclosure opening to show a compact board, input and output jacks, and a fail-safe relay bypass. Off-the-shelf parts. Not a finished product."></canvas>
         </div>
         <div class="story-copy">
-          <h2>Then a dedicated box, off the shelf.</h2>
+          <h2>Then our own board.</h2>
           <p>Our v2 box uses off-the-shelf parts, and we plan to open the hardware design once our patent filing is in place. If power drops, audio is designed to pass straight through. Illustrative &mdash; not a finished product.</p>
           <p class="open-source-note">Open source: the design is planned for <a href="https://github.com/krish-mm/nullyn-ai-defeedback" rel="noopener noreferrer">github.com/krish-mm/nullyn-ai-defeedback</a> <span class="coming-soon">coming soon</span>.</p>
         </div>
@@ -867,20 +887,21 @@
     <section class="roadmap" id="roadmap">
       <div class="wrap">
         <p class="kicker">Roadmap</p>
-        <h2>Laptop first, then our own circuit.</h2>
-        <p class="section-intro">We are validating Nullyn AI with front-of-house engineers in real rooms before we build hardware. No dates on this page; the phases are the plan, not a delivery schedule.</p>
+        <h2>Laptop first, then our own board.</h2>
+        <p class="section-intro">Version one, the laptop prototype, is ready. Version two and version three are the roadmap.</p>
         <ol class="roadmap-steps">
-          <li>
+          <li class="is-ready">
             <p class="step-n">v1</p>
+            <p class="step-flag">Ready</p>
             <h3>Laptop prototype</h3>
             <p>Nullyn AI runs in real time on a laptop with a standard USB audio interface, so we can test it in real rooms.</p>
           </li>
-          <li>
+          <li class="is-next">
             <p class="step-n">v2</p>
-            <h3>Our own circuit</h3>
-            <p>A compact open-hardware box with XLR in and out and a fail-safe bypass. No computer needed. If power drops, audio is designed to pass straight through.</p>
+            <h3>Our own board</h3>
+            <p>Built and bench-tested. A compact box with XLR in and out and a fail-safe bypass. No computer needed. If power drops, audio is designed to pass straight through.</p>
           </li>
-          <li>
+          <li class="is-next">
             <p class="step-n">v3</p>
             <h3>Deploy at scale</h3>
             <p>Certified, manufactured units for DJs, venues, houses of worship, and AV teams.</p>
