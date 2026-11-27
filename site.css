@@ -789,3 +789,14 @@ pre code {
   position: relative;
   z-index: 1;
 }
+
+/* Research landscape table */
+.landscape-note { margin-top: 14px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: var(--muted); max-width: 80ch; }
+#landscape .table-scroll { margin-top: 28px; }
+.landscape-table { min-width: 980px; font-size: 14px; }
+.landscape-table td:nth-child(1) { white-space: normal; min-width: 170px; }
+.landscape-table th:last-child, .landscape-table td:last-child { white-space: normal; min-width: 170px; }
+.landscape-table td.srcs { margin-top: 0; font-size: 13px; }
+.landscape-table td.srcs a { color: var(--primary); }
+.table-hint { display: none; margin-top: 18px; font-size: 13px; color: var(--muted); }
+@media (max-width: 900px) { .table-hint { display: block; } #landscape .table-scroll { margin-top: 10px; } }

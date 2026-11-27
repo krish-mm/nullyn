@@ -628,7 +628,8 @@
       padding: 0;
       margin: 28px 0 0;
     }
-    .shortfall-grid { grid-template-columns: repeat(3, 1fr); }
+    .shortfall-grid { grid-template-columns: repeat(2, 1fr); }
+    .shortfall-more { margin-top: 20px; font-size: 14px; }
     .market-grid { grid-template-columns: repeat(5, 1fr); }
     .team-grid { grid-template-columns: 1fr 1fr; }
     .shortfall-grid li, .market-grid li, .team-grid li {
@@ -786,26 +787,32 @@
 
     <section id="shortfalls">
       <div class="wrap">
-        <p class="kicker">Existing tools</p>
+        <p class="kicker">Existing tools &middot; as of Nov 2026</p>
         <h2>Why the usual fixes fall short.</h2>
-        <p class="section-intro">Automatic feedback control is not new. The usual methods ask engineers to give up tone, pitch, or a computer on the show-critical path.</p>
+        <p class="section-intro">AI has reached live sound, but today&rsquo;s tools still make engineers pick between a computer in the signal path, a single speaker brand, or the sound itself.</p>
         <ul class="shortfall-grid">
           <li>
-            <h3>Notch filters</h3>
-            <p>A reducer cuts narrow bands after a howl is already audible, and can add about 6 to 10&nbsp;dB of extra gain. On music, detectors often confuse held notes with howl; some notch methods then apply so many cuts that the mic signal is broadly attenuated, with extremely poor sound quality on audio.</p>
-            <p class="srcs">Sources: <a href="https://content-files.shure.com/Pubs/asp-selection-and-operation-of-audio-signal-processors/us_pro_audiosignalprocessor_ea.pdf" rel="noopener noreferrer">Sigismondi, Shure, 2016</a>; <a href="https://doi.org/10.1109/JPROC.2010.2090998" rel="noopener noreferrer">van Waterschoot &amp; Moonen, 2011</a></p>
+            <h3>AI voice isolators on a computer</h3>
+            <p>Since late 2024, plugins like Alpha Labs De-Feedback and Clear Voice Live separate voice from everything else, all from the mic signal. They run on a host computer, and they&rsquo;re tuned for voice. De-Feedback&rsquo;s maker says it can damage the sound of instruments and weakens when the mic gets within about 6&nbsp;ft of a speaker.</p>
+            <p class="srcs">Sources: <a href="https://www.alphalabsaudio.com/defeedback/" rel="noopener noreferrer">Alpha Labs FAQ, 2026</a>; <a href="https://drewbrashler.com/2026/alpha-labs-defeedback-demo-latency-testing/" rel="noopener noreferrer">Brashler, Mar 2026</a>; <a href="https://clearvoice.live/" rel="noopener noreferrer">Clear Voice Live, Nov 2026</a></p>
           </li>
           <li>
-            <h3>Frequency shifters</h3>
-            <p>Shifting the signal can raise the howl threshold, but it does not preserve the harmonic relations between tonal components in voiced speech and music, and it can produce audible beating.</p>
-            <p class="srcs">Source: <a href="https://doi.org/10.1109/JPROC.2010.2090998" rel="noopener noreferrer">van Waterschoot &amp; Moonen, Proc. IEEE, 2011</a></p>
+            <h3>ML locked to one ecosystem</h3>
+            <p>L-Acoustics Source Intelligence (2026) runs ML voice separation on the L-ISA Processor II. It needs a network of L-Acoustics amplified controllers and adds up to 8.5&nbsp;ms end to end.</p>
+            <p class="srcs">Source: <a href="https://www.l-acoustics.com/stories/product-spotlight-source-intelligence-live-sound-finds-its-voice/" rel="noopener noreferrer">L-Acoustics, 2026</a></p>
           </li>
           <li>
-            <h3>Software AI</h3>
-            <p>Plugin-based AI tools run on a host computer. Published neural howling-suppression studies since 2022, as reviewed for this work, train and test on speech, not music.</p>
-            <p class="srcs">Source: neural-study review on the <a href="/research/#neural">Nullyn AI research page</a></p>
+            <h3>Notch assistants in mixers and DSP</h3>
+            <p>Allen &amp; Heath CQ and Qu (2023&ndash;2025), Q-SYS, Biamp and Symetrix still cut narrow notches, and only after a ring starts. Allen &amp; Heath warns its assistant can mistake flute, synths and operatic vocals for feedback. Waves Feedback Hunter (2024) sets an EQ curve before the show, so it can&rsquo;t follow a mic that moves.</p>
+            <p class="srcs">Sources: <a href="https://support.allen-heath.com/hc/en-gb/articles/48456861200017-CQ-How-to" rel="noopener noreferrer">Allen &amp; Heath, 2026</a>; <a href="https://help.qsys.com/Content/Schematic_Library/feedback_canceler_notch.htm" rel="noopener noreferrer">Q-SYS Help</a>; <a href="https://www.kvraudio.com/news/waves-releases-feedback-hunter-for-emotion-lv1-live-mixer-and-superrack-59807" rel="noopener noreferrer">KVR, Jan 2024</a></p>
+          </li>
+          <li>
+            <h3>Frequency shifting and legacy boxes</h3>
+            <p>Voice-lift systems such as Sennheiser&rsquo;s TeamConnect Ceiling&nbsp;2 still shift the frequency to fight feedback, a method recent research says distorts speech. The standalone boxes still on sale, like the dbx AFS2, are notch units.</p>
+            <p class="srcs">Sources: <a href="https://newsroom.sennheiser.com/what-is-the-frequency-shifter-54np89" rel="noopener noreferrer">Sennheiser, 2021</a>; <a href="https://www.isca-archive.org/interspeech_2025/hao25_interspeech.pdf" rel="noopener noreferrer">Hao et al., Interspeech 2025</a>; <a href="https://www.harmanaudio.com/AFS2.html" rel="noopener noreferrer">Harman, dbx AFS2</a></p>
           </li>
         </ul>
+        <p class="srcs shortfall-more">Nullyn AI also listens to what the mixer sends to the speakers, a reference the mic-only tools above don&rsquo;t use. <a href="/research/#landscape">See the full comparison, as of Nov 2026</a>.</p>
       </div>
     </section>
 
