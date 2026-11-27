@@ -1,68 +1,65 @@
 WEBVTT
 
 1
-00:00:00.380 --> 00:00:02.600
-A mic on stage picks up the speaker.
+00:00:00.380 --> 00:00:06.480
+In most events, like conferences and concerts,
+a person with a mic may come close to a speaker.
 
 2
-00:00:02.810 --> 00:00:06.170
-The sound loops back, builds, and then it howls.
+00:00:06.950 --> 00:00:08.720
+The mic picks up the speaker.
 
 3
-00:00:06.470 --> 00:00:08.930
-Today, engineers pull the fader down,
+00:00:08.950 --> 00:00:12.180
+The sound loops back, builds, and then it howls.
 
 4
-00:00:08.930 --> 00:00:10.970
+00:00:12.525 --> 00:00:17.005
+Today, engineers pull the fader down,
 or they notch out frequencies.
 
 5
-00:00:11.240 --> 00:00:12.860
+00:00:17.275 --> 00:00:18.895
 That costs you volume.
 
 6
-00:00:13.010 --> 00:00:14.510
+00:00:19.055 --> 00:00:20.535
 And it costs you tone.
 
 7
-00:00:14.870 --> 00:00:19.070
-Nullyn AI sits inline,
-between the mic and the console.
+00:00:20.883 --> 00:00:25.083
+Nullyn AI sits inline, between the mic and the console.
 
 8
-00:00:19.340 --> 00:00:22.430
+00:00:25.373 --> 00:00:28.423
 It listens to the mic, and to the speaker feed.
 
 9
-00:00:22.760 --> 00:00:25.670
+00:00:28.783 --> 00:00:34.123
 It predicts the feedback path in real time,
-
-10
-00:00:25.730 --> 00:00:28.100
 and it takes the loop out before it rings.
 
-11
-00:00:28.340 --> 00:00:31.130
+10
+00:00:34.383 --> 00:00:37.123
 So the voice and the instruments stay natural.
 
-12
-00:00:31.460 --> 00:00:36.050
-Version one runs on a laptop,
-with a USB audio interface.
+11
+00:00:37.476 --> 00:00:42.076
+Version one runs on a laptop, with a USB audio interface.
 
-13
-00:00:36.350 --> 00:00:39.260
+12
+00:00:42.376 --> 00:00:45.286
 Version two is our own dedicated box.
 
-14
-00:00:39.440 --> 00:00:41.780
+13
+00:00:45.476 --> 00:00:47.766
 Version three deploys at scale.
 
-15
-00:00:42.110 --> 00:00:46.610
+14
+00:00:48.158 --> 00:00:52.638
 Nullyn AI. More gain before feedback,
 without wrecking the sound.
 
-16
-00:00:46.970 --> 00:00:48.300
+15
+00:00:52.976 --> 00:00:54.216
 nullyn.ai
