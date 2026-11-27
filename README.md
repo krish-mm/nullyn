@@ -13,7 +13,7 @@ AI acoustic-feedback (mic howl) suppression for live sound.
 This is the static site for [nullyn.ai](https://nullyn.ai). There is no build step.
 
 - **Home** (`index.html`) — the product site
-- **Setup** (`setup/`) — laptop setup guide for the v1 prototype
+- **Setup** (`setup/`) — laptop setup guide for the v1 prototype, which is ready
 - **Research** (`research/`) — cited findings behind the work
 - **Whitepaper** (`whitepaper/`) — whitepaper, in preparation
 - **Media** (`media/`) — brand assets, research charts, and shared scripts, including the waveform background (`media/js/waveform-bg.js`)
